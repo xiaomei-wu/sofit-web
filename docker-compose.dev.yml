@@ -1,0 +1,31 @@
+version: '3'
+services:
+  backend:
+    build:
+      dockerfile: 'Dockerfile.dev'
+      context: 'services/backend'
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./services/backend/src:/app/src
+
+  frontend:
+    build:
+      dockerfile: 'Dockerfile.dev'
+      context: 'services/frontend'
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./services/frontend/src:/app/src
+  
+  database:
+    hostname: sofit-db
+    image: postgres:13.5
+    restart: always
+    environment:
+      - POSTGRES_USER=sofit
+      - POSTGRES_PASSWORD=sofitadmin
+    volumes:
+      - ./local-data/postgres:/data/postgres
+    ports:
+      - '5432:5432'

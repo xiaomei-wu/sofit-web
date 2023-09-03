@@ -2,11 +2,12 @@
   "name": "sofit-web",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "dev": "docker-compose -f docker-compose.dev.yml"
+  },
   "private": true,
-  "dependencies": {},
   "devDependencies": {
     "nx": "16.7.4",
-    "nx-cloud": "latest"
+    "nx-cloud": "^16.3.0"
   }
 }

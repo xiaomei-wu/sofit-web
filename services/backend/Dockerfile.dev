@@ -1,0 +1,38 @@
+# Use the official Node.js image as the base image
+FROM node:18
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the package.json and package-lock.json files
+COPY package*.json tsconfig.json ./
+
+
+# Update npm | Install pnpm | Set PNPM_HOME | Install global packages
+RUN npm i -g npm@latest; \
+ # Install pnpm
+ npm install -g pnpm; \
+ pnpm --version; \
+ pnpm setup; \
+ mkdir -p /usr/local/share/pnpm &&\
+ export PNPM_HOME="/usr/local/share/pnpm" &&\
+ export PATH="$PNPM_HOME:$PATH"; \
+ pnpm bin -g &&\
+ # Install dependencies
+ pnpm add -g pm2 &&\
+ pnpm add -g @nestjs/cli &&\
+ pnpm install
+
+# Install project dependencies
+RUN pnpm install
+
+# Copy the rest of the application code
+COPY prisma/  ./prisma/
+COPY src/  ./src/
+COPY .env ./
+
+# Expose the port your Nest.js application is running on
+EXPOSE 3000
+
+# Start the Nest.js application
+CMD ["pnpm", "run", "migrate:dev"]
