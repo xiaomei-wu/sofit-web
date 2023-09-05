@@ -1,21 +1,19 @@
+import Footer from "@/components/Footer/Footer";
+import Header from "@/components/Header/Header";
+import HeroSection from "@/components/HeroSection/HeroSection";
 import Link from "next/link";
 import styles from './page.module.css'
+import Image from "../../node_modules/next/image";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-
-  <div className={styles.description}>My Health Diary</div>
-      <div className={styles.grid}>
-        <Link href="/signup">  
-            Signup
-        </Link>
+    <div>
+      <Header />
+      <div className={styles.main}>
+        <HeroSection />
       </div>
-      <div className={styles.grid}>
-        <Link href="/login">
-            Login
-        </Link>
-        </div>
-    </main>
+
+      <Footer />
+    </div>
   );
 }

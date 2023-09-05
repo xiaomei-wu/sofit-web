@@ -40,6 +40,7 @@ export const signup = async (email: string, password: string): Promise<SignupRes
 };
 
 interface LoginResponse {
+  access_token: string;
   message?: string;
   // Add any other properties you expect in the response here
 }

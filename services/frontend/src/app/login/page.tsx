@@ -26,21 +26,14 @@ export default function Login() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = state;
-console.log(    {email, password})
 
     try {
       const response =  await login(email, password);
 
       console.log(response);
-      
-      // if(response) {
-      //   setState({
-      //     ...state,
-      //     message: data.message,
-      //     email: "",
-      //     password: "",
-      //   });
-      // }
+      if(response.access_token) {
+        router.push('/dashboard')
+      }
     } catch(error) {
       console.error(error)
     }
