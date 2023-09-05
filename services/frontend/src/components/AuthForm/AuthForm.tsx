@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from './AuthForm.module.css'
 
 export default function AuthForm(props) {
   const [email, setEmail] = useState(props.email || "");
@@ -15,36 +16,41 @@ export default function AuthForm(props) {
   };
 
   return (
-    <div>
-      <div className="flex flex-column items-center">
-        <label className="mv1" htmlFor="email">
-          Email:
-        </label>
+    <form onSubmit={props.handleSubmit} className={styles.formWrapper}>
+      <div>
         <input
           type="email"
           name="email"
           value={email}
           onChange={handleChange}
           id="email"
-          className="mt1 mb3 w5"
+          placeholder="Enter your email address..."
         />
       </div>
 
-      <div className="flex flex-column items-center">
-        <label htmlFor="password">Password:</label>
+      <div>
         <input
           type="password"
           name="password"
           value={password}
           onChange={handleChange}
           id="password"
-          className="mt1 mb3 w5"
-          minLength="8"
-          maxLength="20"
+          min="8"
+          max="20"
+          placeholder="Enter your password..."
         />
       </div>
 
       {props.message && <span style={{ color: "red" }}>{props.message}</span>}
-    </div>
+
+      <div>
+          <button
+            type="submit"
+            className={styles.continueButton}
+          >
+            Continue with email
+          </button>
+        </div>
+    </form>
   );
 }

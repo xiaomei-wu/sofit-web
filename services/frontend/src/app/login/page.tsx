@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation';
 import AuthForm from "@/components/AuthForm/AuthForm";
 import { login } from "@/networks/auth";
 import styles from './page.module.css'
+import Header from "@/components/Header/Header";
+import Link from "../../../node_modules/next/link";
+import Image from "../../../node_modules/next/image";
 
 export default function Login() {
   const router = useRouter();
@@ -40,18 +43,35 @@ export default function Login() {
   };
 
   return (
-    <main className={styles.main}>
-      <form onSubmit={handleSubmit} className="pt5 flex flex-column">
-        <AuthForm {...state} handleChange={handleChange} handleSubmit={handleSubmit} />
-        <div className="w-100 pa3 mr2">
-          <button
-            className="f6 link dim br-pill ph5 pv2 mb2 dib white bg-dark-blue"
-            type="submit"
-          >
-            Login
-          </button>
+    <div>
+      <Header />
+      <main>
+        <div className={styles.loginSection}>
+        <h2>Log in</h2>
+          <div className={styles.ssoSection}>
+            <button className={styles.googleButton}>
+           <Image src={"/google-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Google</button>
+        <button className={styles.appleButton}>
+           <Image src={"/apple-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Apple</button>
+          </div>
+          <div className={styles.dividerDiv}>
+           <div className={styles.divider}/>
+            </div>
+          <div>
+
+      <AuthForm {...state} handleChange={handleChange} handleSubmit={handleSubmit} />
+
+      <div className={styles.forgotPasswordWrapper}>
+      <Link href={"/forgotpassword"} className={styles.forgotPassword}>Forgot password?</Link>
+      </div>
+
         </div>
-      </form>
+        <p className={styles.privacyText}>By clicking “Continue with Apple/Google/Email/SAML” above, you acknowledge that you
+     have read and understood, and agree to Sofit's <Link href={'/terms'} className={styles.links}>Terms & Conditions</Link> and <Link href={'/policy'} className={styles.links}>Policy</Link>
+        </p>
+        </div>
+      
     </main>
+    </div>
   );
 }
