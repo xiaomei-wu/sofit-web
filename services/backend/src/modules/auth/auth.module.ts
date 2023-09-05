@@ -8,6 +8,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './local.strategy';
 import { JwtStrategy } from './jwt.strategy';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './jwt-auth.guard';
+
+const authGlobalProviders = [
+  {
+    provide: APP_GUARD,
+    useClass: JwtAuthGuard,
+  },
+];
 
 @Module({
   imports: [
@@ -16,10 +25,11 @@ import { JwtStrategy } from './jwt.strategy';
     JwtModule.register({
       secret: process.env.JWT_KEY,
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
+      // session: true,
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, ...authGlobalProviders],
   exports: [AuthService],
 })
 export class AuthModule {}

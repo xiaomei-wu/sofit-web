@@ -1,12 +1,12 @@
 "use client"
 
 import { useState } from "react";
-import { useRouter } from 'next/navigation'
-import { signup } from "@/networks/auth";
+import { useRouter } from 'next/navigation';
 import AuthForm from "@/components/AuthForm/AuthForm";
+import { login } from "@/networks/auth";
 import styles from './page.module.css'
 
-export default function Signup() {
+export default function Login() {
   const router = useRouter();
 
   const [state, setState] = useState({
@@ -26,12 +26,21 @@ export default function Signup() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = state;
+console.log(    {email, password})
 
     try {
-      const response = await  signup(email, password);
-      if(response?.token) {
-        router.push("/dashboard");
-      } 
+      const response =  await login(email, password);
+
+      console.log(response);
+      
+      // if(response) {
+      //   setState({
+      //     ...state,
+      //     message: data.message,
+      //     email: "",
+      //     password: "",
+      //   });
+      // }
     } catch(error) {
       console.error(error)
     }
@@ -46,7 +55,7 @@ export default function Signup() {
             className="f6 link dim br-pill ph5 pv2 mb2 dib white bg-dark-blue"
             type="submit"
           >
-            Create an account
+            Login
           </button>
         </div>
       </form>

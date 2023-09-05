@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from 'src/modules/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
@@ -15,9 +15,9 @@ export class AuthService {
     return match;
   }
 
-  private async generateToken(user) {
+  private async signToken(payload) {
     try {
-      const token = await this.jwtService.signAsync(user, {
+      const token = await this.jwtService.signAsync(payload, {
         secret: process.env.JWT_KEY,
       });
       return token;
@@ -47,17 +47,17 @@ export class AuthService {
     }
   }
 
-  async validateUser(username: string, pass: string): Promise<any> {
+  async validateUser(email: string, pass: string): Promise<any> {
     // find if user exist with this email
-    const user = await this.usersService.findOneByEmail(username);
+    const user = await this.usersService.findOneByEmail(email);
     if (!user) {
-      return null;
+      throw new UnauthorizedException('Invalid email or password');
     }
 
     // find if user password match
     const match = await this.comparePassword(pass, user.password);
     if (!match) {
-      return null;
+      throw new UnauthorizedException('Invalid email or password');
     }
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -65,9 +65,11 @@ export class AuthService {
     return result;
   }
 
-  public async login(user) {
-    const token = await this.generateToken(user);
-    return { user, token };
+  public async login(reqUser) {
+    const payload = { email: reqUser.email, sub: reqUser.userId };
+    return {
+      access_token: await this.signToken(payload),
+    };
   }
 
   public async create(user) {
@@ -81,7 +83,7 @@ export class AuthService {
     const { password, ...result } = newUser;
 
     // generate token
-    const token = await this.generateToken(result);
+    const token = await this.signToken(result);
 
     // return the user and the token
     return { user: result, token };
