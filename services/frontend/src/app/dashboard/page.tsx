@@ -27,9 +27,9 @@ export default function Home() {
           <div className={styles.left}>
             <section className={styles.featureCards}>
               <FeatureCard icon={'/nutrition.png'} title={"Nutrition"} subtitle={"1000g"} />
-              <FeatureCard icon={'/nutrition.png'} title={"Dinks"} subtitle={"1000ml"} />
-              <FeatureCard icon={'/sleep.png'} title={"Suplements"} subtitle={"Vitamin C"} />
-              <FeatureCard icon={'/sleep.png'} title={"Symtoms"} subtitle={"Headache"} />
+              <FeatureCard icon={'/drink.png'} title={"Alcohol"} subtitle={"1000ml"} />
+              <FeatureCard icon={'/sleep.png'} title={"Sleep"} subtitle={"8 hours"} />
+              <FeatureCard icon={'/tongue.png'} title={"Symptome"} subtitle={"Fever"} />
               {/* <FeatureCard icon={'/sleep.png'} title={"Excercise"} subtitle={"Have you worked out today?"} />
               <FeatureCard icon={'/sleep.png'} title={"Sleep"} subtitle={"Did you sleep well?"} />
               <FeatureCard icon={'/nutrition.png'} title={"Symtoms"} subtitle={"Have a headache here?"} /> */}
@@ -42,9 +42,12 @@ export default function Home() {
             <section >
             <h4>Recomendations</h4>
             <div className={styles.recomendations}>
-            <RecomendationCard icon={"/sleep.png"} title={"How should you check your health details by yourself?"} subtitle={"8 July 2023"} />
-            <RecomendationCard icon={"/sleep.png"} title={"What does a cadiologist do?"} subtitle={"5 July 2023"} />
-            <RecomendationCard icon={"/sleep.png"} title={"What should you kown about women's heath?"} subtitle={"5 July 2023"} />
+            <RecomendationCard icon={"/breast.png"} title={"How should you check your breast by yourself?"} subtitle={"8 July 2023"} />
+            <RecomendationCard icon={"/headache.png"} title={"How to stop headache?"} subtitle={"5 July 2023"} />
+            <RecomendationCard icon={"/woman.png"} title={"Celebrating Women’s Health Week!"} subtitle={"5 July 2023"} />
+            <RecomendationCard icon={"/contraceptive-pills.png"} title={"All about contraceptive pills!"} subtitle={"5 July 2023"} />
+            <RecomendationCard icon={"/nail.png"} title={"Are Gel Manicures Dangerous?"} subtitle={"8 July 2023"} />
+            <RecomendationCard icon={"/protein-shake.png"} title={"Supplements for fitness"} subtitle={"5 July 2023"} />
             </div>
             </section>
           </div>
@@ -61,14 +64,14 @@ export default function Home() {
               </section>
               <section className={styles.details}>
                 <h4>Details</h4>
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Body Measurements"} subtitle={"BFP: 25"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Menstrual Flow"} subtitle={"24 Days ago"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Drug consultation"} subtitle={"09:00 am - 10:00 am"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Heart"} subtitle={"Blood Pressure"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Body Measurements"} subtitle={"BFP: 25"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Menstrual Flow"} subtitle={"24 Days ago"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Drug consultation"} subtitle={"09:00 am - 10:00 am"} />
-                <DetailsCard icon={'/avatars/meerkat.png'} title={"Heart"} subtitle={"Blood Pressure"} />
+                <DetailsCard icon={'/fire.png'} title={"Activity"} subtitle={"BFP: 25"} />
+                <DetailsCard icon={'/nutrition.png'} title={"Nutrition"} subtitle={"24 Days ago"} />
+                <DetailsCard icon={'/drink.png'} title={"Alcohol"} subtitle={"09:00 am - 10:00 am"} />
+                <DetailsCard icon={'/tongue.png'} title={"Symptome"} subtitle={"Blood Pressure"} />
+                <DetailsCard icon={'/diet.png'} title={"Body Measurements"} subtitle={"BFP: 25"} />
+                <DetailsCard icon={'/menstrual-cycle.png'} title={"Menstrual Flow"} subtitle={"24 Days ago"} />
+                <DetailsCard icon={'/drugs.png'} title={"Medications"} subtitle={"09:00 am - 10:00 am"} />
+                <DetailsCard icon={'/blood-pressure.png'} title={"Heart"} subtitle={"Blood Pressure"} />
               </section>
             </div>
           </div>
