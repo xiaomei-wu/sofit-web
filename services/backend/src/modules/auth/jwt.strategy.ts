@@ -1,8 +1,8 @@
-import { ExtractJwt, Strategy } from 'passport-jwt';
-import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/modules/users/users.service';
+import { PassportStrategy } from '@nestjs/passport';
 import * as dotenv from 'dotenv';
+import { ExtractJwt, Strategy } from 'passport-jwt';
+import { UsersService } from 'src/modules/users/users.service';
 dotenv.config();
 
 @Injectable()

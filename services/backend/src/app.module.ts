@@ -31,9 +31,9 @@ import { UsersController } from './modules/users/users.controller';
 import { UsersModule } from './modules/users/users.module';
 import { UsersService } from './modules/users/users.service';
 // import { DatabaseModule } from './core/database/database.module';
-import { LocalStrategy } from './modules/auth/local.strategy';
-import { JwtStrategy } from './modules/auth/jwt.strategy';
 import { JwtService } from '@nestjs/jwt';
+import { JwtStrategy } from './modules/auth/jwt.strategy';
+import { LocalStrategy } from './modules/auth/local.strategy';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 

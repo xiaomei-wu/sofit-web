@@ -67,6 +67,7 @@ export default function Signup() {
                 />
                 Continue with Google
               </button>
+
               <button className={styles.appleButton}>
                 <Image
                   alt="google-symbol"
@@ -78,6 +79,7 @@ export default function Signup() {
               </button>
             </div>
           </div>
+
           <p className={styles.privacyText}>
             By clicking “Continue with Apple/Google/Email/SAML” above, you
             acknowledge that you have read and understood, and agree to Sofits{' '}

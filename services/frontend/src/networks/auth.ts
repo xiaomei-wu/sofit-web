@@ -69,6 +69,7 @@ export const login = async (
     return data;
   } catch (err) {
     console.error('Error:', err);
+
     return { message: 'An error occurred during login.' };
   }
 };

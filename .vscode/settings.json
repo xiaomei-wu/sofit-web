@@ -10,5 +10,12 @@
   },
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
-  }
+  },
+  "eslint.workingDirectories": [
+    "./backend",
+    "./frontend"
+    ],
+    "[css]": {
+      "editor.defaultFormatter": "vscode.css-language-features"
+    }
 }

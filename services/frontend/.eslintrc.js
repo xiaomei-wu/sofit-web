@@ -14,6 +14,7 @@ module.exports = {
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'next/core-web-vitals',
+    'prettier'
   ],
   parserOptions: {
     ecmaFeatures: {
