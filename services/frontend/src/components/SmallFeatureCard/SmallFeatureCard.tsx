@@ -1,5 +1,6 @@
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from './SmallFeatureCard.module.css';
 
@@ -9,9 +10,9 @@ type Card = {
   subtitle?: string | ReactNode;
 };
 
-const SmallFeatureCard = ({ icon, title, subtitle }: Card) => {
+const SmallFeatureCard = ({ icon, title, subtitle, path }: Card) => {
   return (
-    <div className={styles.card}>
+    <Link className={styles.card} href={`/dashboard/${path}`}>
       <Image alt="card-icon" height={30} src={icon} width={30} />
       <div className={styles.text}>
         <div className={styles.title}>{title}</div>
@@ -25,7 +26,7 @@ const SmallFeatureCard = ({ icon, title, subtitle }: Card) => {
           width={30}
         />
       </div>
-    </div>
+    </Link>
   );
 };
 

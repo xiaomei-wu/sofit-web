@@ -12,7 +12,7 @@ const IconBar = () => {
       <Image alt="logo" height={52} src={'/sofit-logo.png'} width={80} />
 
       <div className={styles.icons}>
-        <a href="#category">
+        <a href="/dashboard">
           <CategoryIcon className={styles.icon} height={30} width={30} />
         </a>
         <a href="#calender">

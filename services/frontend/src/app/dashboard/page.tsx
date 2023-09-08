@@ -1,15 +1,15 @@
 import ActicityCard from '@/components/ActivityCard/ActivityCard';
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
 import FeatureCard from '@/components/FeatureCard/FeatureCard';
-import IconBar from '@/components/IconBar/IconBar';
-import NavBar from '@/components/NavBar/NavBar';
 import RecomendationCard from '@/components/RecomendationCard/RecomendationCard';
 import SmallFeatureCard from '@/components/SmallFeatureCard/SmallFeatureCard';
+import IconBar from '@/components/ui/IconBar/IconBar';
+import NavBar from '@/components/ui/NavBar/NavBar';
 import dynamic from 'next/dynamic';
 import styles from './page.module.css';
 
 const NoSSRCalendar = dynamic(
-  () => import('@/components/CalendarComp/CalendarComp'),
+  () => import('@/components/ui/CalendarComp/CalendarComp'),
   { ssr: false },
 );
 
@@ -23,24 +23,28 @@ export default function Dashboard() {
           <div className={styles.left}>
             <section className={styles.featureCards}>
               <FeatureCard
-                icon={'/nutrition.png'}
-                subtitle={'1000g'}
-                title={'Nutrition'}
+                icon="/nutrition.png"
+                path="nutrition"
+                subtitle="1000g"
+                title="Nutrition"
               />
               <FeatureCard
-                icon={'/drink.png'}
-                subtitle={'1000ml'}
-                title={'Alcohol'}
+                icon="/drink.png"
+                path="alcohol"
+                subtitle="1000ml"
+                title="Alcohol"
               />
               <FeatureCard
-                icon={'/sleep.png'}
-                subtitle={'8 hours'}
-                title={'Sleep'}
+                icon="/sleep.png"
+                path="sleep"
+                subtitle="8 hours"
+                title="Sleep"
               />
               <FeatureCard
-                icon={'/tongue.png'}
-                subtitle={'Fever'}
-                title={'Symptome'}
+                icon="/tongue.png"
+                path="symptomes"
+                subtitle="Fever"
+                title="Symptomes"
               />
             </section>
 
@@ -98,13 +102,15 @@ export default function Dashboard() {
                 <h4>Details</h4>
                 <SmallFeatureCard
                   icon={'/fire.png'}
+                  path="excercise"
                   subtitle={'BFP: 25'}
-                  title={'Activity'}
+                  title={'Excercise'}
                 />
                 <SmallFeatureCard
                   icon={'/nutrition.png'}
-                  subtitle={'24 Days ago'}
-                  title={'Nutrition'}
+                  path="energy"
+                  subtitle={'Tired'}
+                  title={'Energy'}
                 />
                 <SmallFeatureCard
                   icon={'/drink.png'}

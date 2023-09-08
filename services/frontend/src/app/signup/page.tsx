@@ -1,7 +1,7 @@
 'use client';
 
 import AuthForm from '@/components/AuthForm/AuthForm';
-import Header from '@/components/Header/Header';
+import Header from '@/components/ui/Header/Header';
 import { signup } from '@/networks/auth';
 import Image from 'next/image';
 import Link from 'next/link';
