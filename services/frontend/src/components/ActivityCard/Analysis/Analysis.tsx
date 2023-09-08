@@ -1,25 +1,26 @@
-import React, { useState, useEffect } from "react";
-import "chart.js";
-import { LineChart } from "react-chartkick";
+import 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { LineChart } from 'react-chartkick';
 
-const Analysis  = () => {
+const Analysis = () => {
   const [userOutcomes, setUserOutcomes] = useState<string[]>([]);
-  const [selectedOutcome, setSelectedOutcome] = useState<string>("");
+  const [selectedOutcome, setSelectedOutcome] = useState<string>('');
   const [userEvents, setUserEvents] = useState<string[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<string>("");
+  const [selectedEvent, setSelectedEvent] = useState<string>('');
   const [userSpecificEvents, setUserSpecificEvents] = useState<string[]>([]);
-  const [selectedSpecificEvent, setSelectedSpecificEvent] = useState<string>("");
+  const [selectedSpecificEvent, setSelectedSpecificEvent] =
+    useState<string>('');
   const [selectedData, setSelectedData] = useState<any[]>([]);
-  const [chartTitle, setChartTitle] = useState<string>("");
-  const [yTitle, setYTitle] = useState<string>("");
+  const [chartTitle, setChartTitle] = useState<string>('');
+  const [yTitle, setYTitle] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = event.target;
-    if (name === "selectedOutcome") {
+    if (name === 'selectedOutcome') {
       setSelectedOutcome(value);
-    } else if (name === "selectedEvent") {
+    } else if (name === 'selectedEvent') {
       setSelectedEvent(value);
-    } else if (name === "selectedSpecificEvent") {
+    } else if (name === 'selectedSpecificEvent') {
       setSelectedSpecificEvent(value);
     }
   };
@@ -30,7 +31,6 @@ const Analysis  = () => {
     //   .then((res) => {
     //     setUserOutcomes([...res.data.userOutcomes]);
     //     setUserEvents([...res.data.userEvents]);
-
     //     if (selectedEvent && selectedEvent !== "Sleep") {
     //       setUserSpecificEvents([...res.data[selectedEvent]]);
     //     }
@@ -64,39 +64,39 @@ const Analysis  = () => {
   // }, [user._id, selectedOutcome, selectedEvent, selectedSpecificEvent]);
 
   useEffect(() => {
-    let newChartTitle = "";
-    let newYTitle = "";
+    let newChartTitle = '';
+    let newYTitle = '';
 
-    if (selectedOutcome === "Energy") {
-      newChartTitle = "Energy Level & ";
-      newYTitle = "Energy Level";
+    if (selectedOutcome === 'Energy') {
+      newChartTitle = 'Energy Level & ';
+      newYTitle = 'Energy Level';
     } else {
-      newChartTitle = selectedOutcome + " & ";
-      newYTitle = "Symptom Intensity";
+      newChartTitle = selectedOutcome + ' & ';
+      newYTitle = 'Symptom Intensity';
     }
 
     newChartTitle += selectedSpecificEvent;
-    let specificEventType = "";
+    let specificEventType = '';
 
     switch (selectedEvent) {
-      case "Foods":
-        specificEventType = "food";
-        newYTitle += " / Food Portions";
+      case 'Foods':
+        specificEventType = 'food';
+        newYTitle += ' / Food Portions';
         break;
 
-      case "Drinks":
-        specificEventType = "drink";
-        newYTitle += " / Drink Portions";
+      case 'Drinks':
+        specificEventType = 'drink';
+        newYTitle += ' / Drink Portions';
         break;
 
-      case "Exercise":
-        specificEventType = "exercise";
-        newYTitle += " / Duration";
+      case 'Exercise':
+        specificEventType = 'exercise';
+        newYTitle += ' / Duration';
         break;
 
       default:
-        newChartTitle = newChartTitle.split("&")[0] + "& Sleep";
-        newYTitle += " / Duration";
+        newChartTitle = newChartTitle.split('&')[0] + '& Sleep';
+        newYTitle += ' / Duration';
     }
 
     setChartTitle(newChartTitle);
@@ -112,13 +112,13 @@ const Analysis  = () => {
           </label>
           <select
             className="f6 pa1 mr3 ml1 w4 mv1"
-            name="selectedOutcome"
             id="selectedOutcome"
+            name="selectedOutcome"
             onChange={handleChange}
             value={selectedOutcome}
           >
-            {userOutcomes.map((option) => (
-              <option key={option} value={option} className="f6">
+            {userOutcomes.map(option => (
+              <option className="f6" key={option} value={option}>
                 {option}
               </option>
             ))}
@@ -131,21 +131,21 @@ const Analysis  = () => {
           </label>
           <select
             className="f6 pa1 mr3 ml1 w4 mv1"
-            name="selectedEvent"
             id="selectedEvent"
+            name="selectedEvent"
             onChange={handleChange}
             value={selectedEvent}
           >
-            {userEvents.map((option) => (
-              <option key={option} value={option} className="f6">
+            {userEvents.map(option => (
+              <option className="f6" key={option} value={option}>
                 {option}
               </option>
             ))}
           </select>
         </div>
 
-        {selectedEvent === "Sleep" ||
-        selectedEvent === "Select" ||
+        {selectedEvent === 'Sleep' ||
+        selectedEvent === 'Select' ||
         !selectedEvent ? (
           <></>
         ) : (
@@ -155,13 +155,13 @@ const Analysis  = () => {
             </label>
             <select
               className="f6 pa1 mr3 ml1 w4 mv1"
-              name="selectedSpecificEvent"
               id="selectedSpecificEvent"
+              name="selectedSpecificEvent"
               onChange={handleChange}
               value={selectedSpecificEvent}
             >
-              {userSpecificEvents.map((option) => (
-                <option key={option} value={option} className="f6">
+              {userSpecificEvents.map(option => (
+                <option className="f6" key={option} value={option}>
                   {option}
                 </option>
               ))}
@@ -170,19 +170,19 @@ const Analysis  = () => {
         )}
 
         {selectedData.length === 0 ||
-        selectedOutcome === "Select" ||
-        selectedEvent === "Select" ||
-        selectedSpecificEvent === "Select" ? (
+        selectedOutcome === 'Select' ||
+        selectedEvent === 'Select' ||
+        selectedSpecificEvent === 'Select' ? (
           <></>
         ) : (
           <div>
             <h3 className="pt1">{chartTitle}</h3>
             <LineChart
               data={selectedData}
-              xtitle="Time"
-              ytitle={yTitle}
               height="50vh"
               legend="bottom"
+              xtitle="Time"
+              ytitle={yTitle}
             />
           </div>
         )}

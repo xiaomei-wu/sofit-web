@@ -1,23 +1,14 @@
-import React, { ReactNode } from 'react';
-import styles from './DoctorsBanner.module.css'
-import Image from '../../../node_modules/next/image';
-import { StaticImport } from '../../../node_modules/next/dist/shared/lib/get-img-props';
-
-type Card = {
-  icon: string | StaticImport;
-  title:string | ReactNode;
-  subtitle:string | ReactNode;
-}
+import Image from 'next/image';
+import styles from './DoctorsBanner.module.css';
 
 const DoctorsBanner = () => {
   return (
-   <div className={styles.card}>
-    <Image src={'/avatars/bear.png'} alt="card-icon" width={35} height={35}/>
-    <Image src={'/avatars/cat.png'} alt="card-icon" width={35} height={35}/>
-    <Image src={'/avatars/fox.png'} alt="card-icon" width={35} height={35}/>
-    <Image src={'/avatars/lion.png'} alt="card-icon" width={35} height={35}/>
-    
-   </div>
+    <div className={styles.card}>
+      <Image alt="card-icon" height={35} src={'/avatars/bear.png'} width={35} />
+      <Image alt="card-icon" height={35} src={'/avatars/cat.png'} width={35} />
+      <Image alt="card-icon" height={35} src={'/avatars/fox.png'} width={35} />
+      <Image alt="card-icon" height={35} src={'/avatars/lion.png'} width={35} />
+    </div>
   );
 };
 

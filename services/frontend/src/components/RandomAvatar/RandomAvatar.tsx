@@ -1,8 +1,16 @@
-import Image from '../../../node_modules/next/image';
-import styles from './RandomAvatar.module.css'
+import Image from 'next/image';
+import styles from './RandomAvatar.module.css';
 
 const RandomAvatar = () => {
-  return <Image src="/og" alt="avatar" width={40} height={40} className={styles.avatar}/>;
-}
+  return (
+    <Image
+      alt="avatar"
+      className={styles.avatar}
+      height={40}
+      src="/og"
+      width={40}
+    />
+  );
+};
 
-export default RandomAvatar
+export default RandomAvatar;

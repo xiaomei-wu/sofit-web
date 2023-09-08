@@ -1,9 +1,9 @@
 .navbar {
   background-color: var(--secondary-color);
-  background-color: #E2EAF9;
+  background-color: #e2eaf9;
   border-radius: 2rem;
-  border: 1px solid var(--secondary-color) #E2EAF9;
-  border:  1px solid #E2EAF9;
+  border: 1px solid var(--secondary-color) #e2eaf9;
+  border: 1px solid #e2eaf9;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +12,7 @@
   gap: 1rem;
 }
 
-@media (min-width: 701px) and (max-width: 1120px) {
+@media (width >= 701px) and (width <= 1120px) {
   .navbar {
     min-width: 98%;
   }
@@ -26,9 +26,8 @@
 }
 
 /* Mobile */
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .settings {
     display: none;
   }
 }
-

@@ -2,7 +2,7 @@
 .search input:hover,
 .search input:focus,
 .search input:active,
-.search input::after{
+.search input::after {
   background-color: #fff;
   border-radius: 2rem;
   border: none;
@@ -15,4 +15,3 @@
   font-weight: 400;
   line-height: normal;
 }
-

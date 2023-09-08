@@ -1,13 +1,11 @@
-import styles from './Searchbar.module.css'
+import styles from './Searchbar.module.css';
 
 const Searchbar = () => {
   return (
-        <form action="#" className={styles.search}>
-            <input type="text"
-                   placeholder=" Search for something..."
-                   name="search" />
-        </form>
-)
-}
+    <form action="#" className={styles.search}>
+      <input name="search" placeholder=" Search for something..." type="text" />
+    </form>
+  );
+};
 
-export default Searchbar
+export default Searchbar;

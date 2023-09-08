@@ -9,15 +9,18 @@ interface User {
 }
 
 interface SignupResponse {
-    user: User,
-    token: string
+  user: User;
+  token: string;
 }
 
 const headers = {
   'Content-Type': 'application/json',
-}
+};
 
-export const signup = async (email: string, password: string): Promise<SignupResponse | null> => {
+export const signup = async (
+  email: string,
+  password: string,
+): Promise<SignupResponse | null> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
@@ -45,7 +48,10 @@ interface LoginResponse {
   // Add any other properties you expect in the response here
 }
 
-export const login = async (email: string, password: string): Promise<LoginResponse> => {
+export const login = async (
+  email: string,
+  password: string,
+): Promise<LoginResponse> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,

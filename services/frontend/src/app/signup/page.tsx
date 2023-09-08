@@ -1,24 +1,24 @@
-"use client"
+'use client';
 
-import { useState } from "react";
-import { useRouter } from 'next/navigation'
-import { signup } from "@/networks/auth";
-import AuthForm from "@/components/AuthForm/AuthForm";
-import styles from './page.module.css'
-import Image from "../../../node_modules/next/image";
-import Link from "../../../node_modules/next/link";
-import Header from "@/components/Header/Header";
+import AuthForm from '@/components/AuthForm/AuthForm';
+import Header from '@/components/Header/Header';
+import { signup } from '@/networks/auth';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import styles from './page.module.css';
 
 export default function Signup() {
   const router = useRouter();
 
   const [state, setState] = useState({
-    email: "",
-    password: "",
-    message: "",
+    email: '',
+    password: '',
+    message: '',
   });
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
     setState({
       ...state,
@@ -26,50 +26,71 @@ export default function Signup() {
     });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const { email, password } = state;
 
     try {
-      const response = await  signup(email, password);
-      if(response?.token) {
-        router.push("/dashboard");
-      } 
-    } catch(error) {
-      console.error(error)
+      const response = await signup(email, password);
+      if (response?.token) {
+        router.push('/dashboard');
+      }
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-<div>
+    <div>
       <Header />
       <main>
         <div className={styles.loginSection}>
-        <h2>Sign up</h2>
-     
-      
+          <h2>Sign up</h2>
           <div>
- 
-      <AuthForm {...state} handleChange={handleChange} handleSubmit={handleSubmit} />
+            <AuthForm
+              {...state}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+            />
 
-      <div className={styles.dividerDiv}>
-           <div className={styles.divider}/>
+            <div className={styles.dividerDiv}>
+              <div className={styles.divider} />
             </div>
 
-      <div className={styles.ssoSection}>
-            <button className={styles.googleButton}>
-           <Image src={"/google-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Google</button>
-        <button className={styles.appleButton}>
-           <Image src={"/apple-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Apple</button>
+            <div className={styles.ssoSection}>
+              <button className={styles.googleButton}>
+                <Image
+                  alt="google-symbol"
+                  height={14}
+                  src={'/google-symbol.svg'}
+                  width={14}
+                />
+                Continue with Google
+              </button>
+              <button className={styles.appleButton}>
+                <Image
+                  alt="google-symbol"
+                  height={14}
+                  src={'/apple-symbol.svg'}
+                  width={14}
+                />
+                Continue with Apple
+              </button>
+            </div>
           </div>
-
+          <p className={styles.privacyText}>
+            By clicking “Continue with Apple/Google/Email/SAML” above, you
+            acknowledge that you have read and understood, and agree to Sofits{' '}
+            <Link className={styles.links} href={'/terms'}>
+              Terms & Conditions
+            </Link>{' '}
+            and{' '}
+            <Link className={styles.links} href={'/policy'}>
+              Policy
+            </Link>
+          </p>
         </div>
-        <p className={styles.privacyText}>By clicking “Continue with Apple/Google/Email/SAML” above, you acknowledge that you
-     have read and understood, and agree to Sofit's <Link href={'/terms'} className={styles.links}>Terms & Conditions</Link> and <Link href={'/policy'} className={styles.links}>Policy</Link>
-        </p>
-        </div>
-      
-    </main>
+      </main>
     </div>
   );
 }

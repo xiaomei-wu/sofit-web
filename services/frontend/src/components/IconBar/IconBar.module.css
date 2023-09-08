@@ -8,12 +8,12 @@
 }
 
 /* Apply the effect only on desktop screens */
-@media (min-width: 700px) {
+@media (width >= 700px) {
   .icon:hover,
   .icon:active,
   .icon:focus {
-    fill: #A1C1EF;
-    background-color: transparent; 
+    fill: #a1c1ef;
+    background-color: transparent;
     stroke-width: 1rem;
   }
 }
@@ -27,7 +27,7 @@
 }
 
 /* Mobile */
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .iconbar {
     display: none;
   }

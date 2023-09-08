@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    "stylelint-prettier"
+  ],
+  "extends": [
+    "stylelint-config-recommended",
+    "stylelint-prettier/recommended",
+    "stylelint-config-standard",
+    "stylelint-config-prettier"
+  ],
+  "rules": {
+    "prettier/prettier": [true, {"singleQuote": true, "tabWidth": 2, "jsxSingleQuote": true}],
+    "selector-class-pattern": null,
+    "number-max-precision": null
+  }
+}

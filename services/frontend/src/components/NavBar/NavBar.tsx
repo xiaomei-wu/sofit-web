@@ -1,20 +1,17 @@
-import React from 'react';
-import styles from './NavBar.module.css'
-import Searchbar from '../Searchbar/Searchbar';
+import Settings from '@/assets/icons/setting.svg';
 import RandomAvatar from '../RandomAvatar/RandomAvatar';
-import Settings from '../../assets/icons/setting.svg'
+import Searchbar from '../Searchbar/Searchbar';
+import styles from './NavBar.module.css';
 
 const NavBar = () => {
   return (
     <div className={styles.navbar}>
       <Searchbar />
       <div className={styles.settings}>
-        <Settings width={30} height={30}/>
+        <Settings height={30} width={30} />
         <RandomAvatar />
       </div>
-     
     </div>
-
   );
 };
 

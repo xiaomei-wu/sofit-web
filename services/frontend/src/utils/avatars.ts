@@ -1,4 +1,4 @@
-import { random } from "./math";
+import { random } from './math';
 
 const colors = [
   '#FEA96B',
@@ -8,7 +8,7 @@ const colors = [
   '#ADE9F7',
   '#0A99FF',
   '#FFF0C2',
-]
+];
 
 export function randomColor(seed: number) {
   return colors[random(0, colors.length, seed)];

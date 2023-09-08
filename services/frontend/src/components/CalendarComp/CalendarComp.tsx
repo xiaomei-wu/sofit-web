@@ -1,7 +1,7 @@
-"use client"
+'use client';
+import { useState } from 'react';
 import Calendar from 'react-calendar';
-import { useState } from 'react'
-import { Value } from '../../../node_modules/react-calendar/dist/cjs/shared/types'
+import { Value } from 'react-calendar/dist/cjs/shared/types';
 
 const CalendarComp = () => {
   const [value, onChange] = useState<Value>(new Date());
@@ -10,7 +10,7 @@ const CalendarComp = () => {
     <div>
       <Calendar onChange={onChange} value={value} />
     </div>
-  )
-}
+  );
+};
 
-export default CalendarComp
+export default CalendarComp;

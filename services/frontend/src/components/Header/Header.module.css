@@ -22,25 +22,28 @@
 
 .signupButton {
   /* Layout */
-display: flex;
-height: 2.25rem;
-min-height: 2.25rem;
-padding: 0rem 0.73813rem 0rem 0.84719rem;
-justify-content: center;
-align-items: center;
-gap: 0.20906rem;
+  display: flex;
+  height: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 0.73813rem 0 0.84719rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.20906rem;
 
-/* Style */
-border-radius: 0.3125rem;
-background: #121212;
-box-shadow: 0px 4px 9px 0px rgba(0, 0, 0, 0.05), 0px 1.54074px 2.86667px 0px rgba(0, 0, 0, 0.07), 0px 0.32593px 0.73333px 0px rgba(0, 0, 0, 0.12);
+  /* Style */
+  border-radius: 0.3125rem;
+  background: #121212;
+  box-shadow:
+    0 4px 9px 0 rgb(0 0 0 / 5%),
+    0 1.54074px 2.86667px 0 rgb(0 0 0 / 7%),
+    0 0.32593px 0.73333px 0 rgb(0 0 0 / 12%);
 
-/* Typography */
-color: #FFF;
-text-align: center;
-font-size: 1rem;
-font-style: normal;
-font-weight: 500;
-line-height: 1.4375rem; /* 143.75% */
-letter-spacing: 0.0005rem;
+  /* Typography */
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 1.4375rem; /* 143.75% */
+  letter-spacing: 0.0005rem;
 }

@@ -1,19 +1,17 @@
 :root {
-  --background-color: #EBF1F9;
-  --secondary-color:  #E2EAF9 ;
-  --primary-color: #A0BFED;
+  --background-color: #ebf1f9;
+  --secondary-color: #e2eaf9;
+  --primary-color: #a0bfed;
   --small-text: 12px;
   --max-width: 1100px;
   --border-radius: 12px;
   --text-color: #121212;
-  --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+  --font-mono: ui-monospace, menlo, monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
     #16abff33 0deg,
@@ -23,10 +21,9 @@
     transparent 360deg
   );
   --secondary-glow: radial-gradient(
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0)
+    rgb(255 255 255 / 100%),
+    rgb(255 255 255 / 0%)
   );
-
   --tile-start-rgb: 239, 245, 249;
   --tile-end-rgb: 228, 232, 233;
   --tile-border: conic-gradient(
@@ -38,7 +35,6 @@
     #00000010,
     #00000080
   );
-
   --callout-rgb: 238, 240, 241;
   --callout-border-rgb: 172, 175, 176;
   --card-rgb: 180, 185, 188;
@@ -50,15 +46,13 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
-
-    --primary-glow: radial-gradient(rgba(1, 65, 255, 0.4), rgba(1, 65, 255, 0));
+    --primary-glow: radial-gradient(rgb(1 65 255 / 40%), rgb(1 65 255 / 0%));
     --secondary-glow: linear-gradient(
       to bottom right,
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0),
-      rgba(1, 65, 255, 0.3)
+      rgb(1 65 255 / 0%),
+      rgb(1 65 255 / 0%),
+      rgb(1 65 255 / 30%)
     );
-
     --tile-start-rgb: 2, 13, 46;
     --tile-end-rgb: 2, 5, 19;
     --tile-border: conic-gradient(
@@ -70,7 +64,6 @@
       #ffffff10,
       #ffffff80
     );
-
     --callout-rgb: 20, 20, 20;
     --callout-border-rgb: 108, 108, 108;
     --card-rgb: 100, 100, 100;
@@ -92,15 +85,15 @@ body {
 
 body {
   color: var(--text-color);
-font-family: var(--font-mono);
-font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
-'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
-'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-font-size: 14px;
-font-style: normal;
-font-weight: 400;
-letter-spacing: 0.0005rem;
-line-height: 1rem;
+  font-family: var(--font-mono);
+  font-family: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
+    'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
+    'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.0005rem;
+  line-height: 1rem;
 }
 
 a {
@@ -116,41 +109,41 @@ a {
 
 h1 {
   color: var(--text-color);
-text-align: center;
-font-size: 4.78125rem;
-font-style: normal;
-font-weight: 700;
-line-height: 4.875rem; /* 101.961% */
-letter-spacing: -0.16019rem;
+  text-align: center;
+  font-size: 4.78125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 4.875rem; /* 101.961% */
+  letter-spacing: -0.16019rem;
 }
 
 h2 {
   color: var(--text-color);
-text-align: center;
-font-size: 3.8125rem;
-font-style: normal;
-font-weight: 700;
-line-height: 4.0625rem; /* 106.557% */
-letter-spacing: -0.12006rem;
+  text-align: center;
+  font-size: 3.8125rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 4.0625rem; /* 106.557% */
+  letter-spacing: -0.12006rem;
 }
 
 h3 {
   color: var(--text-color);
-text-align: start;
-font-size: 1.5rem;
-font-style: normal;
-font-weight: 500;
-line-height: 2.375rem; /* 125% */
-letter-spacing: -0.02625rem;
+  text-align: start;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 2.375rem; /* 125% */
+  letter-spacing: -0.02625rem;
 }
 
 h4 {
-font-size: 1.2rem;
-font-style: normal;
-font-weight: 400;
-line-height: 2rem; /* 133.333% */
-letter-spacing: -0.075rem;
-margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem; /* 133.333% */
+  letter-spacing: -0.075rem;
+  margin-bottom: 0.5rem;
 }
 
 main {
@@ -163,13 +156,14 @@ main {
 
 input {
   display: flex;
-width: 20rem;
-padding: 0.4375rem 0.625rem 0.5rem 0.625rem;
-align-items: center;
-
-border-radius: 0.25rem;
-background: rgba(242, 241, 238, 0.60);
-box-shadow: 0px 0px 0px 2px rgba(35, 131, 226, 0.35), 0px 0px 0px 1px rgba(35, 131, 226, 0.57) inset;
+  width: 20rem;
+  padding: 0.4375rem 0.625rem 0.5rem;
+  align-items: center;
+  border-radius: 0.25rem;
+  background: rgb(242 241 238 / 60%);
+  box-shadow:
+    0 0 0 2px rgb(35 131 226 / 35%),
+    0 0 0 1px rgb(35 131 226 / 57%) inset;
 }
 
 input::placeholder {

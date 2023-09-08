@@ -1,26 +1,34 @@
-import React, { ReactNode } from 'react';
-import styles from './IconBar.module.css'
-import CalenderIcon from '../../assets/icons/calendar.svg'
-import DocumentIcon from '../../assets/icons/document.svg'
-import CategoryIcon from '../../assets/icons/category.svg'
-import SendIcon from '../../assets/icons/send.svg'
-import BarChartIcon from '../../assets/icons/bar-chart.svg'
-import Image from '../../../node_modules/next/image';
+import BarChartIcon from '@/assets/icons/bar-chart.svg';
+import CalenderIcon from '@/assets/icons/calendar.svg';
+import CategoryIcon from '@/assets/icons/category.svg';
+import DocumentIcon from '@/assets/icons/document.svg';
+import SendIcon from '@/assets/icons/send.svg';
+import Image from 'next/image';
+import styles from './IconBar.module.css';
 
 const IconBar = () => {
   return (
     <div className={styles.iconbar}>
-      <Image src={"/sofit-logo.png"} alt="logo" width={80} height={52} />
+      <Image alt="logo" height={52} src={'/sofit-logo.png'} width={80} />
 
       <div className={styles.icons}>
-  <a href="#category"><CategoryIcon  width={30} height={30} className={styles.icon}/></a>
-  <a href="#calender"><CalenderIcon width={30} height={30} className={styles.icon}/></a>
-  <a href="#documents"><DocumentIcon width={30} height={30} className={styles.icon}/></a>
-  <a href="#chart"><BarChartIcon  width={30} height={30} className={styles.icon}/></a>
-  <a href="#messages"><SendIcon width={30} height={30} className={styles.icon}/></a>
-</div>
+        <a href="#category">
+          <CategoryIcon className={styles.icon} height={30} width={30} />
+        </a>
+        <a href="#calender">
+          <CalenderIcon className={styles.icon} height={30} width={30} />
+        </a>
+        <a href="#documents">
+          <DocumentIcon className={styles.icon} height={30} width={30} />
+        </a>
+        <a href="#chart">
+          <BarChartIcon className={styles.icon} height={30} width={30} />
+        </a>
+        <a href="#messages">
+          <SendIcon className={styles.icon} height={30} width={30} />
+        </a>
+      </div>
     </div>
-
   );
 };
 

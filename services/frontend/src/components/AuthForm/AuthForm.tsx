@@ -1,56 +1,53 @@
-import { useState } from "react";
-import styles from './AuthForm.module.css'
+import { useState } from 'react';
+import styles from './AuthForm.module.css';
 
 export default function AuthForm(props) {
-  const [email, setEmail] = useState(props.email || "");
-  const [password, setPassword] = useState(props.password || "");
+  const [email, setEmail] = useState(props.email || '');
+  const [password, setPassword] = useState(props.password || '');
 
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
-    if (name === "email") {
+    if (name === 'email') {
       setEmail(value);
-    } else if (name === "password") {
+    } else if (name === 'password') {
       setPassword(value);
     }
     props.handleChange(event); // Pass the event up to the parent component if needed
   };
 
   return (
-    <form onSubmit={props.handleSubmit} className={styles.formWrapper}>
+    <form className={styles.formWrapper} onSubmit={props.handleSubmit}>
       <div>
         <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleChange}
           id="email"
+          name="email"
+          onChange={handleChange}
           placeholder="Enter your email address..."
+          type="email"
+          value={email}
         />
       </div>
 
       <div>
         <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handleChange}
           id="password"
-          min="8"
           max="20"
+          min="8"
+          name="password"
+          onChange={handleChange}
           placeholder="Enter your password..."
+          type="password"
+          value={password}
         />
       </div>
 
-      {props.message && <span style={{ color: "red" }}>{props.message}</span>}
+      {props.message && <span style={{ color: 'red' }}>{props.message}</span>}
 
       <div>
-          <button
-            type="submit"
-            className={styles.continueButton}
-          >
-            Continue with email
-          </button>
-        </div>
+        <button className={styles.continueButton} type="submit">
+          Continue with email
+        </button>
+      </div>
     </form>
   );
 }

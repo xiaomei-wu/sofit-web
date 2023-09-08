@@ -1,11 +1,10 @@
 .formWrapper {
   display: flex;
-padding-bottom: 0px;
-flex-direction: column;
-align-items: center;
-gap: 0.875rem;
-align-self: stretch;
-padding-bottom: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.875rem;
+  align-self: stretch;
+  padding-bottom: 2rem;
 }
 
 .continueButton {
@@ -13,14 +12,14 @@ padding-bottom: 2rem;
   padding: 0.6875rem 5.82688rem 0.6875rem 5.86063rem;
   justify-content: center;
   align-items: center;
-
   border-radius: 0.25rem;
-background: #FDF5F2;
-box-shadow: 0px 0px 0px 1px rgba(235, 87, 87, 0.30) inset, 0px 1px 2px 0px rgba(15, 15, 15, 0.10);
-
-color: #EB5757;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 500;
-line-height: 0.875rem; /* 100% */
+  background: #fdf5f2;
+  box-shadow:
+    0 0 0 1px rgb(235 87 87 / 30%) inset,
+    0 1px 2px 0 rgb(15 15 15 / 10%);
+  color: #eb5757;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.875rem; /* 100% */
 }

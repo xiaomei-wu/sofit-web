@@ -1,21 +1,21 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {  
+const nextConfig = {
   async rewrites() {
-  return [
-    {
-      source: '/api/:path*',
-      destination: 'http://localhost:3000/api/:path*',
-    }
-  ]
-},
-webpack(config) {
-  config.module.rules.push({
-    test: /\.svg$/,
-    use: ['@svgr/webpack'],
-  });
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:3000/api/:path*',
+      },
+    ];
+  },
+  webpack(config) {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
 
-  return config;
-},
-}
+    return config;
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

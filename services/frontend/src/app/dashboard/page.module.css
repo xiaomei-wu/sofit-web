@@ -11,11 +11,11 @@
   align-items: stretch;
   min-height: 100vh;
   padding: 1rem;
-
   border-radius: 1.25rem;
-  background-color: #EBF1F9;
-  background: var(--background-color);
-   /* Additional Styles for Improved Responsiveness */
+  background-color: var(--background-color);
+  background-color: #ebf1f9;
+
+  /* Additional Styles for Improved Responsiveness */
   width: 100%; /* Set width to 100% for both desktop and mobile */
   max-width: 100%; /* Prevent content from overflowing on smaller screens */
   box-sizing: border-box; /* Ensure padding and borders are included in the width */
@@ -46,9 +46,8 @@
   justify-content: flex-start;
   align-items: flex-start;
   flex-shrink: 0;
-  background-color: #FFF;
+  background-color: #fff;
   border-radius: 1.25rem;
-  background: #FFF;
   gap: 2rem;
   height: 100%;
 }
@@ -85,18 +84,18 @@
 }
 
 /* Mobile */
-@media (max-width: 700px) {
+@media (width <= 700px) {
   .featureCards {
     flex-wrap: wrap;
     row-gap: 1rem;
   }
 
-  .recomendations{
+  .recomendations {
     flex-wrap: wrap;
   }
 
   .right {
-    display:none
+    display: none;
   }
 
   .left {
@@ -108,8 +107,8 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (width >= 768px) and (width <= 1024px) {
   .right {
-  width: 45%;
+    width: 45%;
   }
 }

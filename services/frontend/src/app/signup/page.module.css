@@ -1,25 +1,24 @@
 .loginSection {
   display: flex;
-width: 20rem;
-max-width: 20rem;
-flex-direction: column;
-align-items: center;
-gap: 2rem;
-padding-top: 4rem;
+  width: 20rem;
+  max-width: 20rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding-top: 4rem;
 }
 
 .ssoSection {
   display: flex;
-padding-bottom: 0px;
-flex-direction: column;
-align-items: flex-start;
-gap: 0.875rem;
-align-self: stretch;
-
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 500;
-line-height: 0.875rem; /* 100% */
+  padding-bottom: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.875rem;
+  align-self: stretch;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.875rem; /* 100% */
 }
 
 .googleButton {
@@ -28,83 +27,77 @@ line-height: 0.875rem; /* 100% */
   justify-content: center;
   align-items: center;
   gap: 0.27rem;
-
   border-radius: 0.25rem;
-border: 1px solid rgba(15, 15, 15, 0.15);
-background: #FFF;
-box-shadow: 0px 1px 2px 0px rgba(15, 15, 15, 0.05);
-
-color: #111;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 500;
-line-height: 0.875rem; /* 100% */
+  border: 1px solid rgb(15 15 15 / 15%);
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgb(15 15 15 / 5%);
+  color: #111;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.875rem; /* 100% */
 }
 
 .appleButton {
   display: flex;
-padding: 0.5625rem 5.05375rem 0.6875rem 5.07125rem;
-justify-content: center;
-align-items: flex-end;
-gap: 0.375rem;
-
-border-radius: 0.25rem;
-border: 1px solid rgba(15, 15, 15, 0.15);
-background: #FFF;
-box-shadow: 0px 1px 2px 0px rgba(15, 15, 15, 0.05);
-
-color: #37352F;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 500;
-line-height: 0.875rem; /* 100% */
+  padding: 0.5625rem 5.05375rem 0.6875rem 5.07125rem;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.375rem;
+  border-radius: 0.25rem;
+  border: 1px solid rgb(15 15 15 / 15%);
+  background: #fff;
+  box-shadow: 0 1px 2px 0 rgb(15 15 15 / 5%);
+  color: #37352f;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 0.875rem; /* 100% */
 }
 
 .dividerDiv {
   display: flex;
-height: 2.625rem;
-padding: 1.28125rem 0rem;
-justify-content: center;
-align-items: center;
-align-self: stretch;
+  height: 2.625rem;
+  padding: 1.28125rem 0;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
 }
 
 .divider {
   height: 0.0625rem;
-flex: 1 0 0;
-border-bottom: 1px solid rgba(55, 53, 47, 0.16);
-
+  flex: 1 0 0;
+  border-bottom: 1px solid rgb(55 53 47 / 16%);
 }
 
 .forgotPassword {
-  color: rgba(55, 53, 47, 0.65);
-text-align: center;
-font-size: 0.875rem;
-font-style: normal;
-font-weight: 400;
-line-height: 1.4rem; /* 160% */
-text-decoration-line: underline;
+  color: rgb(55 53 47 / 65%);
+  text-align: center;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.4rem; /* 160% */
+  text-decoration-line: underline;
 }
 
 .forgotPasswordWrapper {
   display: flex;
-padding-bottom: 0px;
-flex-direction: column;
-align-items: center;
-gap: 0.5rem;
-align-self: stretch;
-padding-bottom: 2rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  align-self: stretch;
+  padding-bottom: 2rem;
 }
 
 .privacyText {
-  color: rgba(55, 53, 47, 0.50);
-text-align: center;
-font-size: 0.75rem;
-font-style: normal;
-font-weight: 400;
-line-height: 1.125rem; /* 150% */
+  color: rgb(55 53 47 / 50%);
+  text-align: center;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.125rem; /* 150% */
 }
 
 .links {
-text-decoration: underline;
+  text-decoration: underline;
 }
