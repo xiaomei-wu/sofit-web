@@ -1,96 +1,65 @@
+import RandomAvatar from '@/components/RandomAvatar/RandomAvatar'
+import Avatars from '@/components/RandomAvatar/RandomAvatar'
+import IconBar from '@/components/IconBar/IconBar'
+import NavBar from '@/components/NavBar/NavBar'
 import Image from 'next/image'
 import styles from './page.module.css'
-
+import FeatureCard from '@/components/FeatureCard/FeatureCard'
+import CalendarComp from '@/components/CalendarComp/CalendarComp'
+import RecomendationCard from '@/components/RecomendationCard/RecomendationCard'
+import ActicityCard from '@/components/ActivityCard/ActivityCard'
+import dynamic from 'next/dynamic'
+// import Calendar from 'react-calendar';
+// import { useState } from 'react'
+// import { Value } from '../../../node_modules/react-calendar/dist/cjs/shared/types'
+const NoSSRCalendar = dynamic(() => import('@/components/CalendarComp/CalendarComp'), { ssr: false })
 export default function Home() {
+  // const [value, onChange] = useState<Value>(new Date());
+
   return (
-    <main className={styles.main}>
-      <div>Hello</div>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className={styles.dashboard}>
+      <IconBar/>
+      <main className={styles.main}>
+        <NavBar />
+        <div className={styles.feature}>
+          <div className={styles.left}>
+            <section className={styles.featureCards}>
+              <FeatureCard icon={'/nutrition.png'} title={"Nutrition"} subtitle={"1000g"} />
+              <FeatureCard icon={'/nutrition.png'} title={"Dinks"} subtitle={"1000ml"} />
+              <FeatureCard icon={'/sleep.png'} title={"Suplements"} subtitle={"Vitamin C"} />
+              <FeatureCard icon={'/sleep.png'} title={"Symtoms"} subtitle={"Headache"} />
+              {/* <FeatureCard icon={'/sleep.png'} title={"Excercise"} subtitle={"Have you worked out today?"} />
+              <FeatureCard icon={'/sleep.png'} title={"Sleep"} subtitle={"Did you sleep well?"} />
+              <FeatureCard icon={'/nutrition.png'} title={"Symtoms"} subtitle={"Have a headache here?"} /> */}
+            </section>
+
+            <section className={styles.activity}>
+              <ActicityCard />
+            </section>
+
+            <section >
+            <h4>Recomendations</h4>
+            <div className={styles.recomendations}>
+            <RecomendationCard icon={"/sleep.png"} title={"How should you check your health details by yourself?"} subtitle={"8 July 2023"} />
+            <RecomendationCard icon={"/sleep.png"} title={"What does a cadiologist do?"} subtitle={"5 July 2023"} />
+            <RecomendationCard icon={"/sleep.png"} title={"What should you kown about women's heath?"} subtitle={"5 July 2023"} />
+            </div>
+            </section>
+          </div>
+
+          <div className={styles.right}>
+            <div className={styles.rightCard}>
+              <section className={styles.calendar}>
+              <NoSSRCalendar />
+              </section>
+              <section className={styles.doctors}>Doctors</section>
+              <section className={styles.details}>Details</section>
+            </div>
+          </div>
+
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+       
     </main>
+    </div>
   )
 }

@@ -1,0 +1,18 @@
+.search input,
+.search input:hover,
+.search input:focus,
+.search input:active,
+.search input::after{
+  background-color: #fff;
+  border-radius: 2rem;
+  border: none;
+  box-shadow: none;
+}
+
+.search input::placeholder {
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+

@@ -5,6 +5,9 @@ import { useRouter } from 'next/navigation'
 import { signup } from "@/networks/auth";
 import AuthForm from "@/components/AuthForm/AuthForm";
 import styles from './page.module.css'
+import Image from "../../../node_modules/next/image";
+import Link from "../../../node_modules/next/link";
+import Header from "@/components/Header/Header";
 
 export default function Signup() {
   const router = useRouter();
@@ -38,18 +41,35 @@ export default function Signup() {
   };
 
   return (
-    <main className={styles.main}>
-      <form onSubmit={handleSubmit} className="pt5 flex flex-column">
-        <AuthForm {...state} handleChange={handleChange} handleSubmit={handleSubmit} />
-        <div className="w-100 pa3 mr2">
-          <button
-            className="f6 link dim br-pill ph5 pv2 mb2 dib white bg-dark-blue"
-            type="submit"
-          >
-            Create an account
-          </button>
+<div>
+      <Header />
+      <main>
+        <div className={styles.loginSection}>
+        <h2>Sign up</h2>
+     
+      
+          <div>
+ 
+      <AuthForm {...state} handleChange={handleChange} handleSubmit={handleSubmit} />
+
+      <div className={styles.dividerDiv}>
+           <div className={styles.divider}/>
+            </div>
+
+      <div className={styles.ssoSection}>
+            <button className={styles.googleButton}>
+           <Image src={"/google-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Google</button>
+        <button className={styles.appleButton}>
+           <Image src={"/apple-symbol.svg"} alt="google-symbol" width={14} height={14}/>Continue with Apple</button>
+          </div>
+
         </div>
-      </form>
+        <p className={styles.privacyText}>By clicking “Continue with Apple/Google/Email/SAML” above, you acknowledge that you
+     have read and understood, and agree to Sofit's <Link href={'/terms'} className={styles.links}>Terms & Conditions</Link> and <Link href={'/policy'} className={styles.links}>Policy</Link>
+        </p>
+        </div>
+      
     </main>
+    </div>
   );
 }

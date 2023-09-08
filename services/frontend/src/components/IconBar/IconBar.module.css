@@ -1,0 +1,34 @@
+.iconbar {
+  width: 5.625rem; /* Set a specific width */
+  background-color: transparent; /* Dark-grey background */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rem;
+}
+
+/* Apply the effect only on desktop screens */
+@media (min-width: 700px) {
+  .icon:hover,
+  .icon:active,
+  .icon:focus {
+    fill: #A1C1EF;
+    background-color: transparent; 
+    stroke-width: 1rem;
+  }
+}
+
+.icons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .iconbar {
+    display: none;
+  }
+}
