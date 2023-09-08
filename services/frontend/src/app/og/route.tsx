@@ -33,7 +33,7 @@ export async function GET() {
           )} ${random(60, 80, Math.random())} ${random(40, 60, Math.random())}`}
           fill="none"
           stroke="black"
-          stroke-width={random(1, 9, Math.random())}
+          strokeWidth={random(1, 9, Math.random())}
         />
       </svg>
     ),
