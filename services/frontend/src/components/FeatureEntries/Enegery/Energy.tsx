@@ -9,7 +9,7 @@ export default function Energy() {
     startTime: new Date()
       .toLocaleTimeString('en-US', { hour12: false })
       .substring(0, 5),
-    energyLevel:  5,
+    energyLevel: 5,
     editing: false,
   });
 

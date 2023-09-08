@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["@typescript-eslint", "react", "jsx-a11y", "import"],
+  "rules": {
+    "react/react-in-jsx-scope": "off", // Next.js doesn't require importing React in JSX
+    "react/prop-types": "off", // If you're using TypeScript, you don't need prop-types
+    "jsx-a11y/anchor-is-valid": "off", // Next.js Link components don't require href
+    "@typescript-eslint/explicit-module-boundary-types": "off", // Allow implicit return types
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto" // Handles line endings
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}

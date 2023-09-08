@@ -1,22 +1,22 @@
-import React, { Component } from "react";
-import TopBar from "../shared/TopBar";
-import BottomNavbar from "../shared/BottomNavbar";
-import axios from "axios";
-import { LineChart } from "react-chartkick";
-import "chart.js";
+import React, { Component } from 'react';
+import TopBar from '../shared/TopBar';
+import BottomNavbar from '../shared/BottomNavbar';
+import axios from 'axios';
+import { LineChart } from 'react-chartkick';
+import 'chart.js';
 
 export default class Analysis extends Component {
   state = {
     userOutcomes: [],
-    selectedOutcome: "",
+    selectedOutcome: '',
     userEvents: [],
-    selectedEvent: "",
+    selectedEvent: '',
     userSpecificEvents: [],
-    selectedSpecificEvent: "",
+    selectedSpecificEvent: '',
     selectedData: [],
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { name, value } = event.target;
 
     this.setState({
@@ -29,13 +29,13 @@ export default class Analysis extends Component {
   getUserOptions = () => {
     axios
       .get(`/api/analysis/user/${this.props.user._id}/options`)
-      .then((res) => {
+      .then(res => {
         this.setState({
           userOutcomes: [...res.data.userOutcomes],
           userEvents: [...res.data.userEvents],
         });
 
-        if (this.state.selectedEvent && this.state.selectedEvent !== "Sleep") {
+        if (this.state.selectedEvent && this.state.selectedEvent !== 'Sleep') {
           this.setState({
             userSpecificEvents: [...res.data[this.state.selectedEvent]],
           });
@@ -43,7 +43,7 @@ export default class Analysis extends Component {
 
         this.getSelectedData();
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   getSelectedData = () => {
@@ -52,13 +52,13 @@ export default class Analysis extends Component {
         `/api/analysis/user/${this.props.user._id}/selected-data/${
           this.state.selectedOutcome
         }/${this.state.selectedEvent}/${
-          this.state.selectedEvent === "Sleep"
-            ? "Sleep"
+          this.state.selectedEvent === 'Sleep'
+            ? 'Sleep'
             : this.state.selectedSpecificEvent
-        }`
+        }`,
       )
-      .then((res) => {
-        if (typeof res.data !== "string") {
+      .then(res => {
+        if (typeof res.data !== 'string') {
           this.setState({
             selectedData: [...res.data],
           });
@@ -68,7 +68,7 @@ export default class Analysis extends Component {
           });
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   componentDidMount = () => {
@@ -79,36 +79,36 @@ export default class Analysis extends Component {
     let chartTitle;
     let yTitle;
 
-    if (this.state.selectedOutcome === "Energy") {
-      chartTitle = "Energy Level & ";
-      yTitle = "Energy Level";
+    if (this.state.selectedOutcome === 'Energy') {
+      chartTitle = 'Energy Level & ';
+      yTitle = 'Energy Level';
     } else {
-      chartTitle = this.state.selectedOutcome + " & ";
-      yTitle = "Symptom Intensity";
+      chartTitle = this.state.selectedOutcome + ' & ';
+      yTitle = 'Symptom Intensity';
     }
 
     chartTitle += this.state.selectedSpecificEvent;
-    let specificEventType = "";
+    let specificEventType = '';
 
     switch (this.state.selectedEvent) {
-      case "Foods":
-        specificEventType = "food";
-        yTitle += " / Food Portions";
+      case 'Foods':
+        specificEventType = 'food';
+        yTitle += ' / Food Portions';
         break;
 
-      case "Drinks":
-        specificEventType = "drink";
-        yTitle += " / Drink Portions";
+      case 'Drinks':
+        specificEventType = 'drink';
+        yTitle += ' / Drink Portions';
         break;
 
-      case "Exercise":
-        specificEventType = "exercise";
-        yTitle += " / Duration";
+      case 'Exercise':
+        specificEventType = 'exercise';
+        yTitle += ' / Duration';
         break;
 
       default:
-        chartTitle = chartTitle.split("&")[0] + "& Sleep";
-        yTitle += " / Duration";
+        chartTitle = chartTitle.split('&')[0] + '& Sleep';
+        yTitle += ' / Duration';
     }
 
     return (
@@ -127,7 +127,7 @@ export default class Analysis extends Component {
               onChange={this.handleChange}
               value={this.state.selectedOutcome}
             >
-              {this.state.userOutcomes.map((option) => {
+              {this.state.userOutcomes.map(option => {
                 return (
                   <option value={option} className="f6">
                     {option}
@@ -148,7 +148,7 @@ export default class Analysis extends Component {
               onChange={this.handleChange}
               value={this.state.selectedEvent}
             >
-              {this.state.userEvents.map((option) => {
+              {this.state.userEvents.map(option => {
                 return (
                   <option value={option} className="f6">
                     {option}
@@ -158,8 +158,8 @@ export default class Analysis extends Component {
             </select>
           </div>
 
-          {this.state.selectedEvent === "Sleep" ||
-          this.state.selectedEvent === "Select" ||
+          {this.state.selectedEvent === 'Sleep' ||
+          this.state.selectedEvent === 'Select' ||
           !this.state.selectedEvent ? (
             <></>
           ) : (
@@ -174,7 +174,7 @@ export default class Analysis extends Component {
                 onChange={this.handleChange}
                 value={this.state.selectedSpecificEvent}
               >
-                {this.state.userSpecificEvents.map((option) => {
+                {this.state.userSpecificEvents.map(option => {
                   return (
                     <option value={option} className="f6">
                       {option}
@@ -186,9 +186,9 @@ export default class Analysis extends Component {
           )}
 
           {this.state.selectedData.length === 0 ||
-          this.state.selectedOutcome === "Select" ||
-          this.state.selectedEvent === "Select" ||
-          this.state.selectedSpecificEvent === "Select" ? (
+          this.state.selectedOutcome === 'Select' ||
+          this.state.selectedEvent === 'Select' ||
+          this.state.selectedSpecificEvent === 'Select' ? (
             <></>
           ) : (
             <div>

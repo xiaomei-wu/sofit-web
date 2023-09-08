@@ -1,29 +1,29 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
 export default class Calendar extends Component {
   state = {
-    day: new Date().toISOString().split("T")[0],
+    day: new Date().toISOString().split('T')[0],
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.props.setDate(event.target.value);
     this.setState({
       day: event.target.value,
     });
   };
 
-  handleArrowClick = (event) => {
+  handleArrowClick = event => {
     let newDate = new Date(this.state.day);
 
-    if (event.target.id === "left-arrow")
+    if (event.target.id === 'left-arrow')
       newDate.setDate(newDate.getDate() - 1);
     else newDate.setDate(newDate.getDate() + 1);
 
     this.setState({
-      day: newDate.toISOString().split("T")[0],
+      day: newDate.toISOString().split('T')[0],
     });
 
-    this.props.setDate(newDate.toISOString().split("T")[0]);
+    this.props.setDate(newDate.toISOString().split('T')[0]);
   };
 
   render() {
@@ -35,7 +35,7 @@ export default class Calendar extends Component {
             id="left-arrow"
             onClick={this.handleArrowClick}
           >
-            {"<"}
+            {'<'}
           </a>
           <form className="link tc dim gray f6 f5-ns dib mh2">
             <input
@@ -53,8 +53,8 @@ export default class Calendar extends Component {
             id="right-arrow"
             onClick={this.handleArrowClick}
           >
-            {" "}
-            {">"}{" "}
+            {' '}
+            {'>'}{' '}
           </a>
         </nav>
       </div>

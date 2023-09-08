@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Icons from "./Icons";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Icons from './Icons';
 
 export default function EntryList(props) {
   return (
@@ -9,7 +9,7 @@ export default function EntryList(props) {
         <h2 className="tl pl3 mb0 mt2 bb b--moon-gray gray">{props.title}</h2>
       )}
       <ul className="list pa0 mv1">
-        {props.entries.map((entry) => {
+        {props.entries.map(entry => {
           return (
             <li className="flex bb b--moon-gray">
               <Link

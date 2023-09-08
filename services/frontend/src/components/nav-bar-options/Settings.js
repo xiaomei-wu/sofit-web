@@ -1,21 +1,21 @@
-import React from "react";
-import { logout } from "../../services/auth";
-import { Link } from "react-router-dom";
-import TopBar from "../shared/TopBar";
-import BottomNavbar from "../shared/BottomNavbar";
-import Icons from "../shared/Icons";
-import axios from "axios";
+import React from 'react';
+import { logout } from '../../services/auth';
+import { Link } from 'react-router-dom';
+import TopBar from '../shared/TopBar';
+import BottomNavbar from '../shared/BottomNavbar';
+import Icons from '../shared/Icons';
+import axios from 'axios';
 
 export default class Settings extends React.Component {
   state = {
-    newEmail: "",
-    newPassword: "",
-    updateMessage: "",
-    errMessage: "",
+    newEmail: '',
+    newPassword: '',
+    updateMessage: '',
+    errMessage: '',
     showForm: true,
   };
 
-  handleChange = (event) => {
+  handleChange = event => {
     const { name, value } = event.target;
 
     this.setState({
@@ -23,7 +23,7 @@ export default class Settings extends React.Component {
     });
   };
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
     event?.preventDefault();
 
     const { newEmail, newPassword } = this.state;
@@ -32,13 +32,13 @@ export default class Settings extends React.Component {
       .put(`/api/users/${this.props.user._id}`, {
         data: [newEmail, newPassword],
       })
-      .then((res) => {
+      .then(res => {
         this.setState({
           updateMessage: res.data.message,
           showForm: false,
         });
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   handleLogout = () => {

@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import BottomNavbar from "../shared/BottomNavbar";
-import EntryList from "../shared/EntryList";
-import Calendar from "../shared/Calendar";
+import React, { Component } from 'react';
+import BottomNavbar from '../shared/BottomNavbar';
+import EntryList from '../shared/EntryList';
+import Calendar from '../shared/Calendar';
 
 export default class AddItem extends Component {
   render() {
-    const eventArr = ["Drinks", "Foods", "Sleep", "Exercise"];
-    const outcomeArr = ["Symptoms", "Energy"];
+    const eventArr = ['Drinks', 'Foods', 'Sleep', 'Exercise'];
+    const outcomeArr = ['Symptoms', 'Energy'];
 
     return (
       <div className="flex flex-column justify-center items-center ">

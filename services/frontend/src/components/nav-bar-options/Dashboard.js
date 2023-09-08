@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import DashboardCard from "../shared/DashboardCard";
-import Calendar from "../shared/Calendar";
-import BottomNavbar from "../shared/BottomNavbar";
-import axios from "axios";
+import React, { Component } from 'react';
+import DashboardCard from '../shared/DashboardCard';
+import Calendar from '../shared/Calendar';
+import BottomNavbar from '../shared/BottomNavbar';
+import axios from 'axios';
 
 export default class Dashboard extends Component {
   state = {
-    day: new Date().toISOString().split("T")[0],
+    day: new Date().toISOString().split('T')[0],
     user: this.props.user._id,
     isDayEmpty: true,
     energy: undefined,
@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
     symptoms: [],
   };
 
-  setDate = async (date) => {
+  setDate = async date => {
     await this.setState({
       day: date,
     });
@@ -27,7 +27,7 @@ export default class Dashboard extends Component {
   getUserData() {
     axios
       .get(`/api/days/user/${this.props.user._id}/day/${this.state.day}`)
-      .then((res) => {
+      .then(res => {
         if (res.data === null) {
           this.setState({
             isDayEmpty: true,
@@ -44,7 +44,7 @@ export default class Dashboard extends Component {
           });
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
 
   componentDidMount() {

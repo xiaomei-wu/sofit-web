@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Icons from "./Icons";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Icons from './Icons';
 
 export default function BottomNavbar() {
   return (

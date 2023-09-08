@@ -1,27 +1,27 @@
-import React, { Component } from "react";
-import axios from "axios";
-import BottomNavbar from "../shared/BottomNavbar";
-import TopBar from "../shared/TopBar";
-import DataList from "../add-entries/helper-components/DataList";
-import DateTimeInput from "../add-entries/helper-components/DateTimeInput";
-import Icons from "../shared/Icons";
+import React, { Component } from 'react';
+import axios from 'axios';
+import BottomNavbar from '../shared/BottomNavbar';
+import TopBar from '../shared/TopBar';
+import DataList from '../add-entries/helper-components/DataList';
+import DateTimeInput from '../add-entries/helper-components/DateTimeInput';
+import Icons from '../shared/Icons';
 
 export default class Recipes extends Component {
   state = {
     date:
-      this.props.location.state?.day || new Date().toISOString().split("T")[0],
+      this.props.location.state?.day || new Date().toISOString().split('T')[0],
     startTime:
       this.props.location.state?.element.startTime ||
-      new Date().toLocaleTimeString("en-US", { hour12: false }).substring(0, 5),
+      new Date().toLocaleTimeString('en-US', { hour12: false }).substring(0, 5),
     user: this.props.user._id,
     foods: [],
-    isDayEmpty: "",
+    isDayEmpty: '',
   };
 
   getUserData() {
     axios
       .get(`/api/days/user/${this.props.user._id}`)
-      .then((res) => {
+      .then(res => {
         if (res.data === null) {
           this.setState({
             isDayEmpty: true,
@@ -32,12 +32,12 @@ export default class Recipes extends Component {
           });
         }
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
 
-  flattenDays = (days) => {
+  flattenDays = days => {
     let foods = [];
-    const foodsArr = days.map((day) => day.foods);
+    const foodsArr = days.map(day => day.foods);
     for (let i = 0; i < foodsArr.length; i++) {
       foods = foods.concat(foodsArr[i]);
     }
@@ -56,24 +56,24 @@ export default class Recipes extends Component {
     this.getUserData();
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     const name = event.target.name;
     const value = event.target.value;
-    if (name === "date") {
+    if (name === 'date') {
       this.setState({
         date: value,
       });
-    } else if (name === "startTime") {
+    } else if (name === 'startTime') {
       this.setState({
         tempStartTime: value,
       });
     }
   };
 
-  handleClick = (event) => {
+  handleClick = event => {
     event.preventDefault();
-    const key = event.target.getAttribute("data-key");
-    const clickedRecipe = this.state.foods.find((food) => food._id === key);
+    const key = event.target.getAttribute('data-key');
+    const clickedRecipe = this.state.foods.find(food => food._id === key);
     const payload = {
       user: this.state.user,
       date: this.state.date,
@@ -82,12 +82,12 @@ export default class Recipes extends Component {
     axios
       .post(
         `/api/ingredients/user/${this.props.user._id}/day/${this.state.date}`,
-        payload
+        payload,
       )
       .then(() => {
-        this.props.history.push("/dashboard");
+        this.props.history.push('/dashboard');
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -114,7 +114,7 @@ export default class Recipes extends Component {
             handleChange={this.handleChange}
           />
           <DataList
-            data={this.state.foods.map((food) => {
+            data={this.state.foods.map(food => {
               return {
                 ...food,
                 count: `You ate this recipe ${food.count} times`,

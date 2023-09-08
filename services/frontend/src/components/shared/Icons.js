@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 export default function Icons(props) {
   switch (props.icon) {
-    case "diary":
+    case 'diary':
       return (
         <div>
           <svg
@@ -24,7 +24,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "analysis":
+    case 'analysis':
       return (
         <div>
           <svg
@@ -51,7 +51,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "add":
+    case 'add':
       return (
         <div>
           <svg
@@ -71,7 +71,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "settings":
+    case 'settings':
       return (
         <div>
           <svg
@@ -93,7 +93,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "recipes":
+    case 'recipes':
       return (
         <div>
           <svg
@@ -113,7 +113,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "frequent":
+    case 'frequent':
       return (
         <div>
           <svg
@@ -134,7 +134,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "more":
+    case 'more':
       return (
         <div>
           <svg
@@ -177,7 +177,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Foods":
+    case 'Foods':
       return (
         <div>
           <svg
@@ -202,7 +202,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Foods3":
+    case 'Foods3':
       return (
         <div>
           <svg
@@ -227,7 +227,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Drinks":
+    case 'Drinks':
       return (
         <div>
           <svg
@@ -247,7 +247,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Sleep":
+    case 'Sleep':
       return (
         <div>
           <svg
@@ -312,7 +312,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Sleep3":
+    case 'Sleep3':
       return (
         <div>
           <svg
@@ -377,7 +377,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Exercise":
+    case 'Exercise':
       return (
         <div>
           <svg
@@ -414,7 +414,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Exercise3":
+    case 'Exercise3':
       return (
         <div>
           <svg
@@ -451,7 +451,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Symptoms":
+    case 'Symptoms':
       return (
         <div>
           <svg
@@ -639,7 +639,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Symptoms3":
+    case 'Symptoms3':
       return (
         <div>
           <svg
@@ -827,7 +827,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Energy":
+    case 'Energy':
       return (
         <div>
           <svg
@@ -848,7 +848,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Energy3":
+    case 'Energy3':
       return (
         <div>
           <svg
@@ -869,7 +869,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Edit":
+    case 'Edit':
       return (
         <div>
           <svg
@@ -889,7 +889,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "FoodsDetails":
+    case 'FoodsDetails':
       return (
         <div>
           <svg
@@ -909,7 +909,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "AddButton":
+    case 'AddButton':
       return (
         <div>
           <svg
@@ -949,7 +949,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "AddButton-database":
+    case 'AddButton-database':
       return (
         <div>
           <svg
@@ -976,7 +976,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "health-icon":
+    case 'health-icon':
       return (
         <div>
           <svg
@@ -1006,7 +1006,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "logout":
+    case 'logout':
       return (
         <div>
           <svg
@@ -1025,7 +1025,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "AddButton-simple":
+    case 'AddButton-simple':
       return (
         <div>
           <svg
@@ -1045,7 +1045,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "Drinks3":
+    case 'Drinks3':
       return (
         <div>
           <svg
@@ -1065,7 +1065,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "search":
+    case 'search':
       return (
         <div>
           <svg
@@ -1090,7 +1090,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "time-picker":
+    case 'time-picker':
       return (
         <div>
           <svg
@@ -1145,7 +1145,7 @@ export default function Icons(props) {
         </div>
       );
 
-    case "date-picker":
+    case 'date-picker':
       return (
         <div>
           <svg

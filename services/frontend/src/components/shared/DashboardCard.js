@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Icons from "./Icons";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Icons from './Icons';
 
 export default function DashboardCard(props) {
   function returnCard(
@@ -10,7 +10,7 @@ export default function DashboardCard(props) {
     subtitle,
     subtitleValue,
     path,
-    specificName
+    specificName,
   ) {
     return (
       <div className="flex justify-around items-center mw6 center br3 ba b--light-blue bg-white blue mb2">
@@ -48,78 +48,78 @@ export default function DashboardCard(props) {
   }
 
   switch (props.entryType) {
-    case "energy":
+    case 'energy':
       return returnCard(
         props.energy,
-        "Energy3",
-        "Energy",
-        "Energy level",
+        'Energy3',
+        'Energy',
+        'Energy level',
         props.energy.energyLevel,
-        "/add/Energy"
+        '/add/Energy',
       );
 
-    case "exercise":
-      return props.exercises.map((exercise) =>
+    case 'exercise':
+      return props.exercises.map(exercise =>
         returnCard(
           exercise,
-          "Exercise3",
-          "Exercise",
-          "Intensity",
+          'Exercise3',
+          'Exercise',
+          'Intensity',
           exercise.intensityLevel,
-          "/add/Exercise",
-          exercise.name
-        )
+          '/add/Exercise',
+          exercise.name,
+        ),
       );
 
-    case "symptom":
-      return props.symptoms.map((symptom) =>
+    case 'symptom':
+      return props.symptoms.map(symptom =>
         returnCard(
           symptom,
-          "Symptoms3",
-          "Symptom",
-          "Intensity",
+          'Symptoms3',
+          'Symptom',
+          'Intensity',
           symptom.intensity,
-          "/add/Symptoms",
-          symptom.name
-        )
+          '/add/Symptoms',
+          symptom.name,
+        ),
       );
 
-    case "sleep":
-      return props.sleep.map((sleep) =>
+    case 'sleep':
+      return props.sleep.map(sleep =>
         returnCard(
           sleep,
-          "Sleep3",
-          "Sleep",
-          "Duration",
+          'Sleep3',
+          'Sleep',
+          'Duration',
           sleep.duration,
-          "/add/Sleep"
-        )
+          '/add/Sleep',
+        ),
       );
 
-    case "food":
-      return props.foods.map((food) =>
+    case 'food':
+      return props.foods.map(food =>
         returnCard(
           food,
-          "Foods3",
-          "Foods",
-          "Portions",
+          'Foods3',
+          'Foods',
+          'Portions',
           food.eatenPortion,
-          "/edit/Foods",
-          food.name
-        )
+          '/edit/Foods',
+          food.name,
+        ),
       );
 
-    case "drink":
-      return props.drinks.map((drink) =>
+    case 'drink':
+      return props.drinks.map(drink =>
         returnCard(
           drink,
-          "Drinks3",
-          "Drinks",
-          "Portions",
+          'Drinks3',
+          'Drinks',
+          'Portions',
           drink.servingAmount,
-          "/edit/Drinks",
-          drink.name
-        )
+          '/edit/Drinks',
+          drink.name,
+        ),
       );
 
     default:
