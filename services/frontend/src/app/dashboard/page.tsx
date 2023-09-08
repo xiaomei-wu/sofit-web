@@ -9,6 +9,8 @@ import CalendarComp from '@/components/CalendarComp/CalendarComp'
 import RecomendationCard from '@/components/RecomendationCard/RecomendationCard'
 import ActicityCard from '@/components/ActivityCard/ActivityCard'
 import dynamic from 'next/dynamic'
+import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner'
+import DetailsCard from '@/components/DetailsCard/DetailsCard'
 // import Calendar from 'react-calendar';
 // import { useState } from 'react'
 // import { Value } from '../../../node_modules/react-calendar/dist/cjs/shared/types'
@@ -52,8 +54,22 @@ export default function Home() {
               <section className={styles.calendar}>
               <NoSSRCalendar />
               </section>
-              <section className={styles.doctors}>Doctors</section>
-              <section className={styles.details}>Details</section>
+              <section className={styles.doctors}>
+                <h4>Doctors</h4>
+
+                <DoctorsBanner />
+              </section>
+              <section className={styles.details}>
+                <h4>Details</h4>
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Body Measurements"} subtitle={"BFP: 25"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Menstrual Flow"} subtitle={"24 Days ago"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Drug consultation"} subtitle={"09:00 am - 10:00 am"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Heart"} subtitle={"Blood Pressure"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Body Measurements"} subtitle={"BFP: 25"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Menstrual Flow"} subtitle={"24 Days ago"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Drug consultation"} subtitle={"09:00 am - 10:00 am"} />
+                <DetailsCard icon={'/avatars/meerkat.png'} title={"Heart"} subtitle={"Blood Pressure"} />
+              </section>
             </div>
           </div>
 
