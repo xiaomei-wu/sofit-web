@@ -1,17 +1,19 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { DrinksService } from './drinks.service';
 import { CreateDrinkDto } from './dto/create-drink.dto';
 import { UpdateDrinkDto } from './dto/update-drink.dto';
 
 @Controller('drinks')
+@ApiTags('drinks')
 export class DrinksController {
   constructor(private readonly drinksService: DrinksService) {}
 
@@ -25,18 +27,21 @@ export class DrinksController {
     return this.drinksService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.drinksService.findOne(+id);
+  @Get(':drinkId')
+  findById(@Param('drinkId') drinkId: string) {
+    return this.drinksService.findById(drinkId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateDrinkDto: UpdateDrinkDto) {
-    return this.drinksService.update(+id, updateDrinkDto);
+  @Patch(':drinkId')
+  update(
+    @Param('drinkId') drinkId: string,
+    @Body() updateDrinkDto: UpdateDrinkDto,
+  ) {
+    return this.drinksService.update(drinkId, updateDrinkDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.drinksService.remove(+id);
+  @Delete('drinkId')
+  delete(@Param('drinkId') drinkId: string) {
+    return this.drinksService.delete(drinkId);
   }
 }

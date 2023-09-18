@@ -177,3 +177,50 @@ model UserFoodRecord {
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 }
+
+model Drink {
+  uuid          String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name          String
+  servingAmount Float
+  servingSize   String
+  date          DateTime
+  startTime     DateTime
+  category      String?
+  imgUrl        String?
+}
+
+model Energy {
+  uuid        String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date        DateTime
+  startTime   DateTime
+  energyLevel Int
+  notes       String
+}
+
+model Excercise {
+  uuid            String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date            DateTime
+  startTime       DateTime
+  name            String
+  notes           String
+  intensityLevel  Int
+  durationSeconds Int
+}
+
+model Sleep {
+  uuid            String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date            DateTime
+  startTime       DateTime
+  notes           String
+  durationSeconds Int
+}
+
+model Symptom {
+  uuid            String   @id @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  date            DateTime
+  startTime       DateTime
+  name            String
+  notes           String
+  intensityLevel  Int
+  durationSeconds Int
+}
