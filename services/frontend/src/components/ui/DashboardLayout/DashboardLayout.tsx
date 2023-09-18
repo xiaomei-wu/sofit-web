@@ -1,5 +1,5 @@
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
-import SmallFeatureCard from '@/components/SmallFeatureCard/SmallFeatureCard';
+import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureCard';
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
 import dynamic from 'next/dynamic';
@@ -36,41 +36,49 @@ export default function DashboardLayout({ children }) {
                   icon={'/fire.png'}
                   subtitle={'BFP: 25'}
                   title={'Activity'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/nutrition.png'}
                   subtitle={'24 Days ago'}
                   title={'Nutrition'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/drink.png'}
                   subtitle={'09:00 am - 10:00 am'}
                   title={'Alcohol'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/tongue.png'}
                   subtitle={'Blood Pressure'}
                   title={'Symptome'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/diet.png'}
                   subtitle={'BFP: 25'}
                   title={'Body Measurements'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/menstrual-cycle.png'}
                   subtitle={'24 Days ago'}
                   title={'Menstrual Flow'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/drugs.png'}
                   subtitle={'09:00 am - 10:00 am'}
                   title={'Medications'}
+                  actionIcon="/right-chevron.png"
                 />
                 <SmallFeatureCard
                   icon={'/blood-pressure.png'}
                   subtitle={'Blood Pressure'}
                   title={'Heart'}
+                  actionIcon="/right-chevron.png"
                 />
               </section>
             </div>

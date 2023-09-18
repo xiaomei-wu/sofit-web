@@ -1,6 +1,6 @@
-// prisma/seed.ts
-
 import { PrismaClient } from '@prisma/client';
+import { uuid } from 'uuidv4';
+import { recipeSeeds } from './seedData';
 
 // initialize Prisma Client
 const prisma = new PrismaClient();
@@ -31,6 +31,129 @@ async function main() {
   });
 
   console.log({ user1, user2 });
+
+  for (let index = 0; index < recipeSeeds.length; index++) {
+    const recipeSeed = recipeSeeds[index];
+    const recipe = await prisma.recipe.upsert({
+      where: { uuid: uuid() },
+      update: {},
+      create: {
+        uuid: uuid(),
+        name: recipeSeed.recipe.label,
+        imgUrl: recipeSeed.recipe.images.SMALL.url,
+        source: recipeSeed.recipe.source,
+        yield: recipeSeed.recipe.yield,
+        calories: Math.round(recipeSeed.recipe.calories),
+      },
+    });
+
+    const nutrients = await prisma.nutrient.upsert({
+      where: { uuid: uuid() },
+      update: {},
+      create: {
+        uuid: uuid(),
+        enerc_Kcal: recipeSeed.recipe.totalNutrients.ENERC_KCAL.quantity,
+        procnt_g: recipeSeed.recipe.totalNutrients.PROCNT.quantity,
+        fat_g: recipeSeed.recipe.totalNutrients.FAT.quantity,
+        chocdf_g: recipeSeed.recipe.totalNutrients.CHOCDF.quantity,
+        sugar_g: recipeSeed.recipe.totalNutrients.SUGAR.quantity,
+        fibt_g: recipeSeed.recipe.totalNutrients.FIBTG.quantity,
+        recipeId: recipe.uuid,
+      },
+    });
+
+    console.log(`Nutrients for Recipe ${index} seeded successfully`, nutrients);
+
+    for (const recipeIngredient of recipeSeed.recipe.ingredients) {
+      await prisma.recipeIngredient.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          text: recipeIngredient.text,
+          food: recipeIngredient.food,
+          weight: recipeIngredient.weight,
+          measure: recipeIngredient.measure,
+          quantity: recipeIngredient.quantity,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const dietLabel of recipeSeed.recipe.dietLabels) {
+      await prisma.dietLabel.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: dietLabel,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const healthLabel of recipeSeed.recipe.healthLabels) {
+      await prisma.healthLabel.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: healthLabel,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const mealType of recipeSeed.recipe.mealType) {
+      await prisma.mealType.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: mealType,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const cuisineType of recipeSeed.recipe.cuisineType) {
+      await prisma.cuisineType.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: cuisineType,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const dishType of recipeSeed.recipe.dishType) {
+      await prisma.dishType.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: dishType,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+
+    for (const caution of recipeSeed.recipe.cautions) {
+      await prisma.caution.upsert({
+        where: { uuid: uuid() },
+        update: {},
+        create: {
+          uuid: uuid(),
+          label: caution,
+          recipeId: recipe.uuid,
+        },
+      });
+    }
+  }
+
+  console.log('Seeding completed.');
 }
 
 // execute the main function

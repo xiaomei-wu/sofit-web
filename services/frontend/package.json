@@ -11,10 +11,13 @@
     "lint:stylelint": "stylelint \"**/*.{css,scss}\" --fix"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.17.0",
+    "@ant-design/icons": "^5.2.6",
     "@types/node": "20.5.7",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@vercel/og": "^0.5.13",
+    "antd": "^5.9.0",
     "chart.js": "^4.4.0",
     "eslint-config-next": "13.4.19",
     "next": "13.4.19",
@@ -23,6 +26,7 @@
     "react-chartjs-2": "^5.2.0",
     "react-chartkick": "^0.5.3",
     "react-dom": "18.2.0",
+    "react-multi-carousel": "^2.8.4",
     "shared-ui": "workspace:^",
     "typescript": "5.2.2"
   },

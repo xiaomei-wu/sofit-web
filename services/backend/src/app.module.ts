@@ -27,20 +27,21 @@ import { SleepService } from './modules/sleep/sleep.service';
 import { SymptomsController } from './modules/symptoms/symptoms.controller';
 import { SymptomsModule } from './modules/symptoms/symptoms.module';
 import { SymptomsService } from './modules/symptoms/symptoms.service';
-import { UsersController } from './modules/users/users.controller';
-import { UsersModule } from './modules/users/users.module';
-import { UsersService } from './modules/users/users.service';
+import { UserController } from './modules/user/user.controller';
+import { UserModule } from './modules/user/user.module';
+import { UserService } from './modules/user/user.service';
 // import { DatabaseModule } from './core/database/database.module';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './modules/auth/jwt.strategy';
 import { LocalStrategy } from './modules/auth/local.strategy';
+import { RecipeModule } from './modules/recipe/recipe.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    UsersModule,
+    UserModule,
     AuthModule,
     AnalysisModule,
     EnergyModule,
@@ -51,6 +52,7 @@ import { PrismaService } from './prisma/prisma.service';
     SymptomsModule,
     DrinksModule,
     PrismaModule,
+    RecipeModule,
   ],
   controllers: [
     AnalysisController,
@@ -61,7 +63,7 @@ import { PrismaService } from './prisma/prisma.service';
     HistoriesController,
     SleepController,
     SymptomsController,
-    UsersController,
+    UserController,
     DrinksController,
   ],
   providers: [
@@ -73,7 +75,7 @@ import { PrismaService } from './prisma/prisma.service';
     HistoriesService,
     SleepService,
     SymptomsService,
-    UsersService,
+    UserService,
     DrinksService,
     LocalStrategy,
     JwtStrategy,

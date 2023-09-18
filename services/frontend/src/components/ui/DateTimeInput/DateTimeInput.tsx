@@ -1,6 +1,7 @@
 'use cleint';
 
 import React from 'react';
+import styles from './DateTimeInput.module.css';
 
 interface DateTimeInputProps {
   date: string;
@@ -14,11 +15,9 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
   handleChange,
 }) => (
   <div>
-    <form className="date-form">
-      <div className="row-container">
-        {/* Icon */}
+    <form className={styles.dateTimeWrapper}>
+      <div>
         <input
-          className="f6 pa1 mr2 ml1 w4 mv1"
           id="date"
           name="date"
           onChange={handleChange}
@@ -26,10 +25,8 @@ const DateTimeInput: React.FC<DateTimeInputProps> = ({
           value={date}
         />
       </div>
-      <div className="row-container">
-        {/* Icon */}
+      <div>
         <input
-          className="f6 pa1 mr2 ml1 w4 mv1"
           id="startTime"
           name="startTime"
           onChange={handleChange}

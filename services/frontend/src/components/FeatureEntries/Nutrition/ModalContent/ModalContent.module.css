@@ -1,0 +1,7 @@
+.switchbar {
+  display: flex;
+  gap: 0.3rem;
+  margin-bottom: 1.5rem;
+  align-items: center;
+  justify-content: flex-start;
+}

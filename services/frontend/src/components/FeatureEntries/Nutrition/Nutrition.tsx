@@ -1,370 +1,269 @@
 'use client';
 
-import { fetchIngredients, fetchRecipes } from '@/networks';
-import { capitalizeFirstLetter } from '@/utils';
+import {
+  createFood,
+  createRecipe,
+  fetchEdamamFood,
+  fetchEdamamRecipes,
+  FoodCategory,
+  getFoodRecordsByDate
+} from '@/networks';
 import { useEffect, useState } from 'react';
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+import styles from './Nutrition.module.css';
 
-import DateTimeInput from '@/components/ui/DateTimeInput/DateTimeInput';
-import SearchInput from '@/components/ui/SearchInput/SearchInput';
+import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
+import { Button, Input, Modal, Tag } from 'antd';
 import DataList from '../../shared/DataList/DataList';
-import IngrediensForm from './IngrediensForm/IngrediensForm';
-import RecipesForm from './RecipesForm/RecipesForm';
+import ModalContent from './ModalContent/ModalContent';
+import { responsive } from './Nutrition.helper';
 
 export default function Nutrition() {
-  const [state, setState] = useState({
-    food: {
-      startTime: new Date()
-        .toLocaleTimeString('en-US', { hour12: false })
-        .substring(0, 5),
-      name: '',
-      portion: '',
-      eatenPortion: '',
-      imgUrl: '',
-      ingredients: [],
-    },
-    ingredients: [],
-    recipes: [],
-    editing: false,
-    tempIngredient: {},
-    tempStartTime: '',
-    handleShowSingle: true,
-    query: '',
-    recipeQuery: '',
-    date: new Date().toISOString().split('T')[0], // You can set the date based on your requirements.
-    errors: {},
-  });
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [recentRecord, setRecentRecord] = useState([]);
+  const [foodSearchResults, setFoodSearchResults] = useState([]);
+  const [recipeSearchResults, setRecipeSearchResults] = useState([]);
+  const [selectedFood, setSelectedFood] = useState(null);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState(null);
 
-  const getIngredientsFromEdamam = async () => {
-    const response = await fetchIngredients({ query: '' });
-
-    setState(prevState => ({
-      ...prevState,
-      ingredients: response.hints.map(hint => hint.food),
-    }));
+  const showModal = () => {
+    setIsModalOpen(true);
   };
 
-  const getRecipeFromEdamam = async () => {
-    const response = await fetchRecipes({ query: '' });
-    setState(prevState => ({
-      ...prevState,
-      recipes: response?.hits?.map(hit => ({
-        ...hit.recipe,
-        healthLabels: hit.recipe.healthLabels[0],
-      })),
-    }));
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   useEffect(() => {
-    getIngredientsFromEdamam();
-    getRecipeFromEdamam();
+    const fetchFoodRecord = async () => {
+      const response = await getFoodRecordsByDate(new Date().toISOString());
+
+      console.log(response, 'response');
+
+      setRecentRecord(response);
+    };
+
+    fetchFoodRecord();
   }, []);
 
-  const apiFormat = apiObj => {
-    return {
-      name: apiObj.text,
-      servingAmount: apiObj.weight,
-      imgUrl: apiObj.image,
-      servingSize: 'g',
-    };
+  const mapCategory = (category: string) => {
+    if (category === 'Packaged foods') return FoodCategory.PACKAGED_FOODS;
+    return FoodCategory.GENERIC_FOODS;
   };
 
-  const handleClick = event => {
-    event.preventDefault();
+  const searchFood = async value => {
+    const response = await fetchEdamamFood(value);
 
-    const key = event.target.getAttribute('data-key');
-    setState(prevState => {
-      const clickedIngr = prevState.ingredients.find(
-        ingredient => ingredient.foodId === key,
-      );
-      return {
-        ...prevState,
-        tempIngredient: {
-          ...prevState.tempIngredient,
-          name: clickedIngr.label,
-          brand: clickedIngr.brand,
-          category: clickedIngr.category,
-          imgUrl: clickedIngr.image,
+    const foodResults = [];
+
+    console.log(response, 'response');
+
+    for (const hint of response.hints) {
+      const edamamFood = hint.food;
+
+      const createFoodDto = {
+        name: edamamFood.label,
+        brand: edamamFood.knownAs,
+        imgUrl: edamamFood.image,
+        category: mapCategory(edamamFood.category),
+        nutrients: {
+          enerc_Kcal: Math.round(edamamFood.nutrients.ENERC_KCAL),
+          procnt_g: Math.round(edamamFood.nutrients.PROCNT),
+          fat_g: Math.round(edamamFood.nutrients.FAT),
+          chocdf_g: Math.round(edamamFood.nutrients.CHOCDF),
+          sugar_g: Math.round(edamamFood.nutrients.SUGAR),
+          fibt_g: Math.round(edamamFood.nutrients.FIBTG),
         },
       };
-    });
+
+      const createdFood = await createFood(createFoodDto);
+      foodResults.push(createdFood);
+    }
+    setFoodSearchResults(foodResults);
   };
 
-  const handleClickRecipe = event => {
-    event.preventDefault();
-    const key = event.target.getAttribute('data-key');
+  const searchRecipe = async value => {
+    const response = await fetchEdamamRecipes(value);
+    const recipeResults = [];
+    for (const hit of response.hits) {
+      const edamamRecipe = hit.recipe;
 
-    setState(prevState => {
-      const clickedRecipe = prevState.recipes.find(
-        recipe => recipe.uri === key,
-      );
-      return {
-        ...prevState,
-        food: {
-          ...prevState.food,
-          name: clickedRecipe.label,
-          portion: clickedRecipe.yield,
-          category: clickedRecipe.healthLabels,
-          imgUrl: clickedRecipe.image,
-          ingredients: clickedRecipe.ingredients.map(apiFormat),
+      const createRecipeDto = {
+        name: edamamRecipe.label,
+        imgUrl: edamamRecipe.image,
+        source: edamamRecipe.source,
+        yield: edamamRecipe.yield,
+        dietLabels: edamamRecipe.dietLabels.map(item => ({
+          label: item,
+        })),
+        healthLabels: edamamRecipe.healthLabels.map(item => ({
+          label: item,
+        })),
+        cautions: edamamRecipe.cautions.map(item => ({
+          label: item,
+        })),
+        ingredients: edamamRecipe.ingredients.map(ingredient => ({
+          text: ingredient.text,
+          food: ingredient.food,
+          quantity: ingredient.quantity,
+          measure: ingredient.measure,
+          weight: ingredient.weight,
+        })),
+        calories: Math.round(edamamRecipe.calories),
+        mealType: edamamRecipe.mealType.map(item => ({
+          label: item,
+        })),
+        dishType: edamamRecipe.dishType.map(item => ({
+          label: item,
+        })),
+        nutrients: {
+          enerc_Kcal: Math.round(
+            edamamRecipe.totalNutrients.ENERC_KCAL.quantity,
+          ),
+          procnt_g: Math.round(edamamRecipe.totalNutrients.PROCNT.quantity),
+          fat_g: Math.round(edamamRecipe.totalNutrients.FAT.quantity),
+          chocdf_g: Math.round(edamamRecipe.totalNutrients.CHOCDF.quantity),
+          sugar_g: Math.round(edamamRecipe.totalNutrients.SUGAR.quantity),
+          fibt_g: Math.round(edamamRecipe.totalNutrients.FIBTG.quantity),
         },
       };
-    });
-  };
 
-  const handleSearch = event => {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    console.log(value);
-    console.log(name);
-
-    setState(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-
-    console.log(state);
-  };
-
-  const handleQuery = async event => {
-    event?.preventDefault();
-
-    const response = await fetchIngredients({ query: state.query });
-
-    setState(prevState => ({
-      ...prevState,
-      query: state.query,
-      ingredients: response.hints.map(hint => hint.food),
-    }));
-  };
-
-  const handleRecipeQuery = async event => {
-    event?.preventDefault();
-    const response = await fetchRecipes({ query: state.query });
-
-    setState(prevState => ({
-      ...prevState,
-      recipeQuery: state.query,
-      recipes: response.hits.map(hit => ({
-        ...hit.recipe,
-        healthLabels: hit.recipe.healthLabels[0],
-      })),
-    }));
-  };
-
-  const toggleRecipe = () => {
-    setState(prevState => ({
-      ...prevState,
-      handleShowSingle: false,
-    }));
-  };
-
-  const toggleSingle = () => {
-    setState(prevState => ({
-      ...prevState,
-      handleShowSingle: true,
-    }));
-  };
-
-  const handleRecipeValidation = () => {
-    const food = state.food;
-    const errors = {};
-    let formIsValid = true;
-
-    if (!food.name) {
-      formIsValid = false;
-      errors.name = 'Food name cannot be empty';
-    }
-    if (food.eatenPortion === '') {
-      formIsValid = false;
-      errors.eatenPortion = 'Your portion cannot be empty';
+      const createdRecipe = await createRecipe(createRecipeDto);
+      recipeResults.push(createdRecipe);
     }
 
-    setState(prevState => ({
-      ...prevState,
-      errors: errors,
-    }));
-
-    return formIsValid;
+    setRecipeSearchResults(recipeResults);
   };
 
-  const handleSingleValidation = () => {
-    const tempIngredient = state.tempIngredient;
-    const errors = {};
-    let formIsValid = true;
-
-    if (!tempIngredient.name) {
-      formIsValid = false;
-      errors.name = 'Food name cannot be empty';
-    }
-    if (!tempIngredient.servingAmount) {
-      formIsValid = false;
-      errors.servingAmount = 'Serving amount cannot be empty';
-    }
-    if (!tempIngredient.servingSize) {
-      formIsValid = false;
-      errors.servingSize = 'Serving size cannot be empty';
-    }
-
-    setState(prevState => ({
-      ...prevState,
-      errors: errors,
-    }));
-
-    return formIsValid;
+  const onSearch = async value => {
+    await searchFood(value);
+    await searchRecipe(value);
   };
 
-  const handleSingleSubmit = event => {
-    event.preventDefault();
-    if (handleSingleValidation()) {
-      setState(
-        prevState => ({
-          ...prevState,
-          food: {
-            ...prevState.food,
-            ingredients: [prevState.tempIngredient],
-            name: capitalizeFirstLetter(prevState.tempIngredient.name),
-            portion: 1,
-            eatenPortion: 1,
-            startTime: prevState.tempStartTime,
-            imgUrl: prevState.tempIngredient.imgUrl,
-          },
-        }),
-        () => {
-          const payload = {
-            user: {},
-            date: state.date,
-            food: state.food,
-          };
-          // TODO
-          // axios
-          //   .post(`/api/ingredients/user/${user}/day/${state.date}`, payload)
-          //   .then(() => {
-          //     router.push('/dashboard');
-          //   })
-          //   .catch(err => console.log(err));
-        },
-      );
-    } else {
-      router.push('/add/Foods');
-    }
-  };
-
-  const handleRecipeSubmit = event => {
-    event.preventDefault();
-    if (handleRecipeValidation()) {
-      setState(
-        prevState => ({
-          ...prevState,
-          food: {
-            ...prevState.food,
-            name: capitalizeFirstLetter(prevState.food.name),
-            startTime: prevState.tempStartTime,
-            imgUrl: prevState.food.imgUrl,
-          },
-        }),
-        () => {
-          const payload = {
-            user: {},
-            date: state.date,
-            food: state.food,
-          };
-          // TODO
-          // axios
-          //   .post(`/api/ingredients/user/${user}/day/${state.date}`, payload)
-          //   .then(() => {
-          //     router.push('/dashboard');
-          //   })
-          //   .catch(err => console.log(err));
-        },
-      );
-    }
-  };
-
-  let dataComponent, formComponent, searchField, title;
-  if (state.handleShowSingle) {
-    dataComponent = (
-      <DataList
-        data={state.ingredients}
-        dataKey="foodId"
-        handleClick={handleClick}
-        heading="label"
-        img="image"
-        key="foodId"
-        subtitle="category"
-      />
-    );
-    formComponent = (
-      <IngrediensForm
-        {...state}
-        handleChange={handleSearch}
-        handleSubmit={handleSingleSubmit}
-      />
-    );
-    searchField = (
-      <SearchInput
-        handleQuery={handleQuery}
-        handleSearch={handleSearch}
-        placeholder="Ingredients in your dish..."
-        query={state.query || ''}
-      />
-    );
-    title = <h4>Suggested Foods</h4>;
-  } else {
-    dataComponent = (
-      <DataList
-        data={state.recipes}
-        dataKey="uri"
-        handleClick={handleClickRecipe}
-        heading="label"
-        img="image"
-        key="uri"
-        subtitle="healthLabels"
-      />
-    );
-    formComponent = (
-      <RecipesForm
-        {...state}
-        handleChange={handleSearch}
-        handleSubmit={handleRecipeSubmit}
-      />
-    );
-    searchField = (
-      <SearchInput
-        handleQuery={handleRecipeQuery}
-        handleSearch={handleSearch}
-        placeholder="Find your recipe..."
-        query={state.recipeQuery}
-      />
-    );
-    title = <h4>Suggested Recipes</h4>;
-  }
+  console.log(recentRecord);
 
   return (
     <div>
-      <div className="pt3 pb6">
-        <DateTimeInput
-          date={state.date}
-          handleChange={handleSearch}
-          startTime={state.tempStartTime}
-        />
-        <button
-          className="f6 link dim br4 ph2 pv1 mb2 dib white bg-dark-blue"
-          onClick={toggleSingle}
-        >
-          + Add a single food
-        </button>
-        <button
-          className="f6 link dim br4 ph3 pv1 mb2 dib white bg-dark-blue"
-          onClick={toggleRecipe}
-        >
-          + Add a recipe
-        </button>
+      <div>
+        <div className={styles.searchbar}>
+          <Input.Search
+            placeholder="Search food or recipes..."
+            onSearch={onSearch}
+            style={{ width: 300 }}
+          />
+
+          <div className={styles.rightbar}>
+            <Button type="primary" onClick={showModal}>
+              Not found? Add it here
+            </Button>
+          </div>
+        </div>
+
         <div>
-          {title}
-          {searchField}
-          {dataComponent}
-          {formComponent}
+          {foodSearchResults.length > 0 && (
+            <>
+              <h4>Food</h4>
+              <Carousel responsive={responsive}>
+                {foodSearchResults.map(item => (
+                  <div key={item.uuid}>
+                    <CarouselCard
+                      imgUrl={item.imgUrl || '/food.png'}
+                      title={item.name}
+                      emphasis={`${item.nutrients[0].enerc_Kcal} Kcal`}
+                      onClick={() => {
+                        setSelectedFood(item);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      <p>Protein {item.nutrients[0].procnt_g} g</p>
+                      <p>Fat {item.nutrients[0].fat_g} g</p>
+                      <p>Carb {item.nutrients[0].chocdf_g} g</p>
+                    </CarouselCard>
+                  </div>
+                ))}
+              </Carousel>
+            </>
+          )}
+
+          {recipeSearchResults.length > 0 && (
+            <>
+              <h4>Recipes</h4>
+              <Carousel responsive={responsive}>
+                {recipeSearchResults.map(item => (
+                  <div key={item.uuid}>
+                    <CarouselCard
+                      imgUrl={item.imgUrl || '/food.png'}
+                      title={item.name}
+                      subtitle={`Yield: ${item.yield}`}
+                      emphasis={`${Math.round(
+                        item.calories / item.yield,
+                      )} kcal/yield`}
+                      onClick={() => {
+                        setSelectedRecipe(item);
+                        setIsModalOpen(true);
+                      }}
+                    >
+                      <div>
+                        {item.dietLabels
+                          .map(item => item.label)
+                          .slice(0, 3)
+                          .map(label => (
+                            <Tag color="blue" key={label}>
+                              {label}
+                            </Tag>
+                          ))}
+                      </div>
+                      <div>
+                        {item.healthLabels
+                          .map(item => item.label)
+                          .slice(0, 3)
+                          .map(label => (
+                            <Tag color={'green'} key={label}>
+                              {label}
+                            </Tag>
+                          ))}
+                      </div>
+
+                      <div>
+                        {item.cuisineType
+                          .map(item => item.label)
+                          .slice(0, 3)
+                          .map(label => (
+                            <Tag color="gold" key={label}>
+                              {label}
+                            </Tag>
+                          ))}
+                      </div>
+                    </CarouselCard>
+                  </div>
+                ))}
+              </Carousel>
+            </>
+          )}
+          <h4>{recentRecord.length > 0 ? 'Today' : 'Today no data yet'}</h4>
+          <DataList
+            data={recentRecord}
+            setSelectedRecord={setSelectedRecord}
+            setIsModalOpen={setIsModalOpen}
+          />
+          <>
+            <Modal
+              title={null}
+              open={isModalOpen}
+              footer={null}
+              onCancel={closeModal}
+              destroyOnClose
+            >
+              <ModalContent
+                closeModal={closeModal}
+                selectedFood={selectedFood}
+                selectedRecipe={selectedRecipe}
+                selectedRecord={selectedRecord}
+              />
+            </Modal>
+          </>
         </div>
       </div>
     </div>

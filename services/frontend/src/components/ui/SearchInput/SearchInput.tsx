@@ -1,18 +1,19 @@
+import styles from './SearchInput.module.css';
+
 export default function SearchInput({
-  handleQuery,
-  handleSearch,
+  onSubmit,
+  onChange,
   placeholder,
   query,
 }) {
   return (
-    <div className="search-bar">
-      <form onSubmit={handleQuery}>
+    <div className={styles.searchbar}>
+      <form onSubmit={onSubmit}>
         <label id="search-label">
           <input
-            className="f6 pa1 mr3 ml1 w4 mv1"
-            id="input-style"
+            className={styles.searchInput}
             name="query"
-            onChange={handleSearch}
+            onChange={onChange}
             placeholder={placeholder}
             type="search"
             value={query}

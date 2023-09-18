@@ -1,137 +1,242 @@
-import Input from '@/components/ui/Input/Input';
-import { capitalizeFirstLetter } from '@/utils';
-import IngrediensForm from '../IngrediensForm/IngrediensForm';
+import {
+  createRecipeRecord,
+  MealCategory,
+  updateRecipeRecord
+} from '@/networks';
+import { dateFormat, timeFormat } from '@/utils';
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  Button,
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  Select,
+  Space,
+  TimePicker
+} from 'antd';
+import dayjs from 'dayjs';
+import styles from './RecipesForm.module.css';
 
-export default function RecipesForm(props) {
-  let editInterface = null;
-  if (props.edit === true) {
-    editInterface = (
-      <IngrediensForm
-        {...props}
-        handleChange={props.handleChange}
-        handleSubmit={props.handleSingleSubmit}
-      />
-    );
-  }
+export default function RecipesForm({
+  closeModal,
+  selectedRecipe,
+  isEditMode,
+  selectedRecord,
+}) {
+  const initialValues = {
+    date: dayjs(selectedRecord?.date) || dayjs(),
+    startTime: dayjs(selectedRecord?.startTime) || dayjs(),
+    name: selectedRecipe?.name || '',
+    yield: selectedRecipe?.yield || '',
+    ingredients:
+      selectedRecipe?.ingredients.map(ingredient => ({
+        food: ingredient.food,
+        text: ingredient.text,
+        quantity: ingredient.quantity,
+        measure: ingredient.measure,
+        weight: ingredient.weight,
+      })) || [],
+    servingAmount: selectedRecord?.servingAmount || '',
+    servingSize: selectedRecord?.servingSize || '',
+    mealCategory: selectedRecord?.mealCategory || MealCategory.BREAKFAST,
+    calories: selectedRecipe?.calories || '',
+  };
 
-  let addInterface = null;
-  if (props.add === true) {
-    addInterface = (
-      <IngrediensForm
-        {...props}
-        addNewIngr={props.addNewIngr}
-        handleChange={props.handleChange}
-        handleEdit={props.handleEdit}
-        handleSubmit={props.handleAddSubmit}
-      />
-    );
-  }
+  const onFinish = async (values: CreateFoodDto) => {
+    const payload = {
+      date: values.date,
+      startTime: values.startTime,
+      servingAmount: values.servingAmount,
+      servingSize: values.servingSize,
+      mealCategory: values.mealCategory,
+      recipe: {
+        name: values.name,
+        yield: values.yield,
+        calories: values.calories,
+        ingredients: values.ingredients,
+      },
+    };
+
+    try {
+      // isEditMode
+      isEditMode
+        ? await updateRecipeRecord(selectedRecord.uuid, {
+            ...selectedRecord,
+            ...payload,
+          })
+        : await createRecipeRecord(payload);
+      message.success('Success');
+      closeModal();
+    } catch (error) {
+      message.error(error);
+    }
+  };
+
+  type FieldType = {
+    name: string;
+    brand?: string;
+    servingAmount: number;
+    servingSize: string;
+    mealCategory: string;
+  };
 
   return (
-    <div>
-      {props.editing ? (
-        <h3 className="f5 db">What did you eat? </h3>
-      ) : (
-        <h3 className="f5 db"> Add a recipe </h3>
-      )}
+    <Form
+      name="recipe"
+      initialValues={initialValues}
+      onFinish={onFinish}
+      autoComplete="off"
+      layout="vertical"
+      className={styles.form}
+    >
+      <div className={styles.headRow}>
+        <Form.Item<FieldType>
+          name="date"
+          rules={[{ required: true, message: 'Please input your date!' }]}
+          className={styles.formItem}
+        >
+          <DatePicker
+            format={dateFormat}
+            // defaultValue={dayjs(selectedRecord.date, dateFormat) || dayjs()}
+          />
+        </Form.Item>
 
-      <form
-        onSubmit={props.editing ? props.editRecipeSubmit : props.handleSubmit}
-      >
-        <Input
-          handleChange={props.handleChange}
-          id="recipeName"
-          name="recipeName"
-          title={props.editing ? 'Food Name: ' : 'Recipe Name: '}
-          type="text"
-          value={capitalizeFirstLetter(props.food.name)}
-        />
-        <span style={{ color: 'red' }}>{props.errors.name}</span>
-        <Input
-          handleChange={props.handleChange}
-          id="portion"
-          min="0"
-          name="portion"
-          title="Yield"
-          type="number"
-          value={props.food.portion}
-        />
-        <Input
-          handleChange={props.handleChange}
-          id="eatenPortion"
-          min="0"
-          name="eatenPortion"
-          title="Your Portion"
-          type="number"
-          value={props.food.eatenPortion}
-        />
-        <span style={{ color: 'red' }}>{props.errors.eatenPortion}</span>
-      </form>
+        <Form.Item<FieldType>
+          className={styles.formItem}
+          name="startTime"
+          rules={[{ required: true, message: 'Please input your time!' }]}
+        >
+          <TimePicker format={timeFormat} />
+        </Form.Item>
 
-      <div style={{ padding: '20px 0 5px 0' }}>
-        {props.food.ingredients.map((ingr, index) => {
-          return (
-            <div key={ingr._id}>
-              <button
-                className="f7 link dim br2 ph1 pv1 mb2 pa4 mr2 dib white bg-dark-green"
-                data-key={index}
-                key={ingr._id}
-                onClick={props.editing ? props.toggleEditIngr : () => {}}
+        <Form.Item<FieldType> className={styles.formItem} name="mealCategory">
+          <Select
+            options={[
+              { value: 'BREAKFAST', label: 'Breakfast' },
+              { value: 'LUNCH', label: 'Lunch' },
+              { value: 'DINNER', label: 'Dinner' },
+              { value: 'SNACK', label: 'Snack' },
+            ]}
+          />
+        </Form.Item>
+      </div>
+
+      <div className={styles.row}>
+        <Form.Item<FieldType>
+          className={styles.formItem}
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: 'Please input a name!' }]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          label="Yield"
+          name="yield"
+          className={styles.formItem}
+          rules={[
+            { required: true, message: 'Please input your serving amount!' },
+          ]}
+        >
+          <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+      </div>
+
+      <div className={styles.row}>
+        <Form.Item<FieldType>
+          className={styles.formItem}
+          label="Serving amount"
+          name="servingAmount"
+          rules={[
+            { required: true, message: 'Please input your serving amount!' },
+          ]}
+        >
+          <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          className={styles.formItem}
+          label="Serving size"
+          name="servingSize"
+          rules={[
+            { required: true, message: 'Please input your serving size!' },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item<FieldType>
+          label="Total calories"
+          name="calories"
+          className={styles.formItem}
+        >
+          <InputNumber style={{ width: '100%' }} />
+        </Form.Item>
+      </div>
+
+      <h4>Ingredients</h4>
+      <Form.List name="ingredients">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...restField }) => (
+              <Space
+                key={key}
+                style={{ display: 'flex', marginBottom: 8 }}
+                align="baseline"
               >
-                {ingr.name}
-              </button>
-              {props.editing && (
-                <button
-                  className="f6 link dim br4 ph2 pv1 mb2 dib white bg-dark-pink"
-                  data-key={index}
-                  onClick={props.handleDeleteIngredient}
+                <Form.Item
+                  {...restField}
+                  name={[name, 'food']}
+                  rules={[{ required: true, message: 'Missing food' }]}
                 >
-                  {' '}
-                  ✖️{' '}
-                </button>
-              )}
-            </div>
-          );
-        })}
-      </div>
+                  <Input placeholder="clams" />
+                </Form.Item>
+                <Form.Item
+                  {...restField}
+                  name={[name, 'text']}
+                  rules={[{ required: true, message: 'Missing text' }]}
+                >
+                  <Input placeholder="5-ounce can whole baby clams,drained" />
+                </Form.Item>
+                <Form.Item
+                  {...restField}
+                  name={[name, 'quantity']}
+                  rules={[{ required: true, message: 'Missing quantity' }]}
+                >
+                  <InputNumber style={{ width: '100%' }} placeholder="5" />
+                </Form.Item>
+                <Form.Item
+                  {...restField}
+                  name={[name, 'weight']}
+                  rules={[{ required: true, message: 'Missing weight' }]}
+                >
+                  <InputNumber style={{ width: '100%' }} placeholder="200" />
+                </Form.Item>
+                <MinusCircleOutlined onClick={() => remove(name)} />
+              </Space>
+            ))}
+            <Form.Item>
+              <Button
+                type="dashed"
+                onClick={() => add()}
+                block
+                icon={<PlusOutlined />}
+              >
+                Add ingredient
+              </Button>
+            </Form.Item>
+          </>
+        )}
+      </Form.List>
 
-      {props.editing && (
-        <button
-          className="f7 link dim br4 ba ph2 pv1 mb3 dib dark-green"
-          onClick={props.toggleAddIngr}
-        >
-          {' '}
-          ➕ Add a new ingredient
-        </button>
-      )}
-      {editInterface}
-      {addInterface}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
-        <div>
-          {props.editing && (
-            <button
-              className="f6 link dim br-pill ba bw1 ph2 pv2 mb4 mr3 dib dark-blue"
-              data-key={props.food._id}
-              onClick={props.handleDeleteFood}
-            >
-              ✖️ Delete Food
-            </button>
-          )}
-        </div>
-        <form
-          onSubmit={props.editing ? props.editRecipeSubmit : props.handleSubmit}
-        >
-          <button className="f6 link dim br-pill ph4 pv2 mb2 dib white bg-dark-blue">
-            Save all
-          </button>
-        </form>
-      </div>
-    </div>
+      <Form.Item className={styles.formItem}>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }

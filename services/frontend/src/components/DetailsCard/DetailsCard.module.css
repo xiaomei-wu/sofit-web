@@ -4,8 +4,6 @@
   min-height: 100%;
   padding: 0.625rem 1rem;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
   flex-shrink: 0;
   background-color: #fff;
   border-radius: 1.25rem;
@@ -17,4 +15,11 @@
   .card {
     max-width: 21.7rem;
   }
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
 }

@@ -1,0 +1,21 @@
+/* components/SearchSelect.module.css */
+
+.searchSelect {
+  display: inline-block;
+}
+
+.options {
+  position: absolute;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  z-index: 1;
+  background-color: #fff;
+}
+
+.option {
+  padding: 8px;
+  cursor: pointer;
+}

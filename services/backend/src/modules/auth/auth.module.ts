@@ -3,7 +3,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import * as dotenv from 'dotenv';
-import { UsersModule } from 'src/modules/users/users.module';
+import { UserModule } from 'src/modules/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -21,7 +21,7 @@ const authGlobalProviders = [
 @Module({
   imports: [
     PassportModule,
-    UsersModule,
+    UserModule,
     JwtModule.register({
       secret: process.env.JWT_KEY,
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },

@@ -1,28 +1,70 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post
 } from '@nestjs/common';
-import { FoodService } from './food.service';
-import { CreateFoodDto } from './dto/create-food.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { User } from '../user/user.decorator';
+import { CreateFoodDto, CreateFoodRecordDto } from './dto/create-food.dto';
 import { UpdateFoodDto } from './dto/update-food.dto';
+import { FoodService } from './food.service';
 
 @Controller('food')
+@ApiTags('food')
 export class FoodController {
   constructor(private readonly foodService: FoodService) {}
 
   @Post()
-  create(@Body() createFoodDto: CreateFoodDto) {
-    return this.foodService.create(createFoodDto);
+  createFood(@Body() createFoodDto: CreateFoodDto) {
+    return this.foodService.createFood(createFoodDto);
   }
 
-  @Get()
-  findAll() {
-    return this.foodService.findAll();
+  @Post('/record')
+  createFoodRecord(
+    @Body() createFoodRecordDto: CreateFoodRecordDto,
+    @User() userId: string,
+  ) {
+    return this.foodService.createFoodRecord(createFoodRecordDto, userId);
+  }
+
+  @Get('/record')
+  findAllRecord(@User() userId: string) {
+    return this.foodService.findAllRecord(userId);
+  }
+
+  @Get('/record/recent')
+  findAllRecordInOneWeek(@User() userId: string) {
+    return this.foodService.findAllRecordInOneWeek(userId);
+  }
+
+  @Get('/record/:date')
+  findAllRecordsByDate(@Param('date') date: string, @User() userId: string) {
+    return this.foodService.findAllRecordsByDate(date, userId);
+  }
+
+  @Patch('/record/:foodId')
+  updateFoodRecord(
+    @Param('foodId') foodId: string,
+    @Body() updateFoodRecordDto,
+    @User() userId: string,
+  ) {
+    return this.foodService.updateFoodRecord(
+      foodId,
+      updateFoodRecordDto,
+      userId,
+    );
+  }
+
+  @Delete('/record/:recordId')
+  deleteFoodRecord(
+    @Param('recordId') recordId: string,
+    @User() userId: string,
+  ) {
+    return this.foodService.deleteFoodRecord(recordId, userId);
   }
 
   @Get(':id')
@@ -33,10 +75,5 @@ export class FoodController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFoodDto: UpdateFoodDto) {
     return this.foodService.update(+id, updateFoodDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.foodService.remove(+id);
   }
 }

@@ -2,7 +2,7 @@ import ActicityCard from '@/components/ActivityCard/ActivityCard';
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
 import FeatureCard from '@/components/FeatureCard/FeatureCard';
 import RecomendationCard from '@/components/RecomendationCard/RecomendationCard';
-import SmallFeatureCard from '@/components/SmallFeatureCard/SmallFeatureCard';
+import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureCard';
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
 import dynamic from 'next/dynamic';
