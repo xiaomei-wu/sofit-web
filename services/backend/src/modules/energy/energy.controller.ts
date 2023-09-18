@@ -1,17 +1,19 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post
 } from '@nestjs/common';
-import { EnergyService } from './energy.service';
+import { ApiTags } from '@nestjs/swagger';
 import { CreateEnergyDto } from './dto/create-energy.dto';
 import { UpdateEnergyDto } from './dto/update-energy.dto';
+import { EnergyService } from './energy.service';
 
 @Controller('energy')
+@ApiTags('energy')
 export class EnergyController {
   constructor(private readonly energyService: EnergyService) {}
 
@@ -25,18 +27,21 @@ export class EnergyController {
     return this.energyService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.energyService.findOne(+id);
+  @Get(':energyId')
+  findById(@Param('energyId') energyId: string) {
+    return this.energyService.findById(energyId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEnergyDto: UpdateEnergyDto) {
-    return this.energyService.update(+id, updateEnergyDto);
+  @Patch(':energyId')
+  update(
+    @Param('energyId') energyId: string,
+    @Body() updateEnergyDto: UpdateEnergyDto,
+  ) {
+    return this.energyService.update(energyId, updateEnergyDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.energyService.remove(+id);
+  @Delete(':energyId')
+  delete(@Param('energyId') energyId: string) {
+    return this.energyService.delete(energyId);
   }
 }

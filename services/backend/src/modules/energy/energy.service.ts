@@ -1,26 +1,34 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateEnergyDto } from './dto/create-energy.dto';
 import { UpdateEnergyDto } from './dto/update-energy.dto';
 
 @Injectable()
 export class EnergyService {
-  create(createEnergyDto: CreateEnergyDto) {
-    return 'This action adds a new energy';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createEnergyDto: CreateEnergyDto) {
+    return this.prisma.energy.create({
+      data: createEnergyDto,
+    });
   }
 
-  findAll() {
-    return `This action returns all energy`;
+  async findAll() {
+    return this.prisma.energy.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} energy`;
+  async findById(uuid: string) {
+    return this.prisma.energy.findUnique({ where: { uuid } });
   }
 
-  update(id: number, updateEnergyDto: UpdateEnergyDto) {
-    return `This action updates a #${id} energy`;
+  async update(uuid: string, updateEnergyDto: UpdateEnergyDto) {
+    return this.prisma.energy.update({
+      where: { uuid },
+      data: updateEnergyDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} energy`;
+  async delete(uuid: string) {
+    return this.prisma.energy.delete({ where: { uuid } });
   }
 }

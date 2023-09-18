@@ -10,8 +10,10 @@ import {
 import { SleepService } from './sleep.service';
 import { CreateSleepDto } from './dto/create-sleep.dto';
 import { UpdateSleepDto } from './dto/update-sleep.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('sleep')
+@ApiTags('sleep')
 export class SleepController {
   constructor(private readonly sleepService: SleepService) {}
 
@@ -25,18 +27,21 @@ export class SleepController {
     return this.sleepService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.sleepService.findOne(+id);
+  @Get(':sleepId')
+  findById(@Param('sleepId') sleepId: string) {
+    return this.sleepService.findById(sleepId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSleepDto: UpdateSleepDto) {
-    return this.sleepService.update(+id, updateSleepDto);
+  @Patch(':sleepId')
+  update(
+    @Param('sleepId') sleepId: string,
+    @Body() updateSleepDto: UpdateSleepDto,
+  ) {
+    return this.sleepService.update(sleepId, updateSleepDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.sleepService.remove(+id);
+  @Delete(':sleepId')
+  delete(@Param('sleepId') sleepId: string) {
+    return this.sleepService.delete(sleepId);
   }
 }

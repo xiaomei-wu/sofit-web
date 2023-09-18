@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateSymptomDto } from './dto/create-symptom.dto';
 import { UpdateSymptomDto } from './dto/update-symptom.dto';
 
 @Injectable()
 export class SymptomsService {
-  create(createSymptomDto: CreateSymptomDto) {
-    return 'This action adds a new symptom';
+  constructor(private prisma: PrismaService) {}
+
+  async create(createSymptomDto: CreateSymptomDto) {
+    return this.prisma.symptom.create({ data: createSymptomDto });
   }
 
-  findAll() {
-    return `This action returns all symptoms`;
+  async findAll() {
+    return this.prisma.symptom.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} symptom`;
+  async findById(uuid: string) {
+    return this.prisma.symptom.findUnique({ where: { uuid } });
   }
 
-  update(id: number, updateSymptomDto: UpdateSymptomDto) {
-    return `This action updates a #${id} symptom`;
+  async update(uuid: string, updateSymptomDto: UpdateSymptomDto) {
+    return this.prisma.symptom.update({
+      where: { uuid },
+      data: updateSymptomDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} symptom`;
+  async delete(uuid: string) {
+    return this.prisma.symptom.delete({ where: { uuid } });
   }
 }
