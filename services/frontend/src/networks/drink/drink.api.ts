@@ -1,11 +1,48 @@
 import ky from 'ky-universal';
 import { CreateDrinkDto } from './drink.dto';
 
-export const createDrink = async (createDrinkDto: CreateDrinkDto) =>
-  await ky.post('/api/v1/drinks', { json: createDrinkDto });
-// await postRequest('/api/v1/drinks', createDrinkDto);
+export const fetchDrinks = async () => {
+  return await ky('/api/v1/drinks').json();
+};
 
-export const fetchDrinks = async ({
+export const createDrink = async ({
+  createDrinkDto,
+}: {
+  createDrinkDto: CreateDrinkDto;
+}) => {
+  try {
+    const createdDrink = await ky
+      .post('/api/v1/drinks', { json: createDrinkDto })
+      .json();
+    return createdDrink;
+  } catch (error) {
+    throw new Error('Failed to create drink');
+  }
+};
+
+export const updateDrink = async ({
+  drinkId,
+  updateDrinkDto,
+}: {
+  drinkId: string;
+  updateDrinkDto: Partial<CreateDrinkDto>;
+}) => {
+  try {
+    const updatedDrink = await ky
+      .patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto })
+      .json();
+
+    return updatedDrink;
+  } catch (error) {
+    throw new Error('Failed to update drink');
+  }
+};
+
+export const deleteDrink = async (drinkId: string) => {
+  return await ky.delete(`/api/v1/drinks/${drinkId}`);
+};
+
+export const searchDrinks = async ({
   prefix,
   category,
 }: {
@@ -13,10 +50,10 @@ export const fetchDrinks = async ({
   category: string;
 }) => {
   try {
-    const response = await fetch(
+    const response = await ky(
       `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${prefix}=${category}`,
-    );
-    return response.json();
+    ).json();
+    return response;
   } catch (error) {
     console.error(error);
   }

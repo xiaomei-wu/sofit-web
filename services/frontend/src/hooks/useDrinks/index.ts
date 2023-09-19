@@ -1,49 +1,13 @@
+import {
+  createDrink,
+  deleteDrink,
+  fetchDrinks,
+  searchDrinks,
+  updateDrink
+} from '@/networks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import ky from 'ky-universal';
-import { CreateDrinkDto } from './drink.dto';
 
 export const DRINKS = 'drinks';
-
-const fetchDrinks = async () => {
-  return await ky('/api/v1/drinks').json();
-};
-
-const createDrink = async ({
-  createDrinkDto,
-}: {
-  createDrinkDto: CreateDrinkDto;
-}) => {
-  try {
-    const createdDrink = await ky
-      .post('/api/v1/drinks', { json: createDrinkDto })
-      .json();
-    return createdDrink;
-  } catch (error) {
-    throw new Error('Failed to create drink');
-  }
-};
-
-const updateDrink = async ({
-  drinkId,
-  updateDrinkDto,
-}: {
-  drinkId: string;
-  updateDrinkDto: Partial<CreateDrinkDto>;
-}) => {
-  try {
-    const updatedDrink = await ky
-      .patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto })
-      .json();
-
-    return updatedDrink;
-  } catch (error) {
-    throw new Error('Failed to update drink');
-  }
-};
-
-const deleteDrink = async (drinkId: string) => {
-  return await ky.delete(`/api/v1/drinks/${drinkId}`);
-};
 
 const useGetDrinks = () =>
   useQuery({
@@ -51,11 +15,17 @@ const useGetDrinks = () =>
     queryFn: () => fetchDrinks(),
   });
 
-const useCreateDrink = () =>
-  useMutation({
+const useCreateDrink = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
     mutationKey: [DRINKS],
     mutationFn: createDrink,
+    onSettled: () => {
+      queryClient.invalidateQueries([DRINKS]);
+    },
   });
+};
 
 const useUpdateDrink = () => {
   const queryClient = useQueryClient();
@@ -89,4 +59,33 @@ const useUpdateDrink = () => {
   });
 };
 
-export { useGetDrinks, useCreateDrink, useUpdateDrink, deleteDrink };
+const useDeleteDrink = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationKey: [DRINKS],
+    mutationFn: async drinkId => {
+      await deleteDrink(drinkId);
+      queryClient.invalidateQueries([DRINKS]);
+    },
+  });
+};
+
+const useSearchDrinks = ({ prefix, category }) => {
+  return useQuery(['searchDrinks', { prefix, category }], async () => {
+    try {
+      const response = await searchDrinks({ prefix, category });
+      return response;
+    } catch (error) {
+      throw new Error('Failed to fetch search results');
+    }
+  });
+};
+
+export {
+  useGetDrinks,
+  useCreateDrink,
+  useUpdateDrink,
+  useSearchDrinks,
+  useDeleteDrink,
+};

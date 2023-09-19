@@ -1,8 +1,7 @@
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { dateFormat, timeFormat } from '@/utils';
 
-import { DRINKS, useCreateDrink, useUpdateDrink } from '@/hooks';
-import { useQueryClient } from '@tanstack/react-query';
+import { useCreateDrink, useUpdateDrink } from '@/hooks';
 import {
   DatePicker,
   Form,
@@ -25,7 +24,6 @@ export default function DrinkForm({
   console.log(selectedRecord);
   const { mutate: create } = useCreateDrink();
   const { mutate: update } = useUpdateDrink();
-  const queryClient = useQueryClient();
 
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
@@ -40,10 +38,9 @@ export default function DrinkForm({
   const onFinish = async values => {
     try {
       if (isEditMode) {
-        update({ drinkId: selectedRecord.uuid, updateDrinkDto: values });
+        await update({ drinkId: selectedRecord.uuid, updateDrinkDto: values });
       } else {
-        create({ createDrinkDto: values });
-        queryClient.invalidateQueries([DRINKS]);
+        await create({ createDrinkDto: values });
       }
       message.success('Success');
       return closeModal();
