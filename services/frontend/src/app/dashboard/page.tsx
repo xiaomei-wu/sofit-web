@@ -32,7 +32,7 @@ export default function Dashboard() {
               />
               <FeatureCard
                 icon="/drink.png"
-                path="alcohol"
+                path="drink"
                 subtitle="1000ml"
                 title="Alcohol"
               />

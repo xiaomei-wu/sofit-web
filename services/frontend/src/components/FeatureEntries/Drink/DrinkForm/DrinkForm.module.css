@@ -1,0 +1,33 @@
+.headRow {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-width: 100%;
+}
+
+.row {
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  min-width: 100%;
+}
+
+@media (width <=700px) {
+  .row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.formItem {
+  width: 100%;
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,6 +1,6 @@
 import DateTimeInput from '@/components/ui/DateTimeInput/DateTimeInput';
 import React, { useState } from 'react';
-import DrinkItemForm from '../DrinkItemForm/DrinkItemForm';
+import DrinkItemForm from '../DrinkForm/DrinkForm';
 
 interface DrinkEditProps {
   user: { _id: string };

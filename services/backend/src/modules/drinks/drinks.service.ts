@@ -9,11 +9,13 @@ export class DrinksService {
   constructor(private prisma: PrismaService) {}
 
   async create(createDrinkDto: CreateDrinkDto) {
-    this.prisma.drink.create({ data: createDrinkDto });
+    console.log(createDrinkDto);
+
+    return this.prisma.drink.create({ data: createDrinkDto });
   }
 
   async findAll() {
-    this.prisma.drink.findMany();
+    return this.prisma.drink.findMany();
   }
 
   async findById(uuid: string) {
