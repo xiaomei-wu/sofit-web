@@ -14,10 +14,10 @@ import 'react-multi-carousel/lib/styles.css';
 import styles from './Nutrition.module.css';
 
 import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
+import { responsive } from '@/utils';
 import { Button, Input, Modal, Tag } from 'antd';
 import DataList from '../../shared/DataList/DataList';
 import ModalContent from './ModalContent/ModalContent';
-import { responsive } from './Nutrition.helper';
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);

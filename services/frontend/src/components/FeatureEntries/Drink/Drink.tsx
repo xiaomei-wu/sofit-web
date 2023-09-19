@@ -4,37 +4,19 @@ import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetDrinks } from '@/hooks';
-import { Input, Modal } from 'antd';
+import { searchDrinks } from '@/networks';
+import { responsive } from '@/utils';
+import { Input, Modal, Tag } from 'antd';
 import React, { useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-import { DrinkCategory, DrinkSearchPrefix } from './Drink.helper';
 import styles from './Drink.module.css';
 import DrinkForm from './DrinkForm/DrinkForm';
 import DrinkList from './DrinkList/DrinkList';
 
-interface AddDrinksProps {
-  user: { _id: string };
-  location: {
-    state?: {
-      day?: string;
-      element?: {
-        startTime: string;
-        drinks: {
-          name: string;
-          category: string;
-          servingAmount: string;
-          servingSize: string;
-        }[];
-      };
-    };
-  };
-  history: { push: (path: string) => void };
-}
+interface AddDrinksProps {}
 
-const Drinks: React.FC<AddDrinksProps> = props => {
-  const [prefix, setPrefix] = useState(DrinkSearchPrefix.A);
-  const [category, setCategory] = useState(DrinkCategory.ALCOHOLIC);
+const Drinks: React.FC<AddDrinksProps> = () => {
   const { data: drinks, isLoading, isFetching } = useGetDrinks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
@@ -55,10 +37,19 @@ const Drinks: React.FC<AddDrinksProps> = props => {
     showModal();
   };
 
+  const onSearch = async values => {
+    try {
+      const response = await searchDrinks({ query: values });
+      setSearchResult(response.drinks);
+    } catch (error) {
+      throw new Error('Failed to fetch search results');
+    }
+  };
+
   return (
     <div>
       <div className={styles.buttonWrapper}>
-        <Input.Search />
+        <Input.Search onSearch={onSearch} placeholder="Martini..." />
         <PrimaryButton onClick={onClickAddButton}>Add drink</PrimaryButton>
 
         <Modal
@@ -78,22 +69,24 @@ const Drinks: React.FC<AddDrinksProps> = props => {
       <div>
         {seachResult?.length > 0 && (
           <>
-            <h4>Food</h4>
+            <h4>Results</h4>
             <Carousel responsive={responsive}>
-              {foodSearchResults.map(item => (
-                <div key={item.uuid}>
+              {seachResult.map(item => (
+                <div key={item.idDrink}>
                   <CarouselCard
-                    imgUrl={item.imgUrl || '/food.png'}
-                    title={item.name}
-                    emphasis={`${item.nutrients[0].enerc_Kcal} Kcal`}
+                    imgUrl={'/cocktail.png'}
+                    title={item.strDrink}
                     onClick={() => {
-                      setSelectedFood(item);
+                      setSelectedDrink({
+                        name: item.strDrink,
+                        imgUrl: item.strDrinkThumb,
+                        category: item.strCategory,
+                      });
                       setIsModalOpen(true);
                     }}
+                    // subtitle={item.strCategory}
                   >
-                    <p>Protein {item.nutrients[0].procnt_g} g</p>
-                    <p>Fat {item.nutrients[0].fat_g} g</p>
-                    <p>Carb {item.nutrients[0].chocdf_g} g</p>
+                    <Tag color={'cyan'}>{item.strCategory}</Tag>
                   </CarouselCard>
                 </div>
               ))}
@@ -102,11 +95,14 @@ const Drinks: React.FC<AddDrinksProps> = props => {
         )}
       </div>
       {drinks ? (
-        <DrinkList
-          drinks={drinks}
-          setSelectedRecord={setSelectedRecord}
-          setIsModalOpen={setIsModalOpen}
-        />
+        <div>
+          <h4>{drinks.length} Drink</h4>
+          <DrinkList
+            drinks={drinks}
+            setSelectedRecord={setSelectedRecord}
+            setIsModalOpen={setIsModalOpen}
+          />
+        </div>
       ) : (
         <EmptyView image={'/drinking.svg'} />
       )}

@@ -21,9 +21,8 @@ export default function DrinkForm({
   isEditMode,
   selectedDrink,
 }) {
-  console.log(selectedRecord);
-  const { mutate: create } = useCreateDrink();
-  const { mutate: update } = useUpdateDrink();
+  const { mutate: createDrink } = useCreateDrink();
+  const { mutate: updateDrink } = useUpdateDrink();
 
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
@@ -38,9 +37,12 @@ export default function DrinkForm({
   const onFinish = async values => {
     try {
       if (isEditMode) {
-        await update({ drinkId: selectedRecord.uuid, updateDrinkDto: values });
+        await updateDrink({
+          drinkId: selectedRecord.uuid,
+          updateDrinkDto: values,
+        });
       } else {
-        await create({ createDrinkDto: values });
+        await createDrink({ createDrinkDto: values });
       }
       message.success('Success');
       return closeModal();

@@ -21,13 +21,15 @@ const CarouselCard = ({
 }: Card) => {
   return (
     <div className={styles.card}>
-      <Image
-        alt="carousel-img"
-        height={70}
-        src={imgUrl}
-        width={70}
-        onClick={onClick}
-      />
+      {imgUrl && (
+        <Image
+          alt="carousel-img"
+          height={70}
+          src={imgUrl}
+          width={70}
+          onClick={onClick}
+        />
+      )}
 
       <div className={styles.text}>
         <div className={styles.title}>{title}</div>

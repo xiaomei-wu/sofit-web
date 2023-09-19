@@ -17,7 +17,11 @@ const nextConfig = {
     return config;
   },
   images: {
-    domains: ['www.edamam.com', 'edamam-product-images.s3.amazonaws.com'],
+    domains: [
+      'www.edamam.com',
+      'edamam-product-images.s3.amazonaws.com',
+      'www.thecocktaildb.com',
+    ],
   },
 };
 

@@ -43,15 +43,15 @@ export const deleteDrink = async (drinkId: string) => {
 };
 
 export const searchDrinks = async ({
-  prefix,
-  category,
+  query,
 }: {
   prefix: string;
   category: string;
+  query?: string;
 }) => {
   try {
     const response = await ky(
-      `https://www.thecocktaildb.com/api/json/v1/1/filter.php?${prefix}=${category}`,
+      `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`,
     ).json();
     return response;
   } catch (error) {

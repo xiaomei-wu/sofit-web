@@ -71,10 +71,10 @@ const useDeleteDrink = () => {
   });
 };
 
-const useSearchDrinks = ({ prefix, category }) => {
-  return useQuery(['searchDrinks', { prefix, category }], async () => {
+const useSearchDrinks = ({ prefix, category, query }) => {
+  return useQuery(['searchDrinks', { prefix, category, query }], async () => {
     try {
-      const response = await searchDrinks({ prefix, category });
+      const response = await searchDrinks({ prefix, category, query });
       return response;
     } catch (error) {
       throw new Error('Failed to fetch search results');
