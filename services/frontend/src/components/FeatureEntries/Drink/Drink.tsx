@@ -49,11 +49,17 @@ const Drinks: React.FC<AddDrinksProps> = props => {
     setIsModalOpen(false);
   };
 
+  const onClickAddButton = () => {
+    setSelectedRecord(null);
+    setSelectedDrink(null);
+    showModal();
+  };
+
   return (
     <div>
       <div className={styles.buttonWrapper}>
         <Input.Search />
-        <PrimaryButton onClick={showModal}>Add drink</PrimaryButton>
+        <PrimaryButton onClick={onClickAddButton}>Add drink</PrimaryButton>
 
         <Modal
           open={isModalOpen}
@@ -65,7 +71,7 @@ const Drinks: React.FC<AddDrinksProps> = props => {
             closeModal={closeModal}
             selectedRecord={selectedRecord}
             selectedDrink={selectedDrink || selectedRecord}
-            isEditMode={selectedRecord}
+            isEditMode={!!selectedRecord}
           />
         </Modal>
       </div>

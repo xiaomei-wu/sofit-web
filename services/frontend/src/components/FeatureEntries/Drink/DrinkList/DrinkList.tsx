@@ -1,7 +1,8 @@
 'use client';
 
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
-import { deleteDrink } from '@/hooks';
+import { deleteDrink, DRINKS } from '@/hooks';
+import { useQueryClient } from '@tanstack/react-query';
 import { message } from 'antd';
 import styles from './DrinkList.module.css';
 
@@ -10,10 +11,13 @@ export default function DrinkList({
   setSelectedRecord,
   setIsModalOpen,
 }) {
+  const queryClient = useQueryClient();
+
   const onDelete = async uuid => {
     try {
       await deleteDrink(uuid);
       message.success('Success');
+      queryClient.invalidateQueries([DRINKS]);
     } catch (error) {
       message.error(error);
     }

@@ -8,8 +8,19 @@ const fetchDrinks = async () => {
   return await ky('/api/v1/drinks').json();
 };
 
-const createDrink = async (createDrinkDto: CreateDrinkDto) => {
-  return await ky.post('/api/v1/drinks', { json: createDrinkDto });
+const createDrink = async ({
+  createDrinkDto,
+}: {
+  createDrinkDto: CreateDrinkDto;
+}) => {
+  try {
+    const createdDrink = await ky
+      .post('/api/v1/drinks', { json: createDrinkDto })
+      .json();
+    return createdDrink;
+  } catch (error) {
+    throw new Error('Failed to create drink');
+  }
 };
 
 const updateDrink = async ({
@@ -19,7 +30,15 @@ const updateDrink = async ({
   drinkId: string;
   updateDrinkDto: Partial<CreateDrinkDto>;
 }) => {
-  return await ky.patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto });
+  try {
+    const updatedDrink = await ky
+      .patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto })
+      .json();
+
+    return updatedDrink;
+  } catch (error) {
+    throw new Error('Failed to update drink');
+  }
 };
 
 const deleteDrink = async (drinkId: string) => {
@@ -34,10 +53,8 @@ const useGetDrinks = () =>
 
 const useCreateDrink = () =>
   useMutation({
-    mutationKey: DRINKS,
-    mutationFn: createDrinkDto => {
-      return createDrink(createDrinkDto);
-    },
+    mutationKey: [DRINKS],
+    mutationFn: createDrink,
   });
 
 const useUpdateDrink = () => {
@@ -46,8 +63,28 @@ const useUpdateDrink = () => {
   return useMutation({
     mutationKey: [DRINKS],
     mutationFn: updateDrink,
-    onSuccess: (data, variables) => {
-      queryClient.setQueryData([DRINKS, { drinkId: variables.uuid }], data);
+    onMutate: async ({ drinkId, updateDrinkDto }) => {
+      const previousData = queryClient.getQueryData([DRINKS, { drinkId }]);
+
+      queryClient.setQueryData([DRINKS, { drinkId }], oldData => {
+        return {
+          ...oldData,
+          ...updateDrinkDto,
+        };
+      });
+
+      return { previousData };
+    },
+    onError: (err, variables, context) => {
+      if (context?.previousData) {
+        queryClient.setQueryData(
+          [DRINKS, { drinkId: variables.drinkId }],
+          context.previousData,
+        );
+      }
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries([DRINKS]);
     },
   });
 };
