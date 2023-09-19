@@ -22,6 +22,10 @@ const updateDrink = async ({
   return await ky.patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto });
 };
 
+const deleteDrink = async (drinkId: string) => {
+  return await ky.delete(`/api/v1/drinks/${drinkId}`);
+};
+
 const useGetDrinks = () =>
   useQuery({
     queryKey: [DRINKS],
@@ -48,4 +52,4 @@ const useUpdateDrink = () => {
   });
 };
 
-export { useGetDrinks, useCreateDrink, useUpdateDrink };
+export { useGetDrinks, useCreateDrink, useUpdateDrink, deleteDrink };

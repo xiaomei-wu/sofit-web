@@ -40,7 +40,7 @@ export class DrinksController {
     return this.drinksService.update(drinkId, updateDrinkDto);
   }
 
-  @Delete('drinkId')
+  @Delete(':drinkId')
   delete(@Param('drinkId') drinkId: string) {
     return this.drinksService.delete(drinkId);
   }

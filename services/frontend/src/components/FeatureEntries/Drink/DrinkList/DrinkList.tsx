@@ -1,6 +1,8 @@
 'use client';
 
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
+import { deleteDrink } from '@/hooks';
+import { message } from 'antd';
 import styles from './DrinkList.module.css';
 
 export default function DrinkList({
@@ -10,18 +12,10 @@ export default function DrinkList({
 }) {
   const onDelete = async uuid => {
     try {
-      const response = await deleteFoodRecord(uuid);
-      message.success(response.message);
+      await deleteDrink(uuid);
+      message.success('Success');
     } catch (error) {
       message.error(error);
-    }
-  };
-
-  const onAdd = async item => {
-    if (item.food) {
-      await createFoodRecord({ ...item, date: dayjs(), startTime: dayjs() });
-    } else {
-      await createRecipeRecord({ ...item, date: dayjs(), startTime: dayjs() });
     }
   };
 
@@ -36,7 +30,6 @@ export default function DrinkList({
             addIcon={'/plus.png'}
             editIcon={'/pen.png'}
             deleteIcon={'/delete.png'}
-            onAdd={() => onAdd(item)}
             onDelete={() => onDelete(item.uuid)}
             onEdit={() => {
               setSelectedRecord(item);
