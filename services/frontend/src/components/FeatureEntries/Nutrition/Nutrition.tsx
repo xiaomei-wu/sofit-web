@@ -5,28 +5,31 @@ import {
   createRecipe,
   fetchEdamamFood,
   fetchEdamamRecipes,
-  FoodCategory,
-  getFoodRecordsByDate
+  FoodCategory
 } from '@/networks';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import styles from './Nutrition.module.css';
 
 import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
+import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
+import { useGetAllFoodRecord } from '@/hooks';
 import { responsive } from '@/utils';
-import { Button, Input, Modal, Tag } from 'antd';
+import { Input, Modal, Tag } from 'antd';
 import DataList from '../../shared/DataList/DataList';
 import ModalContent from './ModalContent/ModalContent';
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [recentRecord, setRecentRecord] = useState([]);
+  // const [recentRecord, setRecentRecord] = useState([]);
   const [foodSearchResults, setFoodSearchResults] = useState([]);
   const [recipeSearchResults, setRecipeSearchResults] = useState([]);
   const [selectedFood, setSelectedFood] = useState(null);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [selectedRecord, setSelectedRecord] = useState(null);
+
+  const { data: recentRecord, isLoading } = useGetAllFoodRecord();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -36,17 +39,17 @@ export default function Nutrition() {
     setIsModalOpen(false);
   };
 
-  useEffect(() => {
-    const fetchFoodRecord = async () => {
-      const response = await getFoodRecordsByDate(new Date().toISOString());
+  // useEffect(() => {
+  //   const fetchFoodRecord = async () => {
+  //     const response = await getFoodRecordsByDate(new Date().toISOString());
 
-      console.log(response, 'response');
+  //     console.log(response, 'response');
 
-      setRecentRecord(response);
-    };
+  //     setRecentRecord(response);
+  //   };
 
-    fetchFoodRecord();
-  }, []);
+  //   fetchFoodRecord();
+  // }, []);
 
   const mapCategory = (category: string) => {
     if (category === 'Packaged foods') return FoodCategory.PACKAGED_FOODS;
@@ -55,10 +58,7 @@ export default function Nutrition() {
 
   const searchFood = async value => {
     const response = await fetchEdamamFood(value);
-
     const foodResults = [];
-
-    console.log(response, 'response');
 
     for (const hint of response.hints) {
       const edamamFood = hint.food;
@@ -142,7 +142,11 @@ export default function Nutrition() {
     await searchRecipe(value);
   };
 
-  console.log(recentRecord);
+  const onClickAdd = () => {
+    setSelectedFood(null);
+    setSelectedRecord(null);
+    showModal();
+  };
 
   return (
     <div>
@@ -151,13 +155,12 @@ export default function Nutrition() {
           <Input.Search
             placeholder="Search food or recipes..."
             onSearch={onSearch}
-            style={{ width: 300 }}
           />
 
           <div className={styles.rightbar}>
-            <Button type="primary" onClick={showModal}>
+            <PrimaryButton onClick={onClickAdd}>
               Not found? Add it here
-            </Button>
+            </PrimaryButton>
           </div>
         </div>
 
@@ -242,7 +245,7 @@ export default function Nutrition() {
               </Carousel>
             </>
           )}
-          <h4>{recentRecord.length > 0 ? 'Today' : 'Today no data yet'}</h4>
+          <h4>{recentRecord?.length > 0 ? 'Today' : 'Today no data yet'}</h4>
           <DataList
             data={recentRecord}
             setSelectedRecord={setSelectedRecord}

@@ -1,9 +1,5 @@
-import {
-  createFoodRecord,
-  FoodCategory,
-  MealCategory,
-  updateFoodRecord
-} from '@/networks';
+import { useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
+import { FoodCategory, MealCategory } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
 import {
   Button,
@@ -24,7 +20,8 @@ export default function FoodForm({
   selectedRecord,
   isEditMode,
 }) {
-  console.log(selectedFood);
+  const { mutate: updateFoodRecord } = useUpdateFoodRecord();
+  const { mutate: createFoodRecord } = useCreateFoodRecord();
 
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
@@ -89,10 +86,7 @@ export default function FoodForm({
           rules={[{ required: true, message: 'Please input your date!' }]}
           className={styles.formItem}
         >
-          <DatePicker
-            defaultValue={dayjs(new Date(), dateFormat)}
-            format={dateFormat}
-          />
+          <DatePicker format={dateFormat} />
         </Form.Item>
 
         <Form.Item<FieldType>

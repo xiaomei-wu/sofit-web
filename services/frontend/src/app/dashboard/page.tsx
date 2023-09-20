@@ -34,7 +34,7 @@ export default function Dashboard() {
                 icon="/drink.png"
                 path="drink"
                 subtitle="1000ml"
-                title="Alcohol"
+                title="Drink"
               />
               <FeatureCard
                 icon="/sleep.png"
@@ -44,9 +44,9 @@ export default function Dashboard() {
               />
               <FeatureCard
                 icon="/tongue.png"
-                path="symptomes"
+                path="symptoms"
                 subtitle="Fever"
-                title="Symptomes"
+                title="Symptoms"
               />
             </section>
 

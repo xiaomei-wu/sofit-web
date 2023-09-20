@@ -1,10 +1,7 @@
 'use client';
 
-import {
-  createFoodRecord,
-  createRecipeRecord,
-  deleteFoodRecord
-} from '@/networks';
+import { useDeleteFoodRecord } from '@/hooks';
+import { createFoodRecord, createRecipeRecord } from '@/networks';
 import { message } from 'antd';
 import React from 'react';
 import InfoCard from '../InfoCard/InfoCard';
@@ -22,6 +19,8 @@ const DataList: React.FC<DataListProps> = ({
   setSelectedRecord,
   setIsModalOpen,
 }) => {
+  const { mutate: deleteFoodRecord } = useDeleteFoodRecord();
+
   const onDelete = async uuid => {
     try {
       const response = await deleteFoodRecord(uuid);

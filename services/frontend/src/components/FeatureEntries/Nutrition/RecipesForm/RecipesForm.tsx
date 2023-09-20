@@ -97,10 +97,7 @@ export default function RecipesForm({
           rules={[{ required: true, message: 'Please input your date!' }]}
           className={styles.formItem}
         >
-          <DatePicker
-            format={dateFormat}
-            // defaultValue={dayjs(selectedRecord.date, dateFormat) || dayjs()}
-          />
+          <DatePicker format={dateFormat} />
         </Form.Item>
 
         <Form.Item<FieldType>
