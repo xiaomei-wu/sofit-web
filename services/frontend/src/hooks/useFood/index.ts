@@ -50,13 +50,8 @@ export const useDeleteFoodRecord = () => {
 };
 
 export const useUpdateFoodRecord = () => {
-  // const queryClient = useQueryClient();
-
   return useMutation({
     mutationKey: ['updateFoodRecord'],
     mutationFn: updateFoodRecord,
-    // onSettled: () => {
-    //   queryClient.invalidateQueries([FOOD]);
-    // },
   });
 };

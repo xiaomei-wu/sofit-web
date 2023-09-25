@@ -19,7 +19,7 @@ const DataList: React.FC<DataListProps> = ({
   setSelectedRecord,
   setIsModalOpen,
 }) => {
-  const { mutate: deleteFoodRecord } = useDeleteFoodRecord();
+  const { mutateAsync: deleteFoodRecord } = useDeleteFoodRecord();
 
   const onDelete = async uuid => {
     try {
