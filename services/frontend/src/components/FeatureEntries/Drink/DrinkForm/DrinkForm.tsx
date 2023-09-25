@@ -21,8 +21,8 @@ export default function DrinkForm({
   isEditMode,
   selectedDrink,
 }) {
-  const { mutate: createDrink } = useCreateDrink();
-  const { mutate: updateDrink } = useUpdateDrink();
+  const { mutateAsync: createDrink } = useCreateDrink();
+  const { mutateAsync: updateDrink } = useUpdateDrink();
 
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),

@@ -10,7 +10,7 @@ export default function DrinkList({
   setSelectedRecord,
   setIsModalOpen,
 }) {
-  const { mutate: deleteDrink } = useDeleteDrink();
+  const { mutateAsync: deleteDrink } = useDeleteDrink();
 
   const onDelete = async uuid => {
     try {
