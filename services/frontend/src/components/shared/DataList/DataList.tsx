@@ -23,8 +23,8 @@ const DataList: React.FC<DataListProps> = ({
 
   const onDelete = async uuid => {
     try {
-      const response = await deleteFoodRecord(uuid);
-      message.success(response.message);
+      await deleteFoodRecord(uuid);
+      message.success('Deleted succussfully');
     } catch (error) {
       message.error(error);
     }
