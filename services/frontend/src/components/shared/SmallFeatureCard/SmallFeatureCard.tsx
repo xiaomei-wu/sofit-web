@@ -27,7 +27,9 @@ const SmallFeatureCard = ({
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
       <div>
-        <Image alt="action-icon" height={30} src={actionIcon} width={30} />
+        {actionIcon && (
+          <Image alt="action-icon" height={30} src={actionIcon} width={30} />
+        )}
       </div>
     </Link>
   );

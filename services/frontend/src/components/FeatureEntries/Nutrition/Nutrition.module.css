@@ -18,3 +18,8 @@
   justify-content: flex-end;
   flex-direction: column;
 }
+
+.tags {
+  display: flex;
+  flex-direction: column;
+}

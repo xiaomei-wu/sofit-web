@@ -1,5 +1,5 @@
-import { postRequest } from '../utils';
+import ky from 'ky-universal';
 import { CreateFoodDto } from './food.dto';
 
 export const createFood = async (createFoodDto: CreateFoodDto) =>
-  await postRequest('/api/v1/food', createFoodDto);
+  await ky.post('/api/v1/food', { json: createFoodDto }).json();

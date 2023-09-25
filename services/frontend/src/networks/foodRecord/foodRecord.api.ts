@@ -1,24 +1,24 @@
-import { deleteRequest, getRequest, patchRequest, postRequest } from '../utils';
+import ky from 'ky-universal';
 import { CreateFoodRecordDto } from './foodRecord.dto';
 
 export const createFoodRecord = async (
   createFoodRecordDto: CreateFoodRecordDto,
-) => await postRequest('/api/v1/food/record', createFoodRecordDto);
+) => await ky.post('/api/v1/food/record', { json: createFoodRecordDto }).json();
 
 export const getAllFoodRecord = async () =>
-  await getRequest('/api/v1/food/record');
+  await ky('/api/v1/food/record').json();
 
 export const getRecentFoodRecord = async () =>
-  await getRequest('/api/v1/food/record/recent');
+  await ky('/api/v1/food/record/recent').json();
 
 export const getFoodRecordsByDate = async date =>
-  await getRequest(`/api/v1/food/record/${date}`);
+  await ky(`/api/v1/food/record/${date}`).json();
 
 export const deleteFoodRecord = async (recordId: string) =>
-  await deleteRequest(`/api/v1/food/record/${recordId}`);
+  await ky.delete(`/api/v1/food/record/${recordId}`).json();
 
 export const updateFoodRecord = async (
   foodRecordId: string,
   data: CreateRecipeRecordDto,
 ): Promise<RecipeResponse | null> =>
-  await patchRequest(`/api/v1/food/record/${foodRecordId}`, data);
+  await ky.patch(`/api/v1/food/record/${foodRecordId}`, { json: data }).json();

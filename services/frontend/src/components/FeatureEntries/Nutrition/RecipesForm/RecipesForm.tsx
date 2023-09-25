@@ -1,3 +1,4 @@
+import { FOOD } from '@/hooks';
 import {
   createRecipeRecord,
   MealCategory,
@@ -5,6 +6,7 @@ import {
 } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Button,
   DatePicker,
@@ -25,6 +27,8 @@ export default function RecipesForm({
   isEditMode,
   selectedRecord,
 }) {
+  const queryClient = useQueryClient();
+
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
     startTime: dayjs(selectedRecord?.startTime) || dayjs(),
@@ -60,26 +64,19 @@ export default function RecipesForm({
     };
 
     try {
-      // isEditMode
       isEditMode
         ? await updateRecipeRecord(selectedRecord.uuid, {
             ...selectedRecord,
             ...payload,
           })
         : await createRecipeRecord(payload);
+
+      queryClient.invalidateQueries([FOOD]);
       message.success('Success');
       closeModal();
     } catch (error) {
       message.error(error);
     }
-  };
-
-  type FieldType = {
-    name: string;
-    brand?: string;
-    servingAmount: number;
-    servingSize: string;
-    mealCategory: string;
   };
 
   return (
@@ -92,7 +89,7 @@ export default function RecipesForm({
       className={styles.form}
     >
       <div className={styles.headRow}>
-        <Form.Item<FieldType>
+        <Form.Item
           name="date"
           rules={[{ required: true, message: 'Please input your date!' }]}
           className={styles.formItem}
@@ -100,7 +97,7 @@ export default function RecipesForm({
           <DatePicker format={dateFormat} />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           name="startTime"
           rules={[{ required: true, message: 'Please input your time!' }]}
@@ -108,7 +105,7 @@ export default function RecipesForm({
           <TimePicker format={timeFormat} />
         </Form.Item>
 
-        <Form.Item<FieldType> className={styles.formItem} name="mealCategory">
+        <Form.Item className={styles.formItem} name="mealCategory">
           <Select
             options={[
               { value: 'BREAKFAST', label: 'Breakfast' },
@@ -121,7 +118,7 @@ export default function RecipesForm({
       </div>
 
       <div className={styles.row}>
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Name"
           name="name"
@@ -130,7 +127,7 @@ export default function RecipesForm({
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           label="Yield"
           name="yield"
           className={styles.formItem}
@@ -143,7 +140,7 @@ export default function RecipesForm({
       </div>
 
       <div className={styles.row}>
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Serving amount"
           name="servingAmount"
@@ -154,7 +151,7 @@ export default function RecipesForm({
           <InputNumber style={{ width: '100%' }} />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Serving size"
           name="servingSize"
@@ -165,7 +162,7 @@ export default function RecipesForm({
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           label="Total calories"
           name="calories"
           className={styles.formItem}

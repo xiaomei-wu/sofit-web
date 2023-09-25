@@ -1,5 +1,5 @@
 import {
-  createFood,
+  createFoodRecord,
   deleteFoodRecord,
   getAllFoodRecord,
   getFoodRecordsByDate,
@@ -8,17 +8,12 @@ import {
 } from '@/networks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-const FOOD = 'food';
+export const FOOD = 'food';
 
 export const useCreateFoodRecord = () => {
-  const queryClient = useQueryClient();
-
   return useMutation({
-    mutationKey: [FOOD],
-    mutationFn: createFood,
-    onSettled: () => {
-      queryClient.invalidateQueries([FOOD]);
-    },
+    mutationKey: ['createFoodRecord'],
+    mutationFn: createFoodRecord,
   });
 };
 
@@ -55,13 +50,13 @@ export const useDeleteFoodRecord = () => {
 };
 
 export const useUpdateFoodRecord = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   return useMutation({
     mutationKey: ['updateFoodRecord'],
     mutationFn: updateFoodRecord,
-    onSettled: () => {
-      queryClient.invalidateQueries([FOOD]);
-    },
+    // onSettled: () => {
+    //   queryClient.invalidateQueries([FOOD]);
+    // },
   });
 };

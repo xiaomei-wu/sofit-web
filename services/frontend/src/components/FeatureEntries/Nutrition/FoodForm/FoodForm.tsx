@@ -1,6 +1,7 @@
-import { useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
+import { FOOD, useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
 import { FoodCategory, MealCategory } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
+import { useQueryClient } from '@tanstack/react-query';
 import {
   Button,
   DatePicker,
@@ -20,8 +21,9 @@ export default function FoodForm({
   selectedRecord,
   isEditMode,
 }) {
-  const { mutate: updateFoodRecord } = useUpdateFoodRecord();
-  const { mutate: createFoodRecord } = useCreateFoodRecord();
+  const queryClient = useQueryClient();
+  const { mutateAsync: updateFoodRecord } = useUpdateFoodRecord();
+  const { mutateAsync: createFoodRecord } = useCreateFoodRecord();
 
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
@@ -56,6 +58,7 @@ export default function FoodForm({
             ...payload,
           })
         : await createFoodRecord(payload);
+      await queryClient.invalidateQueries([FOOD]);
       message.success('Success');
       closeModal();
     } catch (error) {

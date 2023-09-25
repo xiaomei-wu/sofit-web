@@ -19,8 +19,6 @@ export default function ModalContent({
   };
 
   useEffect(() => {
-    console.log(selectedRecord);
-
     if (selectedRecipe) {
       return setShowRecipe(true);
     }

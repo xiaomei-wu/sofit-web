@@ -22,7 +22,6 @@ import ModalContent from './ModalContent/ModalContent';
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [recentRecord, setRecentRecord] = useState([]);
   const [foodSearchResults, setFoodSearchResults] = useState([]);
   const [recipeSearchResults, setRecipeSearchResults] = useState([]);
   const [selectedFood, setSelectedFood] = useState(null);
@@ -38,18 +37,6 @@ export default function Nutrition() {
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
-  // useEffect(() => {
-  //   const fetchFoodRecord = async () => {
-  //     const response = await getFoodRecordsByDate(new Date().toISOString());
-
-  //     console.log(response, 'response');
-
-  //     setRecentRecord(response);
-  //   };
-
-  //   fetchFoodRecord();
-  // }, []);
 
   const mapCategory = (category: string) => {
     if (category === 'Packaged foods') return FoodCategory.PACKAGED_FOODS;
@@ -144,9 +131,12 @@ export default function Nutrition() {
 
   const onClickAdd = () => {
     setSelectedFood(null);
+    setSelectedRecipe(null);
     setSelectedRecord(null);
     showModal();
   };
+
+  if (isLoading) return null;
 
   return (
     <div>
@@ -180,9 +170,17 @@ export default function Nutrition() {
                         setIsModalOpen(true);
                       }}
                     >
-                      <p>Protein {item.nutrients[0].procnt_g} g</p>
-                      <p>Fat {item.nutrients[0].fat_g} g</p>
-                      <p>Carb {item.nutrients[0].chocdf_g} g</p>
+                      <div className={styles.tags}>
+                        <Tag color="blue" key={'protein'}>
+                          Protein {item.nutrients[0].procnt_g} g
+                        </Tag>
+                        <Tag color={'green'} key={'fat'}>
+                          Fat {item.nutrients[0].fat_g} g
+                        </Tag>
+                        <Tag color="gold" key={'carb'}>
+                          Carb {item.nutrients[0].chocdf_g} g
+                        </Tag>
+                      </div>
                     </CarouselCard>
                   </div>
                 ))}
@@ -256,7 +254,11 @@ export default function Nutrition() {
               title={null}
               open={isModalOpen}
               footer={null}
-              onCancel={closeModal}
+              onCancel={() => {
+                setSelectedFood(null);
+                setSelectedRecipe(null);
+                closeModal();
+              }}
               destroyOnClose
             >
               <ModalContent
