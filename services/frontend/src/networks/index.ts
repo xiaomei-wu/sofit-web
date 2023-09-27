@@ -4,4 +4,5 @@ export * from './edamam';
 export * from './food';
 export * from './foodRecord';
 export * from './recipe';
+export * from './sleep';
 
