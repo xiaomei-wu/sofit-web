@@ -3,6 +3,7 @@
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
 import { signup } from '@/networks/auth';
+import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -35,6 +36,8 @@ export default function Signup() {
       if (response?.token) {
         setAccessTokenCookie(response.token);
         router.push('/dashboard');
+      } else {
+        message.error('Something went wrong while creating the account');
       }
     } catch (error) {
       console.error(error);
