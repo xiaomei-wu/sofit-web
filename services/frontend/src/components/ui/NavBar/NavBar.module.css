@@ -12,7 +12,7 @@
   gap: 1rem;
 }
 
-@media (width >= 701px) and (width <= 1120px) {
+@media (width >=701px) and (width <=1120px) {
   .navbar {
     min-width: 98%;
   }
@@ -26,8 +26,12 @@
 }
 
 /* Mobile */
-@media (width <= 700px) {
+@media (width <=700px) {
   .settings {
     display: none;
   }
+}
+
+.icon {
+  cursor: pointer;
 }

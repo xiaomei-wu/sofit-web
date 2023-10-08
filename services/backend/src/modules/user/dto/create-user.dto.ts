@@ -7,3 +7,8 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
 }
+
+export class Token {
+  @ApiProperty()
+  accessToken: string;
+}

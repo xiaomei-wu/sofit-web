@@ -1,3 +1,5 @@
+'use client';
+
 import ActicityCard from '@/components/ActivityCard/ActivityCard';
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
 import FeatureCard from '@/components/FeatureCard/FeatureCard';

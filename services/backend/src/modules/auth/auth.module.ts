@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
+import { TokenBlacklistService } from './token-blacklist.service';
 dotenv.config();
 
 const authGlobalProviders = [
@@ -28,7 +29,13 @@ const authGlobalProviders = [
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy, ...authGlobalProviders],
-  exports: [AuthService],
+  providers: [
+    AuthService,
+    TokenBlacklistService,
+    LocalStrategy,
+    JwtStrategy,
+    ...authGlobalProviders,
+  ],
+  exports: [AuthService, TokenBlacklistService],
 })
 export class AuthModule {}

@@ -9,3 +9,7 @@ export const setAccessTokenCookie = accessToken => {
 export const getAccessTokenFromCookie = () => {
   return Cookies.get(ACCESS_TOKEN_COOKIE_NAME);
 };
+
+export const removeAccessTokenCookie = () => {
+  Cookies.remove(ACCESS_TOKEN_COOKIE_NAME);
+};

@@ -1,3 +1,5 @@
+import { api } from './utils';
+
 interface User {
   uuid: string;
   nickName: string;
@@ -71,5 +73,34 @@ export const login = async (
     console.error('Error:', err);
 
     return { message: 'An error occurred during login.' };
+  }
+};
+
+export const verifyToken = async (accessToken: string) => {
+  try {
+    const response = await api
+      .post('/api/v1/auth/verifyToken', { json: { accessToken } })
+      .json();
+    return response;
+  } catch (error) {
+    return { message: 'Invalid token ' };
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    const response = await api.post('/api/v1/auth/logout').json();
+    return response;
+  } catch (error) {
+    return { message: 'Failed to logout' };
+  }
+};
+
+export const getMe = async () => {
+  try {
+    const response = await api.get('/api/v1/auth/me').json();
+    return response;
+  } catch (error) {
+    return { message: 'Failed to get user profile' };
   }
 };

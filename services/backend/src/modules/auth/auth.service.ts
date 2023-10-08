@@ -21,11 +21,12 @@ export class AuthService {
     }
   }
 
-  private async verifyToken(token: string): Promise<any> {
+  async verifyToken(token: string): Promise<any> {
     try {
       const payload = this.jwtService.verify(token, {
         secret: process.env.JWT_KEY,
       });
+
       return payload;
     } catch (error) {
       throw new Error('Token verification failed.');
@@ -103,12 +104,11 @@ export class AuthService {
     return { user: result, token };
   }
 
-  public async logout(request: any, response) {
-    const { session, logout } = request;
-    await logout({ keepSessionInfo: false }, () => {
-      session.destroy(() => {
-        response.clearCookie('connect.sid');
-      });
-    });
+  public async getUser(userId) {
+    const user = await this.usersService.findOneById(userId);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { uuid, password, ...restData } = user;
+
+    return { ...restData };
   }
 }

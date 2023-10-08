@@ -1,3 +1,5 @@
+'use client';
+
 import Settings from '@/assets/icons/setting.svg';
 import RandomAvatar from '../RandomAvatar/RandomAvatar';
 import Searchbar from '../Searchbar/Searchbar';
@@ -8,7 +10,7 @@ const NavBar = () => {
     <div className={styles.navbar}>
       <Searchbar />
       <div className={styles.settings}>
-        <Settings height={30} width={30} />
+        <Settings height={30} width={30} className={styles.icon} />
         <RandomAvatar />
       </div>
     </div>
