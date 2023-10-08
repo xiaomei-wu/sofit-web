@@ -7,9 +7,14 @@ import { UpdateEnergyDto } from './dto/update-energy.dto';
 export class EnergyService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEnergyDto: CreateEnergyDto) {
+  async create(createEnergyDto: CreateEnergyDto, userId: string) {
     return this.prisma.energy.create({
-      data: createEnergyDto,
+      data: {
+        ...createEnergyDto,
+        user: {
+          connect: { uuid: userId },
+        },
+      },
     });
   }
 

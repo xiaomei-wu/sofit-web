@@ -1,8 +1,9 @@
 import ky from 'ky-universal';
+import { api } from '../utils';
 import { CreateDrinkDto } from './drink.dto';
 
 export const fetchDrinks = async () => {
-  return await ky('/api/v1/drinks').json();
+  return await api.get('/api/v1/drinks').json();
 };
 
 export const createDrink = async ({
@@ -11,7 +12,7 @@ export const createDrink = async ({
   createDrinkDto: CreateDrinkDto;
 }) => {
   try {
-    const createdDrink = await ky
+    const createdDrink = await api
       .post('/api/v1/drinks', { json: createDrinkDto })
       .json();
     return createdDrink;
@@ -28,7 +29,7 @@ export const updateDrink = async ({
   updateDrinkDto: Partial<CreateDrinkDto>;
 }) => {
   try {
-    const updatedDrink = await ky
+    const updatedDrink = await api
       .patch(`/api/v1/drinks/${drinkId}`, { json: updateDrinkDto })
       .json();
 
@@ -39,7 +40,7 @@ export const updateDrink = async ({
 };
 
 export const deleteDrink = async (drinkId: string) => {
-  return await ky.delete(`/api/v1/drinks/${drinkId}`);
+  return await api.delete(`/api/v1/drinks/${drinkId}`);
 };
 
 export const searchDrinks = async ({

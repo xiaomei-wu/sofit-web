@@ -7,25 +7,35 @@ import { UpdateDrinkDto } from './dto/update-drink.dto';
 export class DrinksService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createDrinkDto: CreateDrinkDto) {
-    console.log(createDrinkDto);
-
-    return this.prisma.drink.create({ data: createDrinkDto });
+  async create(createDrinkDto: CreateDrinkDto, userId: string) {
+    return this.prisma.drink.create({
+      data: {
+        ...createDrinkDto,
+        user: {
+          connect: { uuid: userId },
+        },
+      },
+    });
   }
 
-  async findAll() {
-    return this.prisma.drink.findMany();
+  async findAll(userId: string) {
+    return this.prisma.drink.findMany({ where: { userId: userId } });
   }
 
-  async findById(uuid: string) {
-    return this.prisma.drink.findUnique({ where: { uuid } });
+  async findById(uuid: string, userId: string) {
+    return this.prisma.drink.findUnique({ where: { uuid, userId } });
   }
 
-  async update(uuid: string, updateDrinkDto: UpdateDrinkDto) {
-    return this.prisma.drink.update({ where: { uuid }, data: updateDrinkDto });
+  async update(uuid: string, updateDrinkDto: UpdateDrinkDto, userId: string) {
+    return this.prisma.drink.update({
+      where: { uuid, userId },
+      data: updateDrinkDto,
+    });
   }
 
-  async delete(uuid: string) {
-    return this.prisma.drink.delete({ where: { uuid } });
+  async delete(uuid: string, userId: string) {
+    return this.prisma.drink.delete({
+      where: { uuid, userId },
+    });
   }
 }

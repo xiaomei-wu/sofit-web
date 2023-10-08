@@ -1,16 +1,17 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post
 } from '@nestjs/common';
-import { SleepService } from './sleep.service';
+import { ApiTags } from '@nestjs/swagger';
+import { User } from '../user/user.decorator';
 import { CreateSleepDto } from './dto/create-sleep.dto';
 import { UpdateSleepDto } from './dto/update-sleep.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { SleepService } from './sleep.service';
 
 @Controller('sleep')
 @ApiTags('sleep')
@@ -18,30 +19,31 @@ export class SleepController {
   constructor(private readonly sleepService: SleepService) {}
 
   @Post()
-  create(@Body() createSleepDto: CreateSleepDto) {
-    return this.sleepService.create(createSleepDto);
+  create(@Body() createSleepDto: CreateSleepDto, @User() userId: string) {
+    return this.sleepService.create(createSleepDto, userId);
   }
 
   @Get()
-  findAll() {
-    return this.sleepService.findAll();
+  findAll(@User() userId: string) {
+    return this.sleepService.findAll(userId);
   }
 
   @Get(':sleepId')
-  findById(@Param('sleepId') sleepId: string) {
-    return this.sleepService.findById(sleepId);
+  findById(@Param('sleepId') sleepId: string, @User() userId: string) {
+    return this.sleepService.findById(sleepId, userId);
   }
 
   @Patch(':sleepId')
   update(
     @Param('sleepId') sleepId: string,
     @Body() updateSleepDto: UpdateSleepDto,
+    @User() userId: string,
   ) {
-    return this.sleepService.update(sleepId, updateSleepDto);
+    return this.sleepService.update(sleepId, updateSleepDto, userId);
   }
 
   @Delete(':sleepId')
-  delete(@Param('sleepId') sleepId: string) {
-    return this.sleepService.delete(sleepId);
+  delete(@Param('sleepId') sleepId: string, @User() userId: string) {
+    return this.sleepService.delete(sleepId, userId);
   }
 }

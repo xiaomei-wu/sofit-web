@@ -1,3 +1,4 @@
+import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { FOOD } from '@/hooks';
 import {
   createRecipeRecord,
@@ -227,9 +228,7 @@ export default function RecipesForm({
       </Form.List>
 
       <Form.Item className={styles.formItem}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <PrimaryButton htmlType="submit">Save</PrimaryButton>
       </Form.Item>
     </Form>
   );

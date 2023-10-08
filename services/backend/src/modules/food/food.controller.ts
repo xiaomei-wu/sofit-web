@@ -46,14 +46,16 @@ export class FoodController {
     return this.foodService.findAllRecordsByDate(date, userId);
   }
 
-  @Patch('/record/:foodId')
+  @Patch('/record/:foodRecordId')
   updateFoodRecord(
-    @Param('foodId') foodId: string,
+    @Param('foodRecordId') foodRecordId: string,
     @Body() updateFoodRecordDto,
     @User() userId: string,
   ) {
+    console.log(updateFoodRecordDto, 'updateFoodRecordDto in controller');
+
     return this.foodService.updateFoodRecord(
-      foodId,
+      foodRecordId,
       updateFoodRecordDto,
       userId,
     );
@@ -69,11 +71,11 @@ export class FoodController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.foodService.findOne(+id);
+    // return this.foodService.findOne(+id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFoodDto: UpdateFoodDto) {
-    return this.foodService.update(+id, updateFoodDto);
+    // return this.foodService.update(+id, updateFoodDto);
   }
 }

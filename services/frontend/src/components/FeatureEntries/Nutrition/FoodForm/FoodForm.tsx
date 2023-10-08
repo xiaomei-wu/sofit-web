@@ -1,9 +1,9 @@
+import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { FOOD, useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
 import { FoodCategory, MealCategory } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import {
-  Button,
   DatePicker,
   Form,
   Input,
@@ -51,11 +51,19 @@ export default function FoodForm({
       servingSize: values.servingSize,
       mealCategory: values.mealCategory,
     };
+
+    const foodPayload = isEditMode
+      ? {
+          ...selectedRecord,
+          ...payload,
+        }
+      : payload;
+
     try {
       isEditMode
-        ? await updateFoodRecord(selectedRecord.uuid, {
-            ...selectedRecord,
-            ...payload,
+        ? await updateFoodRecord({
+            foodRecordId: selectedRecord.uuid,
+            data: foodPayload,
           })
         : await createFoodRecord(payload);
       await queryClient.invalidateQueries([FOOD]);
@@ -169,9 +177,7 @@ export default function FoodForm({
       </div>
 
       <Form.Item className={styles.formItem}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
+        <PrimaryButton htmlType="submit">Save</PrimaryButton>
       </Form.Item>
     </Form>
   );

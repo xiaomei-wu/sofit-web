@@ -30,8 +30,6 @@ async function main() {
     },
   });
 
-  console.log({ user1, user2 });
-
   for (let index = 0; index < recipeSeeds.length; index++) {
     const recipeSeed = recipeSeeds[index];
     const recipe = await prisma.recipe.upsert({

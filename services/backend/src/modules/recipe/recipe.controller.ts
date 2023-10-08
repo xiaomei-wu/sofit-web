@@ -29,7 +29,7 @@ export class RecipeController {
   @Post('/record')
   createRecipeRecord(
     @Body() createRecipeRecordDto: CreateRecipeRecordDto,
-    userId: string,
+    @User() userId: string,
   ) {
     return this.recipeService.createRecipeRecord(createRecipeRecordDto, userId);
   }
@@ -40,8 +40,6 @@ export class RecipeController {
     @Body() updateRecipeDto: UpdateRecipeDto,
     @User() userId: string,
   ) {
-    console.log(updateRecipeDto);
-
     return this.recipeService.updateRecipeRecord(
       recordId,
       updateRecipeDto,

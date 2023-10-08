@@ -29,5 +29,5 @@ export class CreateExerciseDto {
   @ApiProperty()
   @IsInt()
   @IsNotEmpty()
-  durationSeconds: number;
+  durationMinutes: number;
 }

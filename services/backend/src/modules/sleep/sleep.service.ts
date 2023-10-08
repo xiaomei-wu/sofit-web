@@ -7,23 +7,33 @@ import { UpdateSleepDto } from './dto/update-sleep.dto';
 export class SleepService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createSleepDto: CreateSleepDto) {
-    return this.prisma.sleep.create({ data: createSleepDto });
+  async create(createSleepDto: CreateSleepDto, userId: string) {
+    return this.prisma.sleep.create({
+      data: {
+        ...createSleepDto,
+        user: {
+          connect: { uuid: userId }, // Connect the User using the provided userId
+        },
+      },
+    });
   }
 
-  async findAll() {
-    return this.prisma.sleep.findMany();
+  async findAll(userId: string) {
+    return this.prisma.sleep.findMany({ where: { userId } });
   }
 
-  async findById(uuid: string) {
-    return this.prisma.sleep.findUnique({ where: { uuid } });
+  async findById(uuid: string, userId: string) {
+    return this.prisma.sleep.findUnique({ where: { uuid, userId } });
   }
 
-  async update(uuid: string, updateSleepDto: UpdateSleepDto) {
-    return this.prisma.sleep.update({ where: { uuid }, data: updateSleepDto });
+  async update(uuid: string, updateSleepDto: UpdateSleepDto, userId: string) {
+    return this.prisma.sleep.update({
+      where: { uuid, userId },
+      data: updateSleepDto,
+    });
   }
 
-  async delete(uuid: string) {
-    return this.prisma.sleep.delete({ where: { uuid } });
+  async delete(uuid: string, userId: string) {
+    return this.prisma.sleep.delete({ where: { uuid, userId } });
   }
 }

@@ -22,6 +22,11 @@ model User {
   createdAt  DateTime         @default(now())
   updatedAt  DateTime         @updatedAt
   foodRecord UserFoodRecord[]
+  Drink      Drink[]
+  Energy     Energy[]
+  Excercise  Excercise[]
+  Sleep      Sleep[]
+  Symptom    Symptom[]
 }
 
 enum FoodCategory {
@@ -187,6 +192,8 @@ model Drink {
   startTime     DateTime
   category      String?
   imgUrl        String?
+  userId        String   @db.Uuid
+  user          User     @relation(fields: [userId], references: [uuid])
 }
 
 model Energy {
@@ -195,6 +202,8 @@ model Energy {
   startTime   DateTime
   energyLevel Int
   notes       String
+  userId      String   @db.Uuid
+  user        User     @relation(fields: [userId], references: [uuid])
 }
 
 model Excercise {
@@ -204,7 +213,9 @@ model Excercise {
   name            String
   notes           String
   intensityLevel  Int
-  durationSeconds Int
+  durationMinutes Int
+  userId          String   @db.Uuid
+  user            User     @relation(fields: [userId], references: [uuid])
 }
 
 model Sleep {
@@ -212,7 +223,9 @@ model Sleep {
   date            DateTime
   startTime       DateTime
   notes           String
-  durationSeconds Int
+  durationMinutes Int
+  userId          String   @db.Uuid
+  user            User     @relation(fields: [userId], references: [uuid])
 }
 
 model Symptom {
@@ -222,5 +235,7 @@ model Symptom {
   name            String
   notes           String
   intensityLevel  Int
-  durationSeconds Int
+  durationMinutes Int
+  userId          String   @db.Uuid
+  user            User     @relation(fields: [userId], references: [uuid])
 }

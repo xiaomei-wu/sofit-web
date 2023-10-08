@@ -19,5 +19,5 @@ export class CreateSleepDto {
   @ApiProperty()
   @IsInt()
   @IsNotEmpty()
-  durationSeconds: number;
+  durationMinutes: number;
 }

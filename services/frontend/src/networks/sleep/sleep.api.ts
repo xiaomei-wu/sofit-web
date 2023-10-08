@@ -1,8 +1,8 @@
-import ky from 'ky-universal';
-import { CreateSleepDto } from './index';
+import { api } from '../utils';
+import { CreateSleepDto } from './sleep.dto';
 
 export const fetchSleep = async () => {
-  return await ky('/api/v1/sleep').json();
+  return await api.get('/api/v1/sleep').json();
 };
 
 export const createSleep = async ({
@@ -11,7 +11,7 @@ export const createSleep = async ({
   createSleepDto: CreateSleepDto;
 }) => {
   try {
-    const createdSleep = await ky
+    const createdSleep = await api
       .post('/api/v1/sleep', { json: createSleepDto })
       .json();
     return createdSleep;
@@ -28,7 +28,7 @@ export const updateSleep = async ({
   updateSleepDto: Partial<CreateSleepDto>;
 }) => {
   try {
-    const updatedSleep = await ky
+    const updatedSleep = await api
       .patch(`/api/v1/sleep/${uuid}`, { json: updateSleepDto })
       .json();
 
@@ -39,5 +39,5 @@ export const updateSleep = async ({
 };
 
 export const deleteSleep = async (uuid: string) => {
-  return await ky.delete(`/api/v1/sleep/${uuid}`);
+  return await api.delete(`/api/v1/sleep/${uuid}`);
 };

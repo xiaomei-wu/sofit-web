@@ -4,7 +4,6 @@ import {
   CreateRecipeDto,
   CreateRecipeRecordDto
 } from './dto/create-recipe.dto';
-import { UpdateRecipeDto } from './dto/update-recipe.dto';
 
 @Injectable()
 export class RecipeService {
@@ -74,6 +73,13 @@ export class RecipeService {
       startTime,
       mealCategory,
     } = createRecipeRecordDto;
+    const user = await this.prisma.user.findUnique({
+      where: { uuid: userId },
+    });
+
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found.`);
+    }
 
     const createdRecipe = await this.createRecipe(recipe);
 
@@ -88,7 +94,7 @@ export class RecipeService {
           connect: { uuid: createdRecipe.uuid },
         },
         user: {
-          connect: { uuid: '3e419e83-ef35-4186-baf4-417c3834131b' }, // Connect the User using the provided userId
+          connect: { uuid: userId }, // Connect the User using the provided userId
         },
       },
       include: { recipe: { include: { ingredients: true } } },
@@ -107,36 +113,6 @@ export class RecipeService {
       dishType,
       ...restRecipeData
     } = updateRecipeDto;
-
-    // Create or update ingredients
-    // const updatedIngredients = await Promise.all(
-    //   ingredients.map(async (ingredient) => {
-    //     if (ingredient.uuid) {
-    //       // If ingredient has an ID, update it
-    //       return await this.prisma.recipeIngredient.update({
-    //         where: { uuid: ingredient.uuid },
-    //         data: {
-    //           text: ingredient.text,
-    //           food: ingredient.food,
-    //           quantity: ingredient.quantity,
-    //           measure: ingredient.measure,
-    //           weight: ingredient.weight,
-    //         },
-    //       });
-    //     } else {
-    //       // If ingredient has no ID, create a new one
-    //       return await this.prisma.recipeIngredient.create({
-    //         data: {
-    //           text: ingredient.text,
-    //           food: ingredient.food,
-    //           quantity: ingredient.quantity,
-    //           measure: ingredient.measure,
-    //           weight: ingredient.weight,
-    //         },
-    //       });
-    //     }
-    //   }),
-    // );
 
     // Update the main Recipe data
     const updatedRecipe = await this.prisma.recipe.update({
@@ -239,7 +215,7 @@ export class RecipeService {
     const {
       recipe,
       recipeId,
-      userId: userUuid,
+      userId: userUUID,
       foodId,
       food,
       ...restRecipeRecordData
@@ -257,7 +233,7 @@ export class RecipeService {
           connect: { uuid: updatedRecipe.uuid },
         },
         user: {
-          connect: { uuid: '3e419e83-ef35-4186-baf4-417c3834131b' }, // Connect the User using the provided userId
+          connect: { uuid: userId }, // Connect the User using the provided userId
         },
       },
       include: { recipe: { include: { ingredients: true } } },
@@ -266,16 +242,12 @@ export class RecipeService {
     return updatedRecipeRecord;
   }
 
-  findAllRecipes() {
+  async findAllRecipes() {
     return this.prisma.recipe.findMany();
   }
 
   findOne(id: number) {
     return `This action returns a #${id} recipe`;
-  }
-
-  update(id: number, updateRecipeDto: UpdateRecipeDto) {
-    return `This action updates a #${id} recipe`;
   }
 
   remove(id: number) {

@@ -7,9 +7,14 @@ import { UpdateExerciseDto } from './dto/update-exercise.dto';
 export class ExerciseService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createExerciseDto: CreateExerciseDto) {
+  async create(createExerciseDto: CreateExerciseDto, userId: string) {
     return this.prisma.excercise.create({
-      data: createExerciseDto,
+      data: {
+        ...createExerciseDto,
+        user: {
+          connect: { uuid: userId }, // Connect the User using the provided userId
+        },
+      },
     });
   }
 

@@ -31,7 +31,7 @@ CREATE TABLE "Excercise" (
     "name" TEXT NOT NULL,
     "notes" TEXT NOT NULL,
     "intensityLevel" INTEGER NOT NULL,
-    "durationSeconds" INTEGER NOT NULL,
+    "durationMinutes" INTEGER NOT NULL,
 
     CONSTRAINT "Excercise_pkey" PRIMARY KEY ("uuid")
 );
@@ -42,7 +42,7 @@ CREATE TABLE "Sleep" (
     "date" TIMESTAMP(3) NOT NULL,
     "startTime" TIMESTAMP(3) NOT NULL,
     "notes" TEXT NOT NULL,
-    "durationSeconds" INTEGER NOT NULL,
+    "durationMinutes" INTEGER NOT NULL,
 
     CONSTRAINT "Sleep_pkey" PRIMARY KEY ("uuid")
 );
@@ -55,7 +55,7 @@ CREATE TABLE "Symptom" (
     "name" TEXT NOT NULL,
     "notes" TEXT NOT NULL,
     "intensityLevel" INTEGER NOT NULL,
-    "durationSeconds" INTEGER NOT NULL,
+    "durationMinutes" INTEGER NOT NULL,
 
     CONSTRAINT "Symptom_pkey" PRIMARY KEY ("uuid")
 );

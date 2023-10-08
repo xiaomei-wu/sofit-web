@@ -10,11 +10,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  private async comparePassword(enteredPassword, dbPassword) {
-    const match = await bcrypt.compare(enteredPassword, dbPassword);
-    return match;
-  }
-
   private async signToken(payload) {
     try {
       const token = await this.jwtService.signAsync(payload, {
@@ -47,6 +42,13 @@ export class AuthService {
     }
   }
 
+  private async comparePassword(
+    plainPassword: string,
+    hashedPassword: string,
+  ): Promise<boolean> {
+    return await bcrypt.compare(plainPassword, hashedPassword);
+  }
+
   async validateUser(email: string, pass: string): Promise<any> {
     // find if user exist with this email
     const user = await this.usersService.findOneByEmail(email);
@@ -65,8 +67,20 @@ export class AuthService {
     return result;
   }
 
-  public async login(reqUser) {
-    const payload = { email: reqUser.email, sub: reqUser.userId };
+  public async login({ email, password }) {
+    const user = await this.usersService.findOneByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    const isPasswordValid = await this.comparePassword(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException();
+    }
+
+    const payload = { email: user.email, sub: user.uuid };
     return {
       access_token: await this.signToken(payload),
     };

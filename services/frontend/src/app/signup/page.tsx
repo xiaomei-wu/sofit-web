@@ -33,6 +33,7 @@ export default function Signup() {
     try {
       const response = await signup(email, password);
       if (response?.token) {
+        setAccessTokenCookie(response.token);
         router.push('/dashboard');
       }
     } catch (error) {

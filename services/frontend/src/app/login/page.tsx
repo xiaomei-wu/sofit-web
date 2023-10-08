@@ -3,10 +3,14 @@
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
 import { login } from '@/networks/auth';
+import {
+  getAccessTokenFromCookie,
+  setAccessTokenCookie
+} from '@/utils/cookies';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 export default function Login() {
@@ -17,6 +21,13 @@ export default function Login() {
     password: '',
     message: '',
   });
+
+  useEffect(() => {
+    const cookie = getAccessTokenFromCookie();
+    if (cookie) {
+      router.push('/dashboard');
+    }
+  }, []);
 
   const handleChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
@@ -33,8 +44,8 @@ export default function Login() {
     try {
       const response = await login(email, password);
 
-      console.log(response);
       if (response.access_token) {
+        setAccessTokenCookie(response.access_token);
         router.push('/dashboard');
       }
     } catch (error) {

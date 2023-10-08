@@ -1,19 +1,19 @@
-import { getRequest, patchRequest, postRequest } from '../utils';
+import { api } from '../utils';
 import { RecipeResponse } from './recipe.dto';
 
 export const getAllRecipe = async (): Promise<RecipeResponse | null> =>
-  await getRequest('/api/v1/recipe');
+  await api.get('/api/v1/recipe').json();
 
 export const createRecipe = async (data): Promise<RecipeResponse | null> =>
-  await postRequest('/api/v1/recipe', data);
+  await api.post('/api/v1/recipe', { json: data }).json();
 
 export const createRecipeRecord = async (
   data: CreateRecipeRecordDto,
 ): Promise<RecipeResponse | null> =>
-  await postRequest('/api/v1/recipe/record', data);
+  await api.post('/api/v1/recipe/record', { json: data }).json();
 
 export const updateRecipeRecord = async (
   recordId: string,
   data: CreateRecipeRecordDto,
 ): Promise<RecipeResponse | null> =>
-  await patchRequest(`/api/v1/recipe/record/${recordId}`, data);
+  await api.patch(`/api/v1/recipe/record/${recordId}`, { json: data }).json();

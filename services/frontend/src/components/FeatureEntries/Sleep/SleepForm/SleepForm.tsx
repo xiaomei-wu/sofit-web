@@ -1,36 +1,66 @@
 'use client';
 
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
-import { dateFormat, timeFormat } from '@/utils';
-import { DatePicker, Form, Input, InputNumber, TimePicker } from 'antd';
+import { useCreateSleepData, useUpdateSleepData } from '@/hooks';
+import {
+  calculateTotalMinutes,
+  convertMinutesToHoursAndMinutes,
+  dateFormat,
+  timeFormat
+} from '@/utils';
+import {
+  DatePicker,
+  Form,
+  Input,
+  InputNumber,
+  message,
+  TimePicker
+} from 'antd';
+import dayjs from 'dayjs';
 import styles from './SleepForm.module.css';
 
 const { TextArea } = Input;
 
-export default function SleepForm() {
+export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
+  const { mutateAsync: updateSleepData } = useUpdateSleepData();
+  const { mutateAsync: createSleepData } = useCreateSleepData();
+  const { hours, minutes } = convertMinutesToHoursAndMinutes(
+    selectedRecord?.durationMinutes,
+  );
   const initialValues = {
-    // date: dayjs(selectedRecord?.date) || dayjs(),
-    // startTime: dayjs(selectedRecord?.startTime) || dayjs(),
-    // name: selectedFood?.name || '',
-    // brand: selectedFood?.brand || '',
-    // servingAmount: selectedRecord?.servingAmount || '',
+    date: dayjs(selectedRecord?.date) || dayjs(),
+    startTime: dayjs(selectedRecord?.startTime) || dayjs(),
+    notes: selectedRecord?.notes || '',
+    hours,
+    minutes,
   };
 
-  const onFinish = async values => {
-    // try {
-    //   if (isEditMode) {
-    //     await updateDrink({
-    //       drinkId: selectedRecord.uuid,
-    //       updateDrinkDto: values,
-    //     });
-    //   } else {
-    //     await createDrink({ createDrinkDto: values });
-    //   }
-    //   message.success('Success');
-    //   return closeModal();
-    // } catch (error) {
-    //   message.error(error);
-    // }
+  const onFinish = async ({ date, startTime, notes, hours, minutes }) => {
+    const durationMinutes = calculateTotalMinutes(hours, minutes);
+
+    const payload = {
+      date,
+      startTime,
+      notes,
+      durationMinutes,
+    };
+
+    try {
+      if (isEditMode) {
+        await updateSleepData({
+          uuid: selectedRecord.uuid,
+          updateSleepDto: payload,
+        });
+        message.success('Success');
+      } else {
+        await createSleepData({ createSleepDto: payload });
+        message.success('Success');
+      }
+
+      closeModal();
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   return (
@@ -84,9 +114,7 @@ export default function SleepForm() {
         </Form.Item>
       </div>
 
-      <Form.Item className={styles.formItem}>
-        <PrimaryButton htmlType="submit">Submit</PrimaryButton>
-      </Form.Item>
+      <PrimaryButton htmlType="submit">Save</PrimaryButton>
     </Form>
   );
 }

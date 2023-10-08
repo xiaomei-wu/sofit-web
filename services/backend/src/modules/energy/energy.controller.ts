@@ -8,6 +8,7 @@ import {
   Post
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from '../user/user.decorator';
 import { CreateEnergyDto } from './dto/create-energy.dto';
 import { UpdateEnergyDto } from './dto/update-energy.dto';
 import { EnergyService } from './energy.service';
@@ -18,8 +19,8 @@ export class EnergyController {
   constructor(private readonly energyService: EnergyService) {}
 
   @Post()
-  create(@Body() createEnergyDto: CreateEnergyDto) {
-    return this.energyService.create(createEnergyDto);
+  create(@Body() createEnergyDto: CreateEnergyDto, @User() userId: string) {
+    return this.energyService.create(createEnergyDto, userId);
   }
 
   @Get()

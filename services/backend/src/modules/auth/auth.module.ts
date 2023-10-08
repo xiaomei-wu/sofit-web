@@ -25,7 +25,6 @@ const authGlobalProviders = [
     JwtModule.register({
       secret: process.env.JWT_KEY,
       signOptions: { expiresIn: process.env.TOKEN_EXPIRATION },
-      // session: true,
     }),
   ],
   controllers: [AuthController],

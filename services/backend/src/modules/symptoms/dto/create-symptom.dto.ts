@@ -29,5 +29,5 @@ export class CreateSymptomDto {
   @ApiProperty()
   @IsInt()
   @IsNotEmpty()
-  durationSeconds: number;
+  durationMinutes: number;
 }

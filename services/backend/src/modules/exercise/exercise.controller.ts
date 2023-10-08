@@ -8,6 +8,7 @@ import {
   Post
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
+import { User } from '../user/user.decorator';
 import { CreateExerciseDto } from './dto/create-exercise.dto';
 import { UpdateExerciseDto } from './dto/update-exercise.dto';
 import { ExerciseService } from './exercise.service';
@@ -18,8 +19,8 @@ export class ExerciseController {
   constructor(private readonly exerciseService: ExerciseService) {}
 
   @Post()
-  create(@Body() createExerciseDto: CreateExerciseDto) {
-    return this.exerciseService.create(createExerciseDto);
+  create(@Body() createExerciseDto: CreateExerciseDto, @User() userId: string) {
+    return this.exerciseService.create(createExerciseDto, userId);
   }
 
   @Get()

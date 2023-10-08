@@ -9,7 +9,6 @@ import {
   CreateFoodRecordDto,
   CreateNutrientDto
 } from './dto/create-food.dto';
-import { UpdateFoodDto } from './dto/update-food.dto';
 import { UserFoodRecord } from './entities/food.entity';
 @Injectable()
 export class FoodService {
@@ -49,7 +48,7 @@ export class FoodService {
   async updateFood(foodId, updateFoodDto) {
     let nutrients;
 
-    if (updateFoodDto.nutrients) {
+    if (updateFoodDto?.nutrients) {
       nutrients = await this.updateNurient(updateFoodDto.nutrients);
     }
 
@@ -100,7 +99,7 @@ export class FoodService {
           connect: { uuid: createdFood.uuid },
         },
         user: {
-          connect: { uuid: '3e419e83-ef35-4186-baf4-417c3834131b' }, // Connect the User using the provided userId
+          connect: { uuid: userId }, // Connect the User using the provided userId
         },
       },
       include: {
@@ -122,7 +121,6 @@ export class FoodService {
       food,
       ...restRecipeRecordData
     } = updateFoodRecordDto;
-
     // Update Recipe data
     const updatedFood = await this.updateFood(foodId, food);
 
@@ -135,7 +133,7 @@ export class FoodService {
           connect: { uuid: updatedFood.uuid },
         },
         user: {
-          connect: { uuid: '3e419e83-ef35-4186-baf4-417c3834131b' }, // Connect the User using the provided userId
+          connect: { uuid: userId }, // Connect the User using the provided userId
         },
       },
       include: { food: { include: { nutrients: true } } },
@@ -157,7 +155,7 @@ export class FoodService {
       throw new NotFoundException('UserFoodRecord not found');
     }
 
-    if (userFoodRecord.user.uuid !== '3e419e83-ef35-4186-baf4-417c3834131b') {
+    if (userFoodRecord.user.uuid !== userId) {
       throw new UnauthorizedException('Unauthorized');
     }
 
@@ -170,7 +168,7 @@ export class FoodService {
   findAllRecord(userId: string) {
     return this.prisma.userFoodRecord.findMany({
       where: {
-        userId: '3e419e83-ef35-4186-baf4-417c3834131b',
+        userId: userId,
       },
       include: {
         food: true,
@@ -189,7 +187,7 @@ export class FoodService {
 
     return this.prisma.userFoodRecord.findMany({
       where: {
-        userId: '3e419e83-ef35-4186-baf4-417c3834131b', // Replace with userId variable
+        userId: userId, // Replace with userId variable
         date: {
           gte: oneWeekAgo,
         },
@@ -217,7 +215,7 @@ export class FoodService {
 
     return this.prisma.userFoodRecord.findMany({
       where: {
-        userId: '3e419e83-ef35-4186-baf4-417c3834131b', // Use the provided userId variable
+        userId: userId, // Use the provided userId variable
         date: {
           gte: midnight,
           lte: new Date(searchDate),
@@ -235,17 +233,5 @@ export class FoodService {
         date: 'desc',
       },
     });
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} food`;
-  }
-
-  update(id: number, updateFoodDto: UpdateFoodDto) {
-    return `This action updates a #${id} food`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} food`;
   }
 }
