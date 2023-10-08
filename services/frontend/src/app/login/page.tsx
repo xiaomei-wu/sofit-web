@@ -7,6 +7,7 @@ import {
   getAccessTokenFromCookie,
   setAccessTokenCookie
 } from '@/utils/cookies';
+import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -47,6 +48,8 @@ export default function Login() {
       if (response.access_token) {
         setAccessTokenCookie(response.access_token);
         router.push('/dashboard');
+      } else {
+        message.error('Wrong email or password');
       }
     } catch (error) {
       console.error(error);
@@ -89,11 +92,11 @@ export default function Login() {
               handleSubmit={handleSubmit}
             />
 
-            <div className={styles.forgotPasswordWrapper}>
+            {/* <div className={styles.forgotPasswordWrapper}>
               <Link className={styles.forgotPassword} href={'/forgotpassword'}>
                 Forgot password?
               </Link>
-            </div>
+            </div> */}
           </div>
           <p className={styles.privacyText}>
             By clicking Continue with Apple/Google/Email/SAML above, you
