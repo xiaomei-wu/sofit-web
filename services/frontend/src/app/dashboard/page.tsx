@@ -1,6 +1,6 @@
 'use client';
 
-import ActicityCard from '@/components/ActivityCard/ActivityCard';
+import AnalysisCard from '@/components/AnalysisCard/AnalysisCard';
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
 import FeatureCard from '@/components/FeatureCard/FeatureCard';
 import RecomendationCard from '@/components/RecomendationCard/RecomendationCard';
@@ -53,7 +53,7 @@ export default function Dashboard() {
             </section>
 
             <section className={styles.activity}>
-              <ActicityCard />
+              <AnalysisCard />
             </section>
 
             <section>

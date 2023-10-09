@@ -165,7 +165,7 @@ export class FoodService {
     });
   }
 
-  findAllRecord(userId: string) {
+  async findAllRecord(userId: string) {
     return this.prisma.userFoodRecord.findMany({
       where: {
         userId: userId,
@@ -181,7 +181,7 @@ export class FoodService {
     });
   }
 
-  findAllRecordInOneWeek(userId: string): Promise<UserFoodRecord[]> {
+  async findAllRecordInOneWeek(userId: string): Promise<UserFoodRecord[]> {
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
@@ -233,5 +233,35 @@ export class FoodService {
         date: 'desc',
       },
     });
+  }
+
+  async updateConsumedNutritionData(
+    foodRecordId: string,
+    nutritionData,
+    userId: string,
+  ) {
+    const foodEntry = await this.prisma.userFoodRecord.findUnique({
+      where: { uuid: foodRecordId, userId },
+    });
+
+    if (!foodEntry) {
+      throw new NotFoundException('No food record found');
+    }
+
+    // Update analysed nutrition data of what user has consumed
+    const updatedFoodRecord = await this.prisma.userFoodRecord.update({
+      where: { uuid: foodRecordId },
+      data: {
+        nutritionData: nutritionData,
+        user: {
+          connect: { uuid: userId }, // Connect the User using the provided userId
+        },
+      },
+    });
+
+    return {
+      uuid: updatedFoodRecord.uuid,
+      nutritionData: updatedFoodRecord.nutritionData,
+    };
   }
 }

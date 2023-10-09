@@ -181,6 +181,7 @@ model UserFoodRecord {
   recipe        Recipe?       @relation(fields: [recipeId], references: [uuid])
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
+  nutritionData Json?
 }
 
 model Drink {

@@ -1,3 +1,5 @@
+'use client';
+
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import { ReactNode } from 'react';
@@ -14,6 +16,8 @@ type Card = {
   onAdd: () => void;
   onDelete: () => void;
   onEdit: () => void;
+  onClickBanner: () => void;
+  nutrientsBadge?: string | StaticImport;
 };
 
 const InfoCard = ({
@@ -26,9 +30,12 @@ const InfoCard = ({
   onDelete,
   editIcon,
   onEdit,
+  onClickBanner,
+  nutrientsBadge,
 }: Card) => {
   return (
-    <div className={styles.card}>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <div className={styles.card} onClick={onClickBanner}>
       <Image
         alt="card-icon"
         height={40}
@@ -41,6 +48,15 @@ const InfoCard = ({
         <p className={styles.subtitle}>{subtitle}</p>
       </div>
       <div className={styles.icons}>
+        {nutrientsBadge && (
+          <Image
+            alt="nutrients-badge"
+            height={30}
+            src={nutrientsBadge}
+            width={30}
+            onClick={onClickBanner}
+          />
+        )}
         <Image
           alt="delete-icon"
           height={30}
@@ -55,13 +71,6 @@ const InfoCard = ({
           width={30}
           onClick={onEdit}
         />
-        {/* <Image
-          alt="add-icon"
-          height={30}
-          src={addIcon}
-          width={30}
-          onClick={onAdd}
-        /> */}
       </div>
     </div>
   );

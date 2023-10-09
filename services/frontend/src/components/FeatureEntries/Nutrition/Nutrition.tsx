@@ -244,11 +244,18 @@ export default function Nutrition() {
             </>
           )}
           <h4>{recentRecord?.length > 0 ? 'Today' : 'Today no data yet'}</h4>
-          <DataList
-            data={recentRecord}
-            setSelectedRecord={setSelectedRecord}
-            setIsModalOpen={setIsModalOpen}
-          />
+          <div className={styles.datalist}>
+            {recentRecord?.map((item, index) => (
+              <div key={index}>
+                <DataList
+                  item={item}
+                  setSelectedRecord={setSelectedRecord}
+                  setIsModalOpen={setIsModalOpen}
+                />
+              </div>
+            ))}
+          </div>
+
           <>
             <Modal
               title={null}

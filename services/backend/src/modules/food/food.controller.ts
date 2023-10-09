@@ -52,11 +52,22 @@ export class FoodController {
     @Body() updateFoodRecordDto,
     @User() userId: string,
   ) {
-    console.log(updateFoodRecordDto, 'updateFoodRecordDto in controller');
-
     return this.foodService.updateFoodRecord(
       foodRecordId,
       updateFoodRecordDto,
+      userId,
+    );
+  }
+
+  @Patch('/record/:foodRecordId/nutritionData')
+  updateNutritionData(
+    @Param('foodRecordId') foodRecordId: string,
+    @Body() nutritionData: JSON, // from third party
+    @User() userId: string,
+  ) {
+    return this.foodService.updateConsumedNutritionData(
+      foodRecordId,
+      nutritionData,
       userId,
     );
   }

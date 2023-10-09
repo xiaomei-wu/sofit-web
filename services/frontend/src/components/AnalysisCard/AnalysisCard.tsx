@@ -1,12 +1,12 @@
 'use client';
 
-import styles from './ActivityCard.module.css';
 import Analysis from './Analysis/Analysis';
+import styles from './AnalysisCard.module.css';
 
-const ActicityCard = () => {
+const AnalysisCard = () => {
   return (
     <div className={styles.card}>
-      <h4>Activity</h4>
+      <h4>Analysis</h4>
       <div>
         <Analysis />
       </div>
@@ -14,4 +14,4 @@ const ActicityCard = () => {
   );
 };
 
-export default ActicityCard;
+export default AnalysisCard;

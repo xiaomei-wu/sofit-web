@@ -27,3 +27,15 @@ export const updateFoodRecord = async ({
 }): Promise<RecipeResponse | null> => {
   await api.patch(`/api/v1/food/record/${foodRecordId}`, { json: data }).json();
 };
+
+export const updateFoodRecordNutritionData = async ({
+  foodRecordId,
+  data,
+}: {
+  foodRecordId: string;
+  data: JSON;
+}): Promise<RecipeResponse | null> => {
+  await api
+    .patch(`/api/v1/food/record/${foodRecordId}/nutritionData`, { json: data })
+    .json();
+};
