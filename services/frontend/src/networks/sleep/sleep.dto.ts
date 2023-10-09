@@ -1,4 +1,4 @@
-export type CreateDrinkDto = {
+export type CreateSleepDto = {
   date: Date;
   startTime: Date;
   notes?: string;
