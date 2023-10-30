@@ -5,12 +5,11 @@ import {
   Get,
   Param,
   Patch,
-  Post
+  Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
 import { CreateFoodDto, CreateFoodRecordDto } from './dto/create-food.dto';
-import { UpdateFoodDto } from './dto/update-food.dto';
 import { FoodService } from './food.service';
 
 @Controller('food')
@@ -78,15 +77,5 @@ export class FoodController {
     @User() userId: string,
   ) {
     return this.foodService.deleteFoodRecord(recordId, userId);
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    // return this.foodService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFoodDto: UpdateFoodDto) {
-    // return this.foodService.update(+id, updateFoodDto);
   }
 }

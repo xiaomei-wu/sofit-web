@@ -12,5 +12,8 @@
   },
   "resolutions": {
     "@babel/traverse": "7.23.2"
+  },
+  "dependencies": {
+    "typescript": "4.3.5"
   }
 }

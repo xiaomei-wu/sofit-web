@@ -2,7 +2,7 @@ import { PartialType } from '@nestjs/swagger';
 import {
   CreateRecipeDto,
   CreateRecipeRecordDto,
-  RecipeIngredient
+  RecipeIngredient,
 } from './create-recipe.dto';
 
 export class UpdateRecipeIngredientDto extends PartialType(RecipeIngredient) {

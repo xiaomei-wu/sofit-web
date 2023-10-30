@@ -5,13 +5,13 @@ import {
   Get,
   Param,
   Patch,
-  Post
+  Post,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { User } from '../user/user.decorator';
 import {
   CreateRecipeDto,
-  CreateRecipeRecordDto
+  CreateRecipeRecordDto,
 } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 import { RecipeService } from './recipe.service';

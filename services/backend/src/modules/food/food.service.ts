@@ -1,13 +1,13 @@
 import {
   Injectable,
   NotFoundException,
-  UnauthorizedException
+  UnauthorizedException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
   CreateFoodDto,
   CreateFoodRecordDto,
-  CreateNutrientDto
+  CreateNutrientDto,
 } from './dto/create-food.dto';
 import { UserFoodRecord } from './entities/food.entity';
 @Injectable()
@@ -114,8 +114,11 @@ export class FoodService {
     userId: string,
   ) {
     const {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       recipe,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       recipeId,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       userId: userUuid,
       foodId,
       food,

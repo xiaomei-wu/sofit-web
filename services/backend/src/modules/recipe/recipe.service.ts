@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import {
   CreateRecipeDto,
-  CreateRecipeRecordDto
+  CreateRecipeRecordDto,
 } from './dto/create-recipe.dto';
 
 @Injectable()
@@ -215,8 +215,11 @@ export class RecipeService {
     const {
       recipe,
       recipeId,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       userId: userUUID,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       foodId,
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       food,
       ...restRecipeRecordData
     } = updateRecipeRecordDto;
