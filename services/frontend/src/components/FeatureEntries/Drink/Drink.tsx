@@ -17,7 +17,7 @@ import DrinkList from './DrinkList/DrinkList';
 interface AddDrinksProps {}
 
 const Drinks: React.FC<AddDrinksProps> = () => {
-  const { data: drinks, isLoading, isFetching } = useGetDrinks();
+  const { data: drinks, isLoading } = useGetDrinks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [selectedDrink, setSelectedDrink] = useState(null);
@@ -45,6 +45,8 @@ const Drinks: React.FC<AddDrinksProps> = () => {
       throw new Error('Failed to fetch search results');
     }
   };
+
+  if (isLoading) return null;
 
   return (
     <div>

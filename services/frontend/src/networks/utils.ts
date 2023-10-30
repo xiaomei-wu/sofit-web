@@ -75,6 +75,7 @@ export const deleteRequest = async endpoint => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const patchRequest = async (endpoint: string, data: any) => {
   const requestOptions: RequestInit = {
     method: 'PATCH',

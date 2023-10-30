@@ -5,7 +5,7 @@ import {
   LinearScale,
   LineElement,
   PointElement,
-  Tooltip
+  Tooltip,
 } from 'chart.js';
 import 'chartkick/chart.js';
 import { Scatter } from 'react-chartjs-2';
