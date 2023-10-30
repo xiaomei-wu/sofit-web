@@ -32,7 +32,6 @@ export const getRequest = async (endpoint: string) => {
 
     return await response.json();
   } catch (err) {
-    console.error('Error:', err);
     return { message: `An error occurred during fetching ${endpoint}` };
   }
 };
@@ -53,7 +52,6 @@ export const postRequest = async (endpoint: string, data: any) => {
 
     return await response.json();
   } catch (err) {
-    console.error('Error:', err);
     return { message: `An error occurred during posting ${endpoint}` };
   }
 };
@@ -73,7 +71,6 @@ export const deleteRequest = async endpoint => {
 
     return { message: 'Resource deleted successfully' };
   } catch (err) {
-    console.error('Error:', err);
     return { message: `An error occurred during deletion at ${endpoint}` };
   }
 };
@@ -94,7 +91,6 @@ export const patchRequest = async (endpoint: string, data: any) => {
 
     return { message: 'Resource updated successfully' };
   } catch (err) {
-    console.error('Error:', err);
     return { message: `An error occurred during updating ${endpoint}` };
   }
 };

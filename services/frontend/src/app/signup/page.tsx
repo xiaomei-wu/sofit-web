@@ -3,15 +3,18 @@
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
 import { signup } from '@/networks/auth';
+import { setAccessTokenCookie } from '@/utils/cookies';
 import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 
 export default function Signup() {
   const router = useRouter();
+  const [countdown, setCountdown] = useState(5);
+  const [redirecting, setRedirecting] = useState(false);
 
   const [state, setState] = useState({
     email: '',
@@ -30,19 +33,35 @@ export default function Signup() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const { email, password } = state;
+    const response = await signup(email, password);
 
-    try {
-      const response = await signup(email, password);
-      if (response?.token) {
-        setAccessTokenCookie(response.token);
-        router.push('/dashboard');
-      } else {
-        message.error('Something went wrong while creating the account');
-      }
-    } catch (error) {
-      console.error(error);
+    if (!response?.token) {
+      return message.error('Something went wrong while creating the account');
     }
+    setAccessTokenCookie(response.token);
+    setRedirecting(true); // Start redirection
   };
+
+  // Redirect to the login page after 5 seconds
+  useEffect(() => {
+    if (redirecting) {
+      if (countdown === 0) {
+        router.push('/login'); // Replace '/login' with the actual login page route
+      } else {
+        const countdownInterval = setInterval(() => {
+          setCountdown(prevCountdown => prevCountdown - 1);
+        }, 1000);
+
+        return () => {
+          clearInterval(countdownInterval);
+        };
+      }
+    }
+  }, [router, countdown, redirecting]);
+
+  if (redirecting) {
+    return <p>Redirecting to the login page in {countdown} seconds...</p>;
+  }
 
   return (
     <div>

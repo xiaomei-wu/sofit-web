@@ -18,22 +18,52 @@ export class EnergyService {
     });
   }
 
-  async findAll() {
-    return this.prisma.energy.findMany();
+  async findAll(userId: string, includedDays = 1) {
+    const desiredDate = new Date();
+    desiredDate.setDate(desiredDate.getDate() - includedDays);
+
+    return this.prisma.energy.findMany({
+      where: {
+        userId,
+        date: {
+          gte: desiredDate,
+        },
+      },
+      orderBy: {
+        date: 'asc',
+      },
+    });
   }
 
-  async findById(uuid: string) {
-    return this.prisma.energy.findUnique({ where: { uuid } });
+  async findByDate(searchDate: string, userId: string) {
+    const midnight = new Date(searchDate);
+    midnight.setHours(0, 0, 0, 0);
+    return this.prisma.energy.findMany({
+      where: {
+        userId: userId, // Use the provided userId variable
+        date: {
+          gte: midnight,
+          lte: new Date(searchDate),
+        },
+      },
+      orderBy: {
+        date: 'desc',
+      },
+    });
   }
 
-  async update(uuid: string, updateEnergyDto: UpdateEnergyDto) {
+  async findById(uuid: string, userId: string) {
+    return this.prisma.energy.findUnique({ where: { uuid, userId } });
+  }
+
+  async update(uuid: string, updateEnergyDto: UpdateEnergyDto, userId: string) {
     return this.prisma.energy.update({
-      where: { uuid },
+      where: { uuid, userId },
       data: updateEnergyDto,
     });
   }
 
-  async delete(uuid: string) {
-    return this.prisma.energy.delete({ where: { uuid } });
+  async delete(uuid: string, userId: string) {
+    return this.prisma.energy.delete({ where: { uuid, userId } });
   }
 }

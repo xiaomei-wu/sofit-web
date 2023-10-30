@@ -35,12 +35,10 @@ export const signup = async (
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-
     const data: SignupResponse = await response.json();
     return data;
   } catch (err) {
-    console.error('Error:', err);
-    return { message: 'An error occurred during signup.' };
+    return { message: 'An error occurred during signup.', status: err.status };
   }
 };
 
@@ -70,8 +68,6 @@ export const login = async (
     const data: LoginResponse = await response.json();
     return data;
   } catch (err) {
-    console.error('Error:', err);
-
     return { message: 'An error occurred during login.' };
   }
 };
@@ -97,10 +93,6 @@ export const logoutUser = async () => {
 };
 
 export const getMe = async () => {
-  try {
-    const response = await api.get('/api/v1/auth/me').json();
-    return response;
-  } catch (error) {
-    return { message: 'Failed to get user profile' };
-  }
+  const response = await api.get('/api/v1/auth/me').json();
+  return response;
 };

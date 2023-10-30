@@ -37,8 +37,8 @@ export class FoodController {
   }
 
   @Get('/record/recent')
-  findAllRecordInOneWeek(@User() userId: string) {
-    return this.foodService.findAllRecordInOneWeek(userId);
+  findAllRecordInOneWeek(@User() userId: string, includedDays: number = 1) {
+    return this.foodService.findAllRecordWithinDays(userId, includedDays);
   }
 
   @Get('/record/:date')

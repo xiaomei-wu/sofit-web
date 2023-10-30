@@ -7,7 +7,7 @@ const AnalysisCard = () => {
   return (
     <div className={styles.card}>
       <h4>Analysis</h4>
-      <div>
+      <div className={styles.analysis}>
         <Analysis />
       </div>
     </div>

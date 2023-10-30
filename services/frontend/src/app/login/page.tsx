@@ -2,6 +2,7 @@
 
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
+import { useGetMe } from '@/hooks';
 import { login } from '@/networks/auth';
 import {
   getAccessTokenFromCookie,
@@ -16,6 +17,7 @@ import styles from './page.module.css';
 
 export default function Login() {
   const router = useRouter();
+  const { data: me } = useGetMe();
 
   const [state, setState] = useState({
     email: '',
@@ -25,7 +27,7 @@ export default function Login() {
 
   useEffect(() => {
     const cookie = getAccessTokenFromCookie();
-    if (cookie) {
+    if (me && cookie) {
       router.push('/dashboard');
     }
   }, []);
@@ -52,7 +54,7 @@ export default function Login() {
         message.error('Wrong email or password');
       }
     } catch (error) {
-      console.error(error);
+      message.error('Something went wrong');
     }
   };
 

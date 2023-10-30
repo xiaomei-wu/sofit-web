@@ -10,7 +10,7 @@ const NavBar = () => {
     <div className={styles.navbar}>
       <Searchbar />
       <div className={styles.settings}>
-        <Settings height={30} width={30} className={styles.icon} />
+        <Settings height={30} width={30} />
         <RandomAvatar />
       </div>
     </div>

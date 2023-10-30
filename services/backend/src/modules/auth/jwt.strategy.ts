@@ -20,9 +20,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Check if the token is revoked
-    console.log(payload, 'validate in jwt');
-
     if (this.tokenBlacklistService.isTokenRevoked(payload.token)) {
       throw new UnauthorizedException('Invalid token');
     }

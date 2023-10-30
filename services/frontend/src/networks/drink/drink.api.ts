@@ -56,6 +56,6 @@ export const searchDrinks = async ({
     ).json();
     return response;
   } catch (error) {
-    console.error(error);
+    console.info(error);
   }
 };

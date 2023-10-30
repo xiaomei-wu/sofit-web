@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.select {
+  min-width: 120px;
+}
+
+.canvas {
+  width: 25rem;
+}

@@ -32,7 +32,7 @@ export const getFullRecipeNutritionAnalysis = async (recipe: RecipeSchema) => {
       .json();
     return response;
   } catch (error) {
-    console.error(error);
+    console.info(error);
   }
 };
 
@@ -43,6 +43,6 @@ export const getIndividualTextLineNutritionAnalysis = async (query: string) => {
     ).json();
     return response;
   } catch (error) {
-    console.error(error);
+    console.info(error);
   }
 };

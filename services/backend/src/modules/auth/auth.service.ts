@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { UserService } from 'src/modules/user/user.service';
@@ -88,6 +92,11 @@ export class AuthService {
   }
 
   public async create(user) {
+    const existingUser = await this.usersService.findOneByEmail(user.email);
+    if (existingUser) {
+      throw new ConflictException();
+    }
+
     // hash the password
     const pass = await this.hashPassword(user.password);
 

@@ -6,6 +6,14 @@ services:
       context: 'services/backend'
     ports:
       - "3000:3000"
+    depends_on:
+      - database  # This ensures the 'database' service starts before 'backend'
+    environment:
+      DATABASE_HOST: database  # Use the service name as the hostname
+      DATABASE_PORT: 5432
+      DATABASE_NAME: sofit-db
+      DATABASE_USER: sofit
+      DATABASE_PASSWORD: sofitadmin
     volumes:
       - ./services/backend/src:/app/src
 
@@ -14,7 +22,7 @@ services:
       dockerfile: 'Dockerfile.dev'
       context: 'services/frontend'
     ports:
-      - "3001:3000"
+      - "4200:4200"
     volumes:
       - ./services/frontend/src:/app/src
   

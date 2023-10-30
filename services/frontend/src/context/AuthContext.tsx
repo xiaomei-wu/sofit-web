@@ -36,12 +36,16 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     if (isUserAuthenticated) {
       router.push('/dashboard');
-    } else {
-      router.push('/login');
+      return;
     }
+    router.push('/login');
   }, [isUserAuthenticated, router]);
 
-  return <Provider>{children}</Provider>;
+  return (
+    <Provider value={{ isUserAuthenticated, setIsUserAuthenticated }}>
+      {children}
+    </Provider>
+  );
 };
 
 export { AuthContext, AuthProvider };

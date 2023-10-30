@@ -18,10 +18,7 @@ export const useCreateFoodRecord = () => {
 };
 
 export const useGetAllFoodRecord = () => {
-  return useQuery({
-    queryKey: [FOOD],
-    queryFn: () => getAllFoodRecord(),
-  });
+  return useQuery([FOOD], getAllFoodRecord);
 };
 
 export const useGetRecentFoodRecord = () => {
@@ -32,8 +29,9 @@ export const useGetRecentFoodRecord = () => {
 };
 
 export const useGetFoodRecordsByDate = (date: string) => {
-  return useQuery(['getFoodRecordsByDate', date], () =>
-    getFoodRecordsByDate(date),
+  return useQuery(
+    ['getFoodRecordsByDate', date],
+    async () => await getFoodRecordsByDate(date),
   );
 };
 

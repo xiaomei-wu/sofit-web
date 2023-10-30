@@ -1,6 +1,8 @@
 .iconbar {
-  width: 5.625rem; /* Set a specific width */
-  background-color: transparent; /* Dark-grey background */
+  width: 5.625rem;
+  /* Set a specific width */
+  background-color: transparent;
+  /* Dark-grey background */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -8,7 +10,8 @@
 }
 
 /* Apply the effect only on desktop screens */
-@media (width >= 700px) {
+@media (width >=700px) {
+
   .icon:hover,
   .icon:active,
   .icon:focus {
@@ -27,7 +30,7 @@
 }
 
 /* Mobile */
-@media (width <= 700px) {
+@media (width <=700px) {
   .iconbar {
     display: none;
   }

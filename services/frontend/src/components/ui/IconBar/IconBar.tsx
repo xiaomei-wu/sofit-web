@@ -9,7 +9,13 @@ import styles from './IconBar.module.css';
 const IconBar = () => {
   return (
     <div className={styles.iconbar}>
-      <Image alt="logo" height={52} src={'/sofit-logo.png'} width={80} />
+      <Image
+        alt="logo"
+        height={52}
+        src={'/sofit-logo.png'}
+        width={80}
+        priority
+      />
 
       <div className={styles.icons}>
         <a href="/dashboard">

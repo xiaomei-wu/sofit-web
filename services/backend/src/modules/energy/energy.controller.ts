@@ -24,25 +24,26 @@ export class EnergyController {
   }
 
   @Get()
-  findAll() {
-    return this.energyService.findAll();
+  findAll(@User() userId: string) {
+    return this.energyService.findAll(userId);
   }
 
   @Get(':energyId')
-  findById(@Param('energyId') energyId: string) {
-    return this.energyService.findById(energyId);
+  findById(@Param('energyId') energyId: string, @User() userId: string) {
+    return this.energyService.findById(energyId, userId);
   }
 
   @Patch(':energyId')
   update(
     @Param('energyId') energyId: string,
     @Body() updateEnergyDto: UpdateEnergyDto,
+    @User() userId: string,
   ) {
-    return this.energyService.update(energyId, updateEnergyDto);
+    return this.energyService.update(energyId, updateEnergyDto, userId);
   }
 
   @Delete(':energyId')
-  delete(@Param('energyId') energyId: string) {
-    return this.energyService.delete(energyId);
+  delete(@Param('energyId') energyId: string, @User() userId: string) {
+    return this.energyService.delete(energyId, userId);
   }
 }

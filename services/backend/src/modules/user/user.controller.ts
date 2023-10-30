@@ -12,8 +12,7 @@ export class UserController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  getProfile(@User() user) {
-    // The 'user' object contains the authenticated user's information
-    return user;
+  getProfile(@User() userId) {
+    return this.userService.findOneById(userId);
   }
 }

@@ -181,19 +181,26 @@ export class FoodService {
     });
   }
 
-  async findAllRecordInOneWeek(userId: string): Promise<UserFoodRecord[]> {
-    const oneWeekAgo = new Date();
-    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+  async findAllRecordWithinDays(
+    userId: string,
+    includedDays: number,
+  ): Promise<UserFoodRecord[]> {
+    const desiredDate = new Date();
+    desiredDate.setDate(desiredDate.getDate() - includedDays);
 
     return this.prisma.userFoodRecord.findMany({
       where: {
-        userId: userId, // Replace with userId variable
+        userId: userId,
         date: {
-          gte: oneWeekAgo,
+          gte: desiredDate,
         },
       },
       include: {
-        food: true,
+        food: {
+          include: {
+            nutrients: true,
+          },
+        },
         recipe: {
           include: {
             ingredients: true, // Include the ingredients relationship
@@ -201,7 +208,7 @@ export class FoodService {
         },
       },
       orderBy: {
-        date: 'desc', // Sort by date in descending order
+        date: 'asc',
       },
     });
   }

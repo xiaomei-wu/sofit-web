@@ -1,191 +1,93 @@
-import 'chart.js';
-import React, { useEffect, useState } from 'react';
-import { LineChart } from 'react-chartkick';
+import { useGetHistories } from '@/hooks/useHistories';
+import {
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  Tooltip
+} from 'chart.js';
+import 'chartkick/chart.js';
+import { Scatter } from 'react-chartjs-2';
+import styles from './Analysis.module.css';
+
+export const options = {
+  scales: {
+    y: {
+      beginAtZero: true,
+    },
+  },
+};
+
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 const Analysis = () => {
-  const [userOutcomes, setUserOutcomes] = useState<string[]>([]);
-  const [selectedOutcome, setSelectedOutcome] = useState<string>('');
-  const [userEvents, setUserEvents] = useState<string[]>([]);
-  const [selectedEvent, setSelectedEvent] = useState<string>('');
-  const [userSpecificEvents, setUserSpecificEvents] = useState<string[]>([]);
-  const [selectedSpecificEvent, setSelectedSpecificEvent] =
-    useState<string>('');
-  const [selectedData, setSelectedData] = useState<any[]>([]);
-  const [chartTitle, setChartTitle] = useState<string>('');
-  const [yTitle, setYTitle] = useState<string>('');
+  const { data: histories, isLoading } = useGetHistories();
 
-  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const { name, value } = event.target;
-    if (name === 'selectedOutcome') {
-      setSelectedOutcome(value);
-    } else if (name === 'selectedEvent') {
-      setSelectedEvent(value);
-    } else if (name === 'selectedSpecificEvent') {
-      setSelectedSpecificEvent(value);
-    }
+  if (isLoading) return null;
+
+  const foodData = histories.food.map(record => {
+    const { food, recipe, nutritionData } = record;
+    return {
+      x: nutritionData?.totalNutrients.FE || 0,
+      y:
+        nutritionData?.calories ||
+        Math.round(recipe?.calories / recipe?.yield) ||
+        food?.nutrients[0]?.enerc_Kcal ||
+        0,
+    };
+  });
+
+  const drinkData = histories.drink.map(record => {
+    return {
+      x: record.servingAmount ? 1 : 0,
+      y: record.servingAmount,
+    };
+  });
+
+  const sleepData = histories.sleep.map(record => {
+    return {
+      x: record.durationMinutes > 420 ? 1 : 0,
+      y: record.durationMinutes,
+    };
+  });
+
+  const symptomData = histories.symptom.map(record => {
+    return {
+      x: record.name ? 1 : 0,
+      y: record.durationMinutes,
+    };
+  });
+
+  const data = {
+    datasets: [
+      {
+        label: 'Food',
+        data: foodData,
+        backgroundColor: '#C4F1B1',
+      },
+      {
+        label: 'Drink',
+        data: drinkData,
+        backgroundColor: '#4085F4',
+      },
+      {
+        label: 'Sleep',
+        data: sleepData,
+        backgroundColor: '#C455F3',
+      },
+      {
+        label: 'Symptom',
+        data: symptomData,
+        backgroundColor: 'rgba(255, 99, 132, 1)',
+      },
+    ],
   };
-
-  const getUserOptions = () => {
-    // axios
-    //   .get(`/api/analysis/user/${user._id}/options`)
-    //   .then((res) => {
-    //     setUserOutcomes([...res.data.userOutcomes]);
-    //     setUserEvents([...res.data.userEvents]);
-    //     if (selectedEvent && selectedEvent !== "Sleep") {
-    //       setUserSpecificEvents([...res.data[selectedEvent]]);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
-  };
-
-  const getSelectedData = () => {
-    // axios
-    //   .get(
-    //     `/api/analysis/user/${user._id}/selected-data/${selectedOutcome}/${selectedEvent}/${
-    //       selectedEvent === "Sleep" ? "Sleep" : selectedSpecificEvent
-    //     }`
-    //   )
-    //   .then((res) => {
-    //     if (typeof res.data !== "string") {
-    //       setSelectedData([...res.data]);
-    //     } else {
-    //       setSelectedData([]);
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
-  };
-
-  // useEffect(() => {
-  //   getUserOptions();
-  // }, [user._id, selectedEvent]);
-
-  // useEffect(() => {
-  //   getSelectedData();
-  // }, [user._id, selectedOutcome, selectedEvent, selectedSpecificEvent]);
-
-  useEffect(() => {
-    let newChartTitle = '';
-    let newYTitle = '';
-
-    if (selectedOutcome === 'Energy') {
-      newChartTitle = 'Energy Level & ';
-      newYTitle = 'Energy Level';
-    } else {
-      newChartTitle = selectedOutcome + ' & ';
-      newYTitle = 'Symptom Intensity';
-    }
-
-    newChartTitle += selectedSpecificEvent;
-    let specificEventType = '';
-
-    switch (selectedEvent) {
-      case 'Foods':
-        specificEventType = 'food';
-        newYTitle += ' / Food Portions';
-        break;
-
-      case 'Drinks':
-        specificEventType = 'drink';
-        newYTitle += ' / Drink Portions';
-        break;
-
-      case 'Exercise':
-        specificEventType = 'exercise';
-        newYTitle += ' / Duration';
-        break;
-
-      default:
-        newChartTitle = newChartTitle.split('&')[0] + '& Sleep';
-        newYTitle += ' / Duration';
-    }
-
-    setChartTitle(newChartTitle);
-    setYTitle(newYTitle);
-  }, [selectedOutcome, selectedEvent, selectedSpecificEvent]);
 
   return (
     <div>
-      <div className="flex flex-column items-center pt3 pb5">
-        <div className="flex items-center">
-          <label className="f6 w3 dib gray" htmlFor="selectedOutcome">
-            Outcome:
-          </label>
-          <select
-            className="f6 pa1 mr3 ml1 w4 mv1"
-            id="selectedOutcome"
-            name="selectedOutcome"
-            onChange={handleChange}
-            value={selectedOutcome}
-          >
-            {userOutcomes.map(option => (
-              <option className="f6" key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="flex items-center">
-          <label className="f6 w3 dib gray" htmlFor="selectedEvent">
-            Event:
-          </label>
-          <select
-            className="f6 pa1 mr3 ml1 w4 mv1"
-            id="selectedEvent"
-            name="selectedEvent"
-            onChange={handleChange}
-            value={selectedEvent}
-          >
-            {userEvents.map(option => (
-              <option className="f6" key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {selectedEvent === 'Sleep' ||
-        selectedEvent === 'Select' ||
-        !selectedEvent ? (
-          <></>
-        ) : (
-          <div className="flex items-center">
-            <label className="f6 w3 dib gray" htmlFor="selectedSpecificEvent">
-              Select {selectedSpecificEvent}:
-            </label>
-            <select
-              className="f6 pa1 mr3 ml1 w4 mv1"
-              id="selectedSpecificEvent"
-              name="selectedSpecificEvent"
-              onChange={handleChange}
-              value={selectedSpecificEvent}
-            >
-              {userSpecificEvents.map(option => (
-                <option className="f6" key={option} value={option}>
-                  {option}
-                </option>
-              ))}
-            </select>
-          </div>
-        )}
-
-        {selectedData.length === 0 ||
-        selectedOutcome === 'Select' ||
-        selectedEvent === 'Select' ||
-        selectedSpecificEvent === 'Select' ? (
-          <></>
-        ) : (
-          <div>
-            <h3 className="pt1">{chartTitle}</h3>
-            <LineChart
-              data={selectedData}
-              height="50vh"
-              legend="bottom"
-              xtitle="Time"
-              ytitle={yTitle}
-            />
-          </div>
-        )}
+      <div className={styles.wrapper}>
+        <Scatter options={options} data={data} className={styles.canvas} />
       </div>
     </div>
   );
