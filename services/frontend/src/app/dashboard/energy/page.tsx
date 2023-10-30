@@ -1,5 +1,5 @@
 import DetailsCard from '@/components/DetailsCard/DetailsCard';
-import Energy from '@/components/FeatureEntries/Enegery/Energy';
+import Energy from '@/components/FeatureEntries/Energy/Energy';
 import DashboardLayout from '@/components/ui/DashboardLayout/DashboardLayout';
 
 export default function EnergyCard() {
