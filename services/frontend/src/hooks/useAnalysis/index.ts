@@ -1,6 +1,6 @@
 import {
   getIndividualTextLineNutritionAnalysis,
-  updateFoodRecordNutritionData
+  updateFoodRecordNutritionData,
 } from '@/networks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

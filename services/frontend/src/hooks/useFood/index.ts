@@ -4,7 +4,7 @@ import {
   getAllFoodRecord,
   getFoodRecordsByDate,
   getRecentFoodRecord,
-  updateFoodRecord
+  updateFoodRecord,
 } from '@/networks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

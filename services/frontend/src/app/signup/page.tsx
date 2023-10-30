@@ -1,9 +1,9 @@
 'use client';
 
 import AuthForm from '@/components/AuthForm/AuthForm';
+import SuccessPage from '@/components/SuccessPage/SuccessPage';
 import Header from '@/components/ui/Header/Header';
 import { signup } from '@/networks/auth';
-import { setAccessTokenCookie } from '@/utils/cookies';
 import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -38,15 +38,13 @@ export default function Signup() {
     if (!response?.token) {
       return message.error('Something went wrong while creating the account');
     }
-    setAccessTokenCookie(response.token);
-    setRedirecting(true); // Start redirection
+    setRedirecting(true);
   };
 
-  // Redirect to the login page after 5 seconds
   useEffect(() => {
     if (redirecting) {
       if (countdown === 0) {
-        router.push('/login'); // Replace '/login' with the actual login page route
+        router.push('/login');
       } else {
         const countdownInterval = setInterval(() => {
           setCountdown(prevCountdown => prevCountdown - 1);
@@ -60,7 +58,12 @@ export default function Signup() {
   }, [router, countdown, redirecting]);
 
   if (redirecting) {
-    return <p>Redirecting to the login page in {countdown} seconds...</p>;
+    return (
+      <SuccessPage>
+        <h3>Account created successfully</h3>
+        <p>Redirecting to the login page in {countdown} seconds...</p>
+      </SuccessPage>
+    );
   }
 
   return (

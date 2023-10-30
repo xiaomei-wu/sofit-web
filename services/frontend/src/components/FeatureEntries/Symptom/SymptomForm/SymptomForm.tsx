@@ -6,7 +6,7 @@ import {
   calculateTotalMinutes,
   convertMinutesToHoursAndMinutes,
   dateFormat,
-  timeFormat
+  timeFormat,
 } from '@/utils';
 import {
   DatePicker,
@@ -16,7 +16,7 @@ import {
   message,
   Select,
   Slider,
-  TimePicker
+  TimePicker,
 } from 'antd';
 import dayjs from 'dayjs';
 import { nameOptions } from './SymptomForm.helper';

@@ -9,7 +9,7 @@ import {
   InputNumber,
   message,
   Select,
-  TimePicker
+  TimePicker,
 } from 'antd';
 import dayjs from 'dayjs';
 import { DrinkCategory } from '../Drink.helper';

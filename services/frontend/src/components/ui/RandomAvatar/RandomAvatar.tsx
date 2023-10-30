@@ -10,7 +10,7 @@ import styles from './RandomAvatar.module.css';
 
 const RandomAvatar = () => {
   const [open, setOpen] = useState(false);
-  const { data: myProfile, isLoading } = useGetMe();
+  const { data: me, isLoading } = useGetMe();
   const router = useRouter();
 
   const showDrawer = () => {
@@ -39,12 +39,7 @@ const RandomAvatar = () => {
         width={40}
         onClick={showDrawer}
       />
-      <Drawer
-        title={myProfile?.email}
-        placement="right"
-        onClose={onClose}
-        open={open}
-      >
+      <Drawer title={me?.email} placement="right" onClose={onClose} open={open}>
         <Button className={styles.logout} onClick={logout} type="text">
           <Image src={'/logout.png'} width={28} height={28} />
           <div>Logout</div>

@@ -3,7 +3,7 @@ import { FOOD } from '@/hooks';
 import {
   createRecipeRecord,
   MealCategory,
-  updateRecipeRecord
+  updateRecipeRecord,
 } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -17,7 +17,7 @@ import {
   message,
   Select,
   Space,
-  TimePicker
+  TimePicker,
 } from 'antd';
 import dayjs from 'dayjs';
 import styles from './RecipesForm.module.css';

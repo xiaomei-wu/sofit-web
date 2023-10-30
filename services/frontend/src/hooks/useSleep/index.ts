@@ -2,7 +2,7 @@ import {
   createSleep,
   deleteSleep,
   fetchSleep,
-  updateSleep
+  updateSleep,
 } from '@/networks/sleep';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

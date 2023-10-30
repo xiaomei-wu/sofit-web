@@ -1,2 +1,2 @@
 export * from './recipe.api';
-export * from './recipe.dto'
+export * from './recipe.dto';

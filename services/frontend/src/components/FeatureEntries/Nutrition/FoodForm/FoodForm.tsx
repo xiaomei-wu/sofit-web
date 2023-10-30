@@ -10,7 +10,7 @@ import {
   InputNumber,
   message,
   Select,
-  TimePicker
+  TimePicker,
 } from 'antd';
 import dayjs from 'dayjs';
 import styles from './FoodForm.module.css';

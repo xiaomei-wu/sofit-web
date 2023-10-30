@@ -38,7 +38,7 @@ const AuthProvider = ({ children }) => {
       router.push('/dashboard');
       return;
     }
-    router.push('/login');
+    router.push('/');
   }, [isUserAuthenticated, router]);
 
   return (

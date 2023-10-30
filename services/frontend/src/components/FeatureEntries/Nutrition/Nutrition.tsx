@@ -5,7 +5,7 @@ import {
   createRecipe,
   fetchEdamamFood,
   fetchEdamamRecipes,
-  FoodCategory
+  FoodCategory,
 } from '@/networks';
 import { useState } from 'react';
 import Carousel from 'react-multi-carousel';

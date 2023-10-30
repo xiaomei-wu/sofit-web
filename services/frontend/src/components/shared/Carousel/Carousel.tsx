@@ -22,7 +22,7 @@ const responsive = {
   },
 };
 
-export default function Carousel({ data }: { data: any }) {
+export default function Carousel({ data }) {
   return (
     <div>
       {data.length > 0 && (

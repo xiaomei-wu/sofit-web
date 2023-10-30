@@ -2,35 +2,23 @@
 
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
-import { useGetMe } from '@/hooks';
 import { login } from '@/networks/auth';
-import {
-  getAccessTokenFromCookie,
-  setAccessTokenCookie
-} from '@/utils/cookies';
+import { setAccessTokenCookie } from '@/utils/cookies';
 import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from './page.module.css';
 
 export default function Login() {
   const router = useRouter();
-  const { data: me } = useGetMe();
 
   const [state, setState] = useState({
     email: '',
     password: '',
     message: '',
   });
-
-  useEffect(() => {
-    const cookie = getAccessTokenFromCookie();
-    if (me && cookie) {
-      router.push('/dashboard');
-    }
-  }, []);
 
   const handleChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;

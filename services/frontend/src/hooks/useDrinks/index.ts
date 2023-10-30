@@ -3,7 +3,7 @@ import {
   deleteDrink,
   fetchDrinks,
   searchDrinks,
-  updateDrink
+  updateDrink,
 } from '@/networks';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

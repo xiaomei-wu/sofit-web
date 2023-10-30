@@ -26,7 +26,7 @@ const Analysis = () => {
 
   if (isLoading) return null;
 
-  const foodData = histories.food.map(record => {
+  const foodData = histories?.food?.map(record => {
     const { food, recipe, nutritionData } = record;
     return {
       x: nutritionData?.totalNutrients.FE || 0,
@@ -38,21 +38,21 @@ const Analysis = () => {
     };
   });
 
-  const drinkData = histories.drink.map(record => {
+  const drinkData = histories?.drink?.map(record => {
     return {
       x: record.servingAmount ? 1 : 0,
       y: record.servingAmount,
     };
   });
 
-  const sleepData = histories.sleep.map(record => {
+  const sleepData = histories?.sleep?.map(record => {
     return {
       x: record.durationMinutes > 420 ? 1 : 0,
       y: record.durationMinutes,
     };
   });
 
-  const symptomData = histories.symptom.map(record => {
+  const symptomData = histories?.symptom?.map(record => {
     return {
       x: record.name ? 1 : 0,
       y: record.durationMinutes,

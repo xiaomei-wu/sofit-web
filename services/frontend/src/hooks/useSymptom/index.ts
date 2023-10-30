@@ -2,7 +2,7 @@ import {
   createSymptom,
   deleteSymptom,
   fetchSymptom,
-  updateSymptom
+  updateSymptom,
 } from '@/networks/symptom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 

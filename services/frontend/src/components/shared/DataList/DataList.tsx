@@ -4,12 +4,12 @@ import EdamamBadgeIcon from '@/assets/icons/edamam-badge.svg';
 import {
   useDeleteFoodRecord,
   useGetNutritionDataFromEdamam,
-  useUpdateNutritionData
+  useUpdateNutritionData,
 } from '@/hooks';
 import {
   createFoodRecord,
   createRecipeRecord,
-  getFullRecipeNutritionAnalysis
+  getFullRecipeNutritionAnalysis,
 } from '@/networks';
 import { Drawer, message } from 'antd';
 import React, { useEffect, useState } from 'react';
