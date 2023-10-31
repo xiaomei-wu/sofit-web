@@ -9,7 +9,7 @@ type Card = {
   title: string | ReactNode;
   subtitle?: string | ReactNode;
   path?: string;
-  actionIcon: string | StaticImport;
+  actionIcon?: string | StaticImport;
 };
 
 const SmallFeatureCard = ({

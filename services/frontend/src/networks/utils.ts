@@ -36,6 +36,7 @@ export const getRequest = async (endpoint: string) => {
   }
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const postRequest = async (endpoint: string, data: any) => {
   const requestOptions: RequestInit = {
     method: 'POST',

@@ -7,7 +7,6 @@ import RecomendationCard from '@/components/RecomendationCard/RecomendationCard'
 import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureCard';
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
-import { useGetHistories } from '@/hooks/useHistories';
 import dynamic from 'next/dynamic';
 import styles from './page.module.css';
 
@@ -19,8 +18,6 @@ const NoSSRCalendar = dynamic(
 );
 
 export default function Dashboard() {
-  const { data: histories } = useGetHistories();
-
   return (
     <div className={styles.dashboard}>
       <IconBar />
@@ -56,7 +53,7 @@ export default function Dashboard() {
             </section>
 
             <section className={styles.activity}>
-              <AnalysisCard histories={histories} />
+              <AnalysisCard />
             </section>
 
             <section>

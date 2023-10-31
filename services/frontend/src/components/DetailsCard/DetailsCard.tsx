@@ -9,7 +9,6 @@ const DetailsCard = ({ title, icon, children }) => {
         <h3>{title}</h3>
       </div>
       {children}
-      {/* <p className={styles.subtitle}>{subtitle}</p> */}
     </div>
   );
 };
