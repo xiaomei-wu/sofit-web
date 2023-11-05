@@ -1,11 +1,10 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ReactNode } from 'react';
 import styles from './RecomendationCard.module.css';
 
 type Card = {
-  icon: string | StaticImport;
+  icon: string;
   title: string | ReactNode;
   subtitle: string | ReactNode;
   path: string;

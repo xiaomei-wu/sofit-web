@@ -3,6 +3,7 @@
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetSleepData } from '@/hooks';
+import { Sleep } from '@/types/sleep';
 import { Modal } from 'antd';
 import { useState } from 'react';
 import styles from './Sleep.module.css';
@@ -12,7 +13,7 @@ import SleepForm from './SleepForm/SleepForm';
 export default function Sleep() {
   const { data: sleepData, isLoading } = useGetSleepData();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState<Sleep | null>(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -47,7 +48,7 @@ export default function Sleep() {
         </Modal>
       </div>
 
-      {sleepData?.length > 0 ? (
+      {sleepData && sleepData?.length > 0 ? (
         <SleepDataList
           data={sleepData}
           setSelectedRecord={setSelectedRecord}

@@ -2,7 +2,7 @@ export type CreateSymptomDto = {
   date: Date;
   startTime: Date;
   name: string;
-  notes?: string;
+  notes?: string | null;
   intensityLevel: number;
-  durationMinutes: string;
+  durationMinutes: number;
 };

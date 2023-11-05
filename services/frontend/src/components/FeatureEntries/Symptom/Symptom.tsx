@@ -3,6 +3,7 @@
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetSymptomData } from '@/hooks';
+import { Symptom } from '@/types/symptom';
 import { Modal } from 'antd';
 import { useState } from 'react';
 import styles from './Symptom.module.css';
@@ -12,7 +13,7 @@ import SymptomForm from './SymptomForm/SymptomForm';
 export default function Symptom() {
   const { data: symptomData, isLoading } = useGetSymptomData();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState<Symptom | null>(null);
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -49,7 +50,7 @@ export default function Symptom() {
         </Modal>
       </div>
 
-      {symptomData?.length > 0 ? (
+      {symptomData && symptomData?.length > 0 ? (
         <SymptomDataList
           data={symptomData}
           setSelectedRecord={setSelectedRecord}

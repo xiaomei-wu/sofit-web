@@ -1,11 +1,11 @@
+import { CreateFoodDto } from '../food/food.dto';
+
 export interface CreateFoodRecordDto {
-  name: string;
-  brand: string;
+  food: CreateFoodDto;
   servingAmount: number;
   servingSize: string;
   date: Date;
-  time: Date;
-  category: FoodCategory;
+  startTime: Date;
   mealCategory: MealCategory;
 }
 

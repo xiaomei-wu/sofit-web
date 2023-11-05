@@ -2,6 +2,8 @@
 
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useCreateSymptomData, useUpdateSymptomData } from '@/hooks';
+import { CreateSymptomDto } from '@/networks/symptom/symptom.dto';
+import { Symptom } from '@/types/symptom';
 import {
   calculateTotalMinutes,
   convertMinutesToHoursAndMinutes,
@@ -24,15 +26,21 @@ import styles from './SymptomForm.module.css';
 
 const { TextArea } = Input;
 
+type SymptomFormType = {
+  isEditMode: boolean;
+  selectedRecord: Symptom | null;
+  closeModal: () => void;
+};
+
 export default function SymptomForm({
   isEditMode,
   selectedRecord,
   closeModal
-}) {
+}: SymptomFormType) {
   const { mutateAsync: updateSymptomData } = useUpdateSymptomData();
   const { mutateAsync: createSymptomData } = useCreateSymptomData();
   const { hours, minutes } = convertMinutesToHoursAndMinutes(
-    selectedRecord?.durationMinutes
+    selectedRecord?.durationMinutes || 0
   );
 
   const initialValues = {
@@ -53,10 +61,10 @@ export default function SymptomForm({
     hours,
     minutes,
     intensityLevel
-  }) => {
+  }: Symptom & { hours: number; minutes: number }) => {
     const durationMinutes = calculateTotalMinutes(hours, minutes);
 
-    const payload = {
+    const payload: CreateSymptomDto = {
       date,
       startTime,
       notes,
@@ -66,7 +74,7 @@ export default function SymptomForm({
     };
 
     try {
-      if (isEditMode) {
+      if (isEditMode && selectedRecord) {
         await updateSymptomData({
           uuid: selectedRecord.uuid,
           updateSymptomDto: payload
@@ -79,7 +87,7 @@ export default function SymptomForm({
 
       closeModal();
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 

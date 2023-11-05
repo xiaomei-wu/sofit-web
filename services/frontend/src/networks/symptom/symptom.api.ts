@@ -1,7 +1,8 @@
+import { Symptom } from '@/types/symptom';
 import { api } from '../utils';
 import { CreateSymptomDto } from './symptom.dto';
 
-export const fetchSymptom = async () => {
+export const fetchSymptom = async (): Promise<Symptom[] | undefined> => {
   return await api.get('/api/v1/symptoms').json();
 };
 

@@ -1,6 +1,7 @@
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { FOOD, useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
-import { FoodCategory, MealCategory } from '@/networks';
+import { CreateFoodRecordDto, FoodCategory, MealCategory } from '@/networks';
+import { Food, FoodRecord } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
 import { useQueryClient } from '@tanstack/react-query';
 import {
@@ -15,12 +16,19 @@ import {
 import dayjs from 'dayjs';
 import styles from './FoodForm.module.css';
 
+type FoodFormType = {
+  closeModal: () => void;
+  selectedFood: Food | null | undefined;
+  selectedRecord: FoodRecord | null | undefined;
+  isEditMode: boolean;
+};
+
 export default function FoodForm({
   closeModal,
   selectedFood,
   selectedRecord,
   isEditMode
-}) {
+}: FoodFormType) {
   const queryClient = useQueryClient();
   const { mutateAsync: updateFoodRecord } = useUpdateFoodRecord();
   const { mutateAsync: createFoodRecord } = useCreateFoodRecord();
@@ -36,14 +44,14 @@ export default function FoodForm({
     mealCategory: selectedRecord?.mealCategory || MealCategory.BREAKFAST
   };
 
-  const onFinish = async (values: CreateFoodDto) => {
-    const payload = {
+  const onFinish = async (values: any) => {
+    const payload: CreateFoodRecordDto = {
       food: {
         name: values.name,
         brand: values.brand,
         category: values.category,
         imgUrl: selectedFood?.imgUrl || '',
-        nutrients: selectedFood?.nutrients || undefined
+        nutrients: selectedFood?.nutrients?.[0] || undefined
       },
       date: values.date,
       startTime: values.startTime,
@@ -60,7 +68,7 @@ export default function FoodForm({
       : payload;
 
     try {
-      isEditMode
+      isEditMode && selectedRecord
         ? await updateFoodRecord({
             foodRecordId: selectedRecord.uuid,
             data: foodPayload
@@ -70,16 +78,8 @@ export default function FoodForm({
       message.success('Success');
       closeModal();
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
-  };
-
-  type FieldType = {
-    name: string;
-    brand?: string;
-    servingAmount: number;
-    servingSize: string;
-    mealCategory: string;
   };
 
   return (
@@ -92,7 +92,7 @@ export default function FoodForm({
       className={styles.form}
     >
       <div className={styles.headRow}>
-        <Form.Item<FieldType>
+        <Form.Item
           name="date"
           rules={[{ required: true, message: 'Please input your date!' }]}
           className={styles.formItem}
@@ -100,7 +100,7 @@ export default function FoodForm({
           <DatePicker format={dateFormat} />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           name="startTime"
           rules={[{ required: true, message: 'Please input your time!' }]}
@@ -108,7 +108,7 @@ export default function FoodForm({
           <TimePicker format={timeFormat} />
         </Form.Item>
 
-        <Form.Item<FieldType> className={styles.formItem} name="mealCategory">
+        <Form.Item className={styles.formItem} name="mealCategory">
           <Select
             options={[
               { value: 'BREAKFAST', label: 'Breakfast' },
@@ -121,7 +121,7 @@ export default function FoodForm({
       </div>
 
       <div className={styles.row}>
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Name"
           name="name"
@@ -130,17 +130,13 @@ export default function FoodForm({
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
-          label="Brand"
-          name="brand"
-          className={styles.formItem}
-        >
+        <Form.Item label="Brand" name="brand" className={styles.formItem}>
           <Input />
         </Form.Item>
       </div>
 
       <div className={styles.row}>
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Serving amount"
           name="servingAmount"
@@ -151,7 +147,7 @@ export default function FoodForm({
           <InputNumber style={{ width: '100%' }} />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           className={styles.formItem}
           label="Serving size"
           name="servingSize"
@@ -162,7 +158,7 @@ export default function FoodForm({
           <Input />
         </Form.Item>
 
-        <Form.Item<FieldType>
+        <Form.Item
           label="Food Type"
           name="category"
           className={styles.formItem}

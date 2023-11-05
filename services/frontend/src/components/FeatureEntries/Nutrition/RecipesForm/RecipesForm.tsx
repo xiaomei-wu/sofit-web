@@ -2,9 +2,11 @@ import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { FOOD } from '@/hooks';
 import {
   createRecipeRecord,
+  CreateRecipeRecordDto,
   MealCategory,
   updateRecipeRecord
 } from '@/networks';
+import { FoodRecord, Recipe } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import { useQueryClient } from '@tanstack/react-query';
@@ -22,12 +24,19 @@ import {
 import dayjs from 'dayjs';
 import styles from './RecipesForm.module.css';
 
+type RecipesFormType = {
+  closeModal: () => void;
+  selectedRecipe: Recipe | null | undefined;
+  isEditMode: boolean;
+  selectedRecord: FoodRecord | null | undefined;
+};
+
 export default function RecipesForm({
   closeModal,
   selectedRecipe,
   isEditMode,
   selectedRecord
-}) {
+}: RecipesFormType) {
   const queryClient = useQueryClient();
 
   const initialValues = {
@@ -49,8 +58,8 @@ export default function RecipesForm({
     calories: selectedRecipe?.calories || ''
   };
 
-  const onFinish = async (values: CreateFoodDto) => {
-    const payload = {
+  const onFinish = async (values: any) => {
+    const payload: CreateRecipeRecordDto = {
       date: values.date,
       startTime: values.startTime,
       servingAmount: values.servingAmount,
@@ -65,7 +74,7 @@ export default function RecipesForm({
     };
 
     try {
-      isEditMode
+      isEditMode && selectedRecord
         ? await updateRecipeRecord(selectedRecord.uuid, {
             ...selectedRecord,
             ...payload
@@ -76,7 +85,7 @@ export default function RecipesForm({
       message.success('Success');
       closeModal();
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 

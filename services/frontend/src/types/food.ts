@@ -1,15 +1,15 @@
 import { FoodCategory, MealCategory } from '@/networks';
 
 interface Nutrient {
-  uuid: string;
+  uuid?: string;
   enerc_Kcal: number;
   procnt_g: number;
   fat_g: number;
   chocdf_g: number;
   sugar_g: number;
   fibt_g: number;
-  recipeId: string | null;
-  foodId: string | null;
+  recipeId?: string | null;
+  foodId?: string | null;
 }
 
 export interface Food {

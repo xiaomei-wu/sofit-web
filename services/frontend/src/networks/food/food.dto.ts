@@ -15,7 +15,7 @@ export interface CreateNutrientDto {
 export interface CreateFoodDto {
   name: string;
   brand: string;
-  imgUrl: string;
+  imgUrl?: string;
   category: FoodCategory;
   nutrients?: CreateNutrientDto;
 }

@@ -2,23 +2,30 @@
 
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
 import { useDeleteSleepData } from '@/hooks';
+import { Sleep } from '@/types/sleep';
 import { calculateMinutesToHours } from '@/utils';
 import { message } from 'antd';
 import styles from './SleepDataList.module.css';
+
+type SleepDataListType = {
+  data: Sleep[];
+  setSelectedRecord: (selectedRecord: Sleep | null) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+};
 
 export default function SleepDataList({
   data,
   setSelectedRecord,
   setIsModalOpen
-}) {
+}: SleepDataListType) {
   const { mutateAsync: deleteSleepData } = useDeleteSleepData();
 
-  const onDelete = async uuid => {
+  const onDelete = async (uuid: string) => {
     try {
       await deleteSleepData(uuid);
       message.success('Success');
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 
@@ -32,7 +39,6 @@ export default function SleepDataList({
             }
             title={calculateMinutesToHours(item.durationMinutes)}
             subtitle={item.notes || ''}
-            addIcon={'/plus.png'}
             editIcon={'/pen.png'}
             deleteIcon={'/delete.png'}
             onDelete={() => onDelete(item.uuid)}

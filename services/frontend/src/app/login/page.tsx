@@ -81,12 +81,6 @@ export default function Login() {
               handleChange={handleChange}
               handleSubmit={handleSubmit}
             />
-
-            {/* <div className={styles.forgotPasswordWrapper}>
-              <Link className={styles.forgotPassword} href={'/forgotpassword'}>
-                Forgot password?
-              </Link>
-            </div> */}
           </div>
           <p className={styles.privacyText}>
             By clicking Continue with Apple/Google/Email/SAML above, you

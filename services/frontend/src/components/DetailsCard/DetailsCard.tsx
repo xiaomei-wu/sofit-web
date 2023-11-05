@@ -1,11 +1,10 @@
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import styles from './DetailsCard.module.css';
 
 type DetailsCardType = {
   title: string | ReactNode;
-  icon: string | StaticImport;
+  icon: string;
   children: ReactNode;
 };
 

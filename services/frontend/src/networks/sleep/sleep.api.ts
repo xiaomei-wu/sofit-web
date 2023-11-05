@@ -1,7 +1,8 @@
+import { Sleep } from '@/types/sleep';
 import { api } from '../utils';
 import { CreateSleepDto } from './sleep.dto';
 
-export const fetchSleep = async () => {
+export const fetchSleep = async (): Promise<Sleep[] | undefined> => {
   return await api.get('/api/v1/sleep').json();
 };
 

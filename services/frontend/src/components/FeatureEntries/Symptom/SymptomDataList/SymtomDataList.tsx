@@ -2,23 +2,30 @@
 
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
 import { useDeleteSymptomData } from '@/hooks';
+import { Symptom } from '@/types/symptom';
 import { message } from 'antd';
 import { getIcon } from '../SymptomForm/SymptomForm.helper';
 import styles from './SymptomDataList.module.css';
+
+type SymptomDataListType = {
+  data: Symptom[];
+  setSelectedRecord: (data: Symptom) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
+};
 
 export default function SymptomDataList({
   data,
   setSelectedRecord,
   setIsModalOpen
-}) {
+}: SymptomDataListType) {
   const { mutateAsync: deleteSymptomData } = useDeleteSymptomData();
 
-  const onDelete = async uuid => {
+  const onDelete = async (uuid: string) => {
     try {
       await deleteSymptomData(uuid);
       message.success('Success');
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 
@@ -30,7 +37,6 @@ export default function SymptomDataList({
             icon={getIcon(item.name)}
             title={item.name}
             subtitle={`Intensity ${item.intensityLevel}`}
-            addIcon={'/plus.png'}
             editIcon={'/pen.png'}
             deleteIcon={'/delete.png'}
             onDelete={() => onDelete(item.uuid)}

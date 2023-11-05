@@ -1,21 +1,19 @@
 'use client';
-
-import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import styles from './InfoCard.module.css';
 
 type Card = {
-  icon: string | StaticImport;
+  icon: string;
   title: string | ReactNode;
   subtitle?: string | ReactNode;
   path?: string;
-  editIcon: string | StaticImport;
-  deleteIcon: string | StaticImport;
+  editIcon: string;
+  deleteIcon: string;
   onDelete: () => void;
   onEdit: () => void;
   onClickBanner?: () => void;
-  nutrientsBadge?: string | StaticImport;
+  nutrientsBadge?: string;
 };
 
 const InfoCard = ({

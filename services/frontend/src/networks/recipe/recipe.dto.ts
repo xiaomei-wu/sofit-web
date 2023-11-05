@@ -56,7 +56,7 @@ export interface CreateRecipeDto {
   dishType?: LabelDto[];
   cuisineType?: LabelDto[];
   cautions?: LabelDto[];
-  nutrients: CreateNutrientDto;
+  nutrients?: CreateNutrientDto;
 }
 
 export interface CreateRecipeRecordDto {
