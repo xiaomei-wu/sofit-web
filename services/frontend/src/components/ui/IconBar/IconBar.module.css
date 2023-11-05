@@ -1,7 +1,9 @@
 .iconbar {
   width: 5.625rem;
+
   /* Set a specific width */
   background-color: transparent;
+
   /* Dark-grey background */
   display: flex;
   flex-direction: column;
@@ -11,7 +13,6 @@
 
 /* Apply the effect only on desktop screens */
 @media (width >=700px) {
-
   .icon:hover,
   .icon:active,
   .icon:focus {

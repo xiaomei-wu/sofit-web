@@ -100,23 +100,25 @@ a {
 h1 {
   color: var(--text-color);
   text-align: center;
-  font-size: 4.78125rem;
+  font-size: 4.7812rem;
   font-style: normal;
   font-weight: 700;
   line-height: 4.875rem;
+
   /* 101.961% */
-  letter-spacing: -0.16019rem;
+  letter-spacing: -0.1601rem;
 }
 
 h2 {
   color: var(--text-color);
   text-align: center;
-  font-size: 3.8125rem;
+  font-size: 3.812rem;
   font-style: normal;
   font-weight: 700;
   line-height: 4.0625rem;
+
   /* 106.557% */
-  letter-spacing: -0.12006rem;
+  letter-spacing: -0.1200rem;
 }
 
 h3 {
@@ -126,8 +128,9 @@ h3 {
   font-style: normal;
   font-weight: 500;
   line-height: 2.375rem;
+
   /* 125% */
-  letter-spacing: -0.02625rem;
+  letter-spacing: -0.0262rem;
 }
 
 h4 {
@@ -135,6 +138,7 @@ h4 {
   font-style: normal;
   font-weight: 400;
   line-height: 2rem;
+
   /* 133.333% */
   letter-spacing: -0.075rem;
   margin-bottom: 0.5rem;

@@ -22,7 +22,7 @@ const headers = {
 export const signup = async (
   email: string,
   password: string
-): Promise<SignupResponse | null> => {
+): Promise<SignupResponse | undefined> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
@@ -38,7 +38,7 @@ export const signup = async (
     const data: SignupResponse = await response.json();
     return data;
   } catch (err) {
-    return { message: 'An error occurred during signup.', status: err.status };
+    console.error('Error while sign up');
   }
 };
 
@@ -51,7 +51,7 @@ interface LoginResponse {
 export const login = async (
   email: string,
   password: string
-): Promise<LoginResponse> => {
+): Promise<LoginResponse | undefined> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
@@ -68,7 +68,7 @@ export const login = async (
     const data: LoginResponse = await response.json();
     return data;
   } catch (err) {
-    return { message: 'An error occurred during login.' };
+    console.error('An error occurred during login.');
   }
 };
 

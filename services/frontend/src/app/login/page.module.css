@@ -23,7 +23,7 @@
 
 .googleButton {
   display: flex;
-  padding: 0.6875rem 4.83313rem 0.6875rem 4.85438rem;
+  padding: 0.6875rem 4.8331rem 0.6875rem 4.8543rem;
   justify-content: center;
   align-items: center;
   gap: 0.27rem;
@@ -40,7 +40,7 @@
 
 .appleButton {
   display: flex;
-  padding: 0.5625rem 5.05375rem 0.6875rem 5.07125rem;
+  padding: 0.5625rem 5.0537rem 0.6875rem 5.0712rem;
   justify-content: center;
   align-items: flex-end;
   gap: 0.375rem;
@@ -58,7 +58,7 @@
 .dividerDiv {
   display: flex;
   height: 2.625rem;
-  padding: 1.28125rem 0;
+  padding: 1.2812rem 0;
   justify-content: center;
   align-items: center;
   align-self: stretch;

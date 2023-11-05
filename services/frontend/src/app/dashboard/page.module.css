@@ -17,10 +17,13 @@
 
   /* Additional Styles for Improved Responsiveness */
   width: 100%;
+
   /* Set width to 100% for both desktop and mobile */
   max-width: 100%;
+
   /* Prevent content from overflowing on smaller screens */
   box-sizing: border-box;
+
   /* Ensure padding and borders are included in the width */
 }
 

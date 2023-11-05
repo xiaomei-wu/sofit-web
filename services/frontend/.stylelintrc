@@ -3,5 +3,15 @@
   "formatter": "stylelint-checkstyle-formatter",
   "plugins": [
     "stylelint-scss"
-  ]
+  ],
+  "rules": {
+    "number-max-precision": [
+      4,
+      {
+        "ignoreUnits": ["em"],
+        "severity": "warning"
+      }
+    ],
+    "selector-class-pattern": null
+  }
 }

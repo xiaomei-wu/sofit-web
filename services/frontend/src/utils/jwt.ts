@@ -1,5 +1,5 @@
 export const isTokenExpired = (
-  tokenPayload: JwtPayload,
+  tokenPayload: { iat: number },
   expirationHours: number
 ): boolean => {
   const now = Math.floor(Date.now() / 1000); // Current timestamp in seconds

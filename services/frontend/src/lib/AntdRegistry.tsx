@@ -5,11 +5,11 @@ import type Entity from '@ant-design/cssinjs/es/Cache';
 import { useServerInsertedHTML } from 'next/navigation';
 import React from 'react';
 
-const StyledComponentsRegistry = ({
+export default function StyledComponentsRegistry({
   children
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   const cache = React.useMemo<Entity>(() => createCache(), [createCache]);
   useServerInsertedHTML(() => (
     <style
@@ -18,6 +18,4 @@ const StyledComponentsRegistry = ({
     />
   ));
   return <StyleProvider cache={cache}>{children}</StyleProvider>;
-};
-
-export default StyledComponentsRegistry;
+}

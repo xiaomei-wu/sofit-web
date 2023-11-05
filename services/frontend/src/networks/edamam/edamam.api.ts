@@ -1,5 +1,4 @@
 import ky from 'ky-universal';
-import { getRequest } from '../utils';
 
 type EdamamNutrients = {
   ENERC_KCAL: number;
@@ -25,11 +24,11 @@ export type EdamamFoodHint = {
 export const fetchEdamamFood = async (
   query: string
 ): Promise<EdamamFoodHint[] | undefined> => {
-  const response = await getRequest(
-    `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_KEY}`
-  );
-
-  return response.hints;
+  return await ky
+    .get(
+      `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_KEY}`
+    )
+    .json();
 };
 
 type EdamamIngredient = {
@@ -73,10 +72,11 @@ type EdamamRecipeHit = {
 export const fetchEdamamRecipes = async (
   query: string
 ): Promise<EdamamRecipeHit[]> => {
-  const response = await getRequest(
-    `https://api.edamam.com/search?q=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_RECEIP_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_RECIPE_APP_KEY}`
-  );
-  return response.hits;
+  return await ky
+    .get(
+      `https://api.edamam.com/search?q=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_RECEIP_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_RECIPE_APP_KEY}`
+    )
+    .json();
 };
 
 export type RecipeSchema = {
