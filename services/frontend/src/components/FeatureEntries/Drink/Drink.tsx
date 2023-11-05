@@ -16,9 +16,7 @@ import styles from './Drink.module.css';
 import DrinkForm from './DrinkForm/DrinkForm';
 import DrinkList from './DrinkList/DrinkList';
 
-interface AddDrinksProps {}
-
-const Drinks: React.FC<AddDrinksProps> = () => {
+export default function Drinks() {
   const { data: drinks, isLoading } = useGetDrinks();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState<Drink | null>(null);
@@ -115,6 +113,4 @@ const Drinks: React.FC<AddDrinksProps> = () => {
       )}
     </div>
   );
-};
-
-export default Drinks;
+}

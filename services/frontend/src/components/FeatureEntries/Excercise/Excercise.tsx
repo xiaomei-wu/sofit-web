@@ -1,7 +1,5 @@
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 
-const Excercise = () => {
+export default function Excercise() {
   return <EmptyView image={'/empty-view.svg'} />;
-};
-
-export default Excercise;
+}

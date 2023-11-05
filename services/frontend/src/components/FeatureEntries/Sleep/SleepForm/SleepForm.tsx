@@ -2,6 +2,7 @@
 
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useCreateSleepData, useUpdateSleepData } from '@/hooks';
+import { Sleep } from '@/types/sleep';
 import {
   calculateTotalMinutes,
   convertMinutesToHoursAndMinutes,
@@ -21,11 +22,21 @@ import styles from './SleepForm.module.css';
 
 const { TextArea } = Input;
 
-export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
+type SleepFormType = {
+  isEditMode: boolean;
+  selectedRecord: Sleep | null;
+  closeModal: () => void;
+};
+
+export default function SleepForm({
+  isEditMode,
+  selectedRecord,
+  closeModal
+}: SleepFormType) {
   const { mutateAsync: updateSleepData } = useUpdateSleepData();
   const { mutateAsync: createSleepData } = useCreateSleepData();
   const { hours, minutes } = convertMinutesToHoursAndMinutes(
-    selectedRecord?.durationMinutes
+    selectedRecord?.durationMinutes || 0
   );
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
@@ -35,7 +46,19 @@ export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
     minutes
   };
 
-  const onFinish = async ({ date, startTime, notes, hours, minutes }) => {
+  const onFinish = async ({
+    date,
+    startTime,
+    notes,
+    hours,
+    minutes
+  }: {
+    date: Date;
+    startTime: Date;
+    notes: string;
+    hours: number;
+    minutes: number;
+  }) => {
     const durationMinutes = calculateTotalMinutes(hours, minutes);
 
     const payload = {
@@ -46,7 +69,7 @@ export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
     };
 
     try {
-      if (isEditMode) {
+      if (isEditMode && selectedRecord) {
         await updateSleepData({
           uuid: selectedRecord.uuid,
           updateSleepDto: payload
@@ -59,7 +82,7 @@ export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
 
       closeModal();
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 

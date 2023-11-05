@@ -6,7 +6,7 @@ import SendIcon from '@/assets/icons/send.svg';
 import Image from 'next/image';
 import styles from './IconBar.module.css';
 
-const IconBar = () => {
+export default function IconBar() {
   return (
     <div className={styles.iconbar}>
       <Image
@@ -36,6 +36,4 @@ const IconBar = () => {
       </div>
     </div>
   );
-};
-
-export default IconBar;
+}

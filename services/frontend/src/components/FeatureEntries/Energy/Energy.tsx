@@ -1,7 +1,5 @@
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 
-const Energy = () => {
+export default function Energy() {
   return <EmptyView image={'/empty-view.svg'} />;
-};
-
-export default Energy;
+}

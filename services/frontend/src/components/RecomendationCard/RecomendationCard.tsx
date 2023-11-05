@@ -10,7 +10,12 @@ type Card = {
   path: string;
 };
 
-const RecomendationCard = ({ icon, title, subtitle, path }: Card) => {
+export default function RecomendationCard({
+  icon,
+  title,
+  subtitle,
+  path
+}: Card) {
   return (
     <Link href={path}>
       <div className={styles.card}>
@@ -22,6 +27,4 @@ const RecomendationCard = ({ icon, title, subtitle, path }: Card) => {
       </div>
     </Link>
   );
-};
-
-export default RecomendationCard;
+}

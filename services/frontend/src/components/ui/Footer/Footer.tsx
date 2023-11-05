@@ -1,6 +1,6 @@
 import styles from './Footer.module.css';
 
-const Footer = () => {
+export default function Footer() {
   const { footerSection, socialMediaFlex } = styles;
 
   return (
@@ -21,6 +21,4 @@ const Footer = () => {
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}

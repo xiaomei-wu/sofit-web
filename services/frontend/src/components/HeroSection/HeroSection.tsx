@@ -2,7 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './Hero.module.css';
 
-const HeroSection = () => {
+export default function HeroSection() {
   const { heroSection, heroContent, textSection, signupButton, subTitle } =
     styles;
 
@@ -30,6 +30,4 @@ const HeroSection = () => {
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}

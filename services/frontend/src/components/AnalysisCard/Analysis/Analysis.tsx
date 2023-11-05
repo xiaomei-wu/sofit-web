@@ -15,7 +15,7 @@ import 'chartkick/chart.js';
 import { Scatter } from 'react-chartjs-2';
 import styles from './Analysis.module.css';
 
-export const options = {
+const options = {
   scales: {
     y: {
       beginAtZero: true
@@ -25,7 +25,7 @@ export const options = {
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
-const Analysis = () => {
+export default function Analysis() {
   const { data: histories, isLoading } = useGetHistories();
 
   if (isLoading) return null;
@@ -98,6 +98,4 @@ const Analysis = () => {
       </div>
     </div>
   );
-};
-
-export default Analysis;
+}

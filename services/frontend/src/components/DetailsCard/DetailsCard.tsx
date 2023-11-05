@@ -8,7 +8,11 @@ type DetailsCardType = {
   children: ReactNode;
 };
 
-const DetailsCard = ({ title, icon, children }: DetailsCardType) => {
+export default function DetailsCard({
+  title,
+  icon,
+  children
+}: DetailsCardType) {
   return (
     <div className={styles.card}>
       <div className={styles.header}>
@@ -18,6 +22,4 @@ const DetailsCard = ({ title, icon, children }: DetailsCardType) => {
       {children}
     </div>
   );
-};
-
-export default DetailsCard;
+}

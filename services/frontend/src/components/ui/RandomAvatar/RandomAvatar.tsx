@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from './RandomAvatar.module.css';
 
-const RandomAvatar = () => {
+export default function RandomAvatar() {
   const [open, setOpen] = useState(false);
   const { data: me, isLoading } = useGetMe();
   const router = useRouter();
@@ -47,6 +47,4 @@ const RandomAvatar = () => {
       </Drawer>
     </div>
   );
-};
-
-export default RandomAvatar;
+}

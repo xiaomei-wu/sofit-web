@@ -5,7 +5,7 @@ import RandomAvatar from '../RandomAvatar/RandomAvatar';
 import Searchbar from '../Searchbar/Searchbar';
 import styles from './NavBar.module.css';
 
-const NavBar = () => {
+export default function NavBar() {
   return (
     <div className={styles.navbar}>
       <Searchbar />
@@ -15,6 +15,4 @@ const NavBar = () => {
       </div>
     </div>
   );
-};
-
-export default NavBar;
+}

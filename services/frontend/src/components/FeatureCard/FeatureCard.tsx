@@ -10,7 +10,7 @@ type Card = {
   path: string;
 };
 
-const FeatureCard = ({ icon, title, subtitle, path }: Card) => {
+export default function FeatureCard({ icon, title, subtitle, path }: Card) {
   return (
     <Link href={`/dashboard/${path}`}>
       <div className={styles.card}>
@@ -22,6 +22,4 @@ const FeatureCard = ({ icon, title, subtitle, path }: Card) => {
       </div>
     </Link>
   );
-};
-
-export default FeatureCard;
+}

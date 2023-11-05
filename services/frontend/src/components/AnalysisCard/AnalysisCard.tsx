@@ -3,7 +3,7 @@
 import Analysis from './Analysis/Analysis';
 import styles from './AnalysisCard.module.css';
 
-const AnalysisCard = () => {
+export default function AnalysisCard() {
   return (
     <div className={styles.card}>
       <h4>Analysis</h4>
@@ -12,6 +12,4 @@ const AnalysisCard = () => {
       </div>
     </div>
   );
-};
-
-export default AnalysisCard;
+}

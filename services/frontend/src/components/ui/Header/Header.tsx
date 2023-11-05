@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './Header.module.css';
 
-const Header = () => {
+export default function Header() {
   return (
     <header className={styles.wrapper}>
       <nav className={styles.flex}>
@@ -21,6 +21,4 @@ const Header = () => {
       </nav>
     </header>
   );
-};
-
-export default Header;
+}
