@@ -16,17 +16,17 @@ interface SignupResponse {
 }
 
 const headers = {
-  'Content-Type': 'application/json',
+  'Content-Type': 'application/json'
 };
 
 export const signup = async (
   email: string,
-  password: string,
+  password: string
 ): Promise<SignupResponse | null> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password })
   };
 
   try {
@@ -50,12 +50,12 @@ interface LoginResponse {
 
 export const login = async (
   email: string,
-  password: string,
+  password: string
 ): Promise<LoginResponse> => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
-    body: JSON.stringify({ email, password }),
+    body: JSON.stringify({ email, password })
   };
 
   try {
@@ -92,7 +92,10 @@ export const logoutUser = async () => {
   }
 };
 
-export const getMe = async () => {
-  const response = await api.get('/api/v1/auth/me').json();
-  return response;
+export type Me = {
+  email: string;
+};
+
+export const getMe = async (): Promise<Me | undefined> => {
+  return await api.get('/api/v1/auth/me').json();
 };

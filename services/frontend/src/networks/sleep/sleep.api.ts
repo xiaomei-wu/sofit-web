@@ -6,7 +6,7 @@ export const fetchSleep = async () => {
 };
 
 export const createSleep = async ({
-  createSleepDto,
+  createSleepDto
 }: {
   createSleepDto: CreateSleepDto;
 }) => {
@@ -22,7 +22,7 @@ export const createSleep = async ({
 
 export const updateSleep = async ({
   uuid,
-  updateSleepDto,
+  updateSleepDto
 }: {
   uuid: string;
   updateSleepDto: Partial<CreateSleepDto>;

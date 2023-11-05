@@ -9,7 +9,7 @@ import styles from './SymptomDataList.module.css';
 export default function SymptomDataList({
   data,
   setSelectedRecord,
-  setIsModalOpen,
+  setIsModalOpen
 }) {
   const { mutateAsync: deleteSymptomData } = useDeleteSymptomData();
 

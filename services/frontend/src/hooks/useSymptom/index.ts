@@ -2,7 +2,7 @@ import {
   createSymptom,
   deleteSymptom,
   fetchSymptom,
-  updateSymptom,
+  updateSymptom
 } from '@/networks/symptom';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -16,14 +16,14 @@ export const useCreateSymptomData = () => {
     mutationFn: createSymptom,
     onSettled: () => {
       queryClient.invalidateQueries([SYMPTOM]);
-    },
+    }
   });
 };
 
 export const useGetSymptomData = () => {
   return useQuery({
     queryKey: [SYMPTOM],
-    queryFn: fetchSymptom,
+    queryFn: fetchSymptom
   });
 };
 
@@ -35,7 +35,7 @@ export const useDeleteSymptomData = () => {
     mutationFn: deleteSymptom,
     onSettled: () => {
       queryClient.invalidateQueries([SYMPTOM]);
-    },
+    }
   });
 };
 
@@ -47,6 +47,6 @@ export const useUpdateSymptomData = () => {
     mutationFn: updateSymptom,
     onSettled: () => {
       queryClient.invalidateQueries([SYMPTOM]);
-    },
+    }
   });
 };

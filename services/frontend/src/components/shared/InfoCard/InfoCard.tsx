@@ -10,13 +10,11 @@ type Card = {
   title: string | ReactNode;
   subtitle?: string | ReactNode;
   path?: string;
-  editIcon?: string | StaticImport;
-  deleteIcon?: string | StaticImport;
-  actionIcon: string | StaticImport;
-  onAdd: () => void;
+  editIcon: string | StaticImport;
+  deleteIcon: string | StaticImport;
   onDelete: () => void;
   onEdit: () => void;
-  onClickBanner: () => void;
+  onClickBanner?: () => void;
   nutrientsBadge?: string | StaticImport;
 };
 
@@ -29,10 +27,9 @@ const InfoCard = ({
   editIcon,
   onEdit,
   onClickBanner,
-  nutrientsBadge,
+  nutrientsBadge
 }: Card) => {
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
     <div className={styles.card} onClick={onClickBanner}>
       <Image
         alt="card-icon"

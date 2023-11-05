@@ -10,7 +10,7 @@ export const nameOptions = [
   'Asthma',
   'Heartburn',
   'Constipation',
-  'Other',
+  'Other'
 ];
 
 export const getIcon = (name: string) => {

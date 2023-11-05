@@ -1,11 +1,15 @@
 import { useGetHistories } from '@/hooks/useHistories';
+import { Drink } from '@/types/drink';
+import { FoodRecord } from '@/types/food';
+import { Sleep } from '@/types/sleep';
+import { Symptom } from '@/types/symptom';
 import {
   Chart as ChartJS,
   Legend,
   LinearScale,
   LineElement,
   PointElement,
-  Tooltip,
+  Tooltip
 } from 'chart.js';
 import 'chartkick/chart.js';
 import { Scatter } from 'react-chartjs-2';
@@ -14,9 +18,9 @@ import styles from './Analysis.module.css';
 export const options = {
   scales: {
     y: {
-      beginAtZero: true,
-    },
-  },
+      beginAtZero: true
+    }
+  }
 };
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -26,36 +30,39 @@ const Analysis = () => {
 
   if (isLoading) return null;
 
-  const foodData = histories?.food?.map(record => {
+  const foodData = histories?.food?.map((record: FoodRecord) => {
     const { food, recipe, nutritionData } = record;
     return {
+      //@ts-ignore nutritionData
       x: nutritionData?.totalNutrients.FE || 0,
       y:
         nutritionData?.calories ||
+        //@ts-ignore nutritionData
         Math.round(recipe?.calories / recipe?.yield) ||
+        //@ts-ignore nutritionData
         food?.nutrients[0]?.enerc_Kcal ||
-        0,
+        0
     };
   });
 
-  const drinkData = histories?.drink?.map(record => {
+  const drinkData = histories?.drink?.map((record: Drink) => {
     return {
       x: record.servingAmount ? 1 : 0,
-      y: record.servingAmount,
+      y: record.servingAmount
     };
   });
 
-  const sleepData = histories?.sleep?.map(record => {
+  const sleepData = histories?.sleep?.map((record: Sleep) => {
     return {
       x: record.durationMinutes > 420 ? 1 : 0,
-      y: record.durationMinutes,
+      y: record.durationMinutes
     };
   });
 
-  const symptomData = histories?.symptom?.map(record => {
+  const symptomData = histories?.symptom?.map((record: Symptom) => {
     return {
       x: record.name ? 1 : 0,
-      y: record.durationMinutes,
+      y: record.durationMinutes
     };
   });
 
@@ -64,24 +71,24 @@ const Analysis = () => {
       {
         label: 'Food',
         data: foodData,
-        backgroundColor: '#C4F1B1',
+        backgroundColor: '#C4F1B1'
       },
       {
         label: 'Drink',
         data: drinkData,
-        backgroundColor: '#4085F4',
+        backgroundColor: '#4085F4'
       },
       {
         label: 'Sleep',
         data: sleepData,
-        backgroundColor: '#C455F3',
+        backgroundColor: '#C455F3'
       },
       {
         label: 'Symptom',
         data: symptomData,
-        backgroundColor: 'rgba(255, 99, 132, 1)',
-      },
-    ],
+        backgroundColor: 'rgba(255, 99, 132, 1)'
+      }
+    ]
   };
 
   return (

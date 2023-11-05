@@ -6,7 +6,7 @@ import { useServerInsertedHTML } from 'next/navigation';
 import React from 'react';
 
 const StyledComponentsRegistry = ({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) => {

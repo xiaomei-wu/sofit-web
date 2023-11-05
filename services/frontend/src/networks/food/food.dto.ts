@@ -1,6 +1,6 @@
 enum FoodCategory {
   GENERIC_FOODS = 'GENERIC_FOODS',
-  PACKAGED_FOODS = 'PACKAGED_FOODS',
+  PACKAGED_FOODS = 'PACKAGED_FOODS'
 }
 
 export interface CreateNutrientDto {

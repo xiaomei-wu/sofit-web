@@ -6,7 +6,7 @@ import {
   calculateTotalMinutes,
   convertMinutesToHoursAndMinutes,
   dateFormat,
-  timeFormat,
+  timeFormat
 } from '@/utils';
 import {
   DatePicker,
@@ -14,7 +14,7 @@ import {
   Input,
   InputNumber,
   message,
-  TimePicker,
+  TimePicker
 } from 'antd';
 import dayjs from 'dayjs';
 import styles from './SleepForm.module.css';
@@ -25,14 +25,14 @@ export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
   const { mutateAsync: updateSleepData } = useUpdateSleepData();
   const { mutateAsync: createSleepData } = useCreateSleepData();
   const { hours, minutes } = convertMinutesToHoursAndMinutes(
-    selectedRecord?.durationMinutes,
+    selectedRecord?.durationMinutes
   );
   const initialValues = {
     date: dayjs(selectedRecord?.date) || dayjs(),
     startTime: dayjs(selectedRecord?.startTime) || dayjs(),
     notes: selectedRecord?.notes || '',
     hours,
-    minutes,
+    minutes
   };
 
   const onFinish = async ({ date, startTime, notes, hours, minutes }) => {
@@ -42,14 +42,14 @@ export default function SleepForm({ isEditMode, selectedRecord, closeModal }) {
       date,
       startTime,
       notes,
-      durationMinutes,
+      durationMinutes
     };
 
     try {
       if (isEditMode) {
         await updateSleepData({
           uuid: selectedRecord.uuid,
-          updateSleepDto: payload,
+          updateSleepDto: payload
         });
         message.success('Success');
       } else {

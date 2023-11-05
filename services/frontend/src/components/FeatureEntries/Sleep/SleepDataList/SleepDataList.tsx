@@ -9,7 +9,7 @@ import styles from './SleepDataList.module.css';
 export default function SleepDataList({
   data,
   setSelectedRecord,
-  setIsModalOpen,
+  setIsModalOpen
 }) {
   const { mutateAsync: deleteSleepData } = useDeleteSleepData();
 

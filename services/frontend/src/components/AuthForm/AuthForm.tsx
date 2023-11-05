@@ -1,18 +1,26 @@
 import { useState } from 'react';
 import styles from './AuthForm.module.css';
 
-export default function AuthForm(props) {
+type AuthFormType = {
+  email: string;
+  password: string;
+  message: string;
+  handleSubmit: (event: any) => Promise<any>;
+  handleChange: (event: any) => void;
+};
+
+export default function AuthForm(props: AuthFormType) {
   const [email, setEmail] = useState(props.email || '');
   const [password, setPassword] = useState(props.password || '');
 
-  const handleChange = event => {
+  const handleChange = (event: any) => {
     const { name, value } = event.target;
     if (name === 'email') {
       setEmail(value);
     } else if (name === 'password') {
       setPassword(value);
     }
-    props.handleChange(event); // Pass the event up to the parent component if needed
+    props.handleChange(event);
   };
 
   return (

@@ -1,17 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client';
 
 import EdamamBadgeIcon from '@/assets/icons/edamam-badge.svg';
 import {
   useDeleteFoodRecord,
   useGetNutritionDataFromEdamam,
-  useUpdateNutritionData,
+  useUpdateNutritionData
 } from '@/hooks';
-import {
-  createFoodRecord,
-  createRecipeRecord,
-  getFullRecipeNutritionAnalysis,
-} from '@/networks';
+import { getFullRecipeNutritionAnalysis, RecipeSchema } from '@/networks';
+import { FoodRecord } from '@/types/food';
 import { Drawer, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import InfoCard from '../InfoCard/InfoCard';
@@ -19,10 +15,9 @@ import styles from './DataList.module.css';
 import NutritionTable from './NutritionTable/NutritionTable';
 
 interface DataListProps {
-  item: any;
-  selectedRecord: any;
-  setSelectedRecord: () => void;
-  setIsModalOpen: () => void;
+  item: FoodRecord;
+  setSelectedRecord: (selectedRecord: FoodRecord) => void;
+  setIsModalOpen: (isModalOpen: boolean) => void;
 }
 
 const Title = () => {
@@ -37,25 +32,25 @@ const Title = () => {
 const DataList: React.FC<DataListProps> = ({
   item,
   setSelectedRecord,
-  setIsModalOpen,
+  setIsModalOpen
 }) => {
   const { mutateAsync: deleteFoodRecord } = useDeleteFoodRecord();
   const { mutateAsync: updateNutritionData } = useUpdateNutritionData();
   const [open, setOpen] = useState(false);
 
   const recipeIngredientsTexts = item.recipe?.ingredients?.map(
-    ingredient => ingredient.text,
+    ingredient => ingredient.text
   );
 
-  const recipeAnalysisBody = {
-    title: item.recipe?.name,
-    ingr: recipeIngredientsTexts,
+  const recipeAnalysisBody: RecipeSchema = {
+    title: item.recipe?.name || '',
+    ingr: recipeIngredientsTexts || [],
     url: '',
     summary: '',
-    yield: item.servingAmount,
+    yield: item.servingAmount || 1,
     time: '',
     img: '',
-    prep: '',
+    prep: ''
   };
 
   const nutritionQuery = item.food
@@ -64,7 +59,7 @@ const DataList: React.FC<DataListProps> = ({
 
   const { data: nutritionAnalysisFromEdamam } = useGetNutritionDataFromEdamam({
     enabled: open && !item.nutritionData,
-    query: nutritionQuery,
+    query: nutritionQuery
   });
 
   const showDrawer = () => {
@@ -80,15 +75,7 @@ const DataList: React.FC<DataListProps> = ({
       await deleteFoodRecord(item.uuid);
       message.success('Deleted successfully');
     } catch (error) {
-      message.error(error);
-    }
-  };
-
-  const onAdd = async () => {
-    if (item.food) {
-      await createFoodRecord({ ...item, date: dayjs(), startTime: dayjs() });
-    } else {
-      await createRecipeRecord({ ...item, date: dayjs(), startTime: dayjs() });
+      message.error(`${error}`);
     }
   };
 
@@ -98,7 +85,7 @@ const DataList: React.FC<DataListProps> = ({
     if (nutritionAnalysisFromEdamam) {
       await updateNutritionData({
         foodRecordId: item.uuid,
-        data: nutritionAnalysisFromEdamam,
+        data: nutritionAnalysisFromEdamam
       });
     }
   };
@@ -113,7 +100,7 @@ const DataList: React.FC<DataListProps> = ({
       if (response) {
         await updateNutritionData({
           foodRecordId: item.uuid,
-          data: response,
+          data: response
         });
       }
     }
@@ -134,19 +121,17 @@ const DataList: React.FC<DataListProps> = ({
     <div>
       <InfoCard
         icon={item.food ? '/carrot.png' : '/bibimbap.png'}
-        title={item.name || item.food?.name || item.recipe?.name}
+        title={item.food?.name || item.recipe?.name}
         subtitle={item.date.split('T')[0]}
-        addIcon={'/plus.png'}
         editIcon={'/pen.png'}
         deleteIcon={'/delete.png'}
-        onAdd={onAdd}
         onDelete={onDelete}
         onEdit={() => {
           setSelectedRecord(item);
           setIsModalOpen(true);
         }}
         onClickBanner={onClickBanner}
-        nutrientsBadge={item.nutritionData ? '/nutrients-badge.png' : null}
+        nutrientsBadge={item.nutritionData ? '/nutrients-badge.png' : undefined}
       />
       <Drawer
         title={<Title />}

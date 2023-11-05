@@ -12,7 +12,7 @@ interface DateTimeInputProps {
 const DateTimeInput: React.FC<DateTimeInputProps> = ({
   date,
   startTime,
-  handleChange,
+  handleChange
 }) => (
   <div>
     <form className={styles.dateTimeWrapper}>

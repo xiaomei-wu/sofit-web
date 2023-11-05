@@ -6,9 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --fix",
-    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "lint:stylelint": "stylelint \"**/*.{css,scss}\" --fix"
+    "lint:js": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint:js:fix": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "lint:css": "stylelint **/*.{scss,css}",
+    "lint:css:fix": "stylelint --fix **/*.{scss,css}",
+    "lint:json": "prettier --check \"./**/*.json\"",
+    "lint:json:fix": "prettier --write \"./**/*.json\"",
+    "lint": "pnpm lint:js && pnpm lint:css && pnpm lint:json",
+    "lint:fix": "pnpm lint:js:fix && pnpm lint:css:fix && pnpm lint:json:fix"
   },
   "dependencies": {
     "@ant-design/cssinjs": "^1.17.0",
@@ -21,7 +26,7 @@
     "@vercel/og": "^0.5.13",
     "antd": "^5.9.0",
     "chart.js": "^4.4.0",
-    "eslint-config-next": "13.4.19",
+    "dayjs": "^1.11.10",
     "js-cookie": "^3.0.5",
     "ky-universal": "^0.12.0",
     "lottie-web": "^5.12.2",
@@ -38,17 +43,18 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.4.19",
     "@svgr/webpack": "^8.1.0",
+    "@types/react-lottie": "^1.2.8",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/parser": "^6.5.0",
     "eslint": "8.48.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-config-next": "13.4.19",
+    "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-react": "^7.33.2",
     "prettier": "^3.0.0",
     "stylelint": "^15.10.3",
+    "stylelint-checkstyle-formatter": "^0.1.2",
     "stylelint-config-prettier": "^9.0.5",
-    "stylelint-config-recommended": "^13.0.0",
     "stylelint-config-standard": "^34.0.0",
-    "stylelint-prettier": "^4.0.2"
+    "stylelint-scss": "^5.3.0"
   }
 }

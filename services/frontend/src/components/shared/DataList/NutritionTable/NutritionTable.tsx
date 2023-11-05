@@ -2,9 +2,9 @@ import { Tag } from 'antd';
 import styles from './NutritionTable.module.css';
 
 export default function NutritionTable({
-  nutritionData,
+  nutritionData
 }: {
-  nutritionData: JSON;
+  nutritionData: Record<string, any>;
 }) {
   const {
     calories,
@@ -14,12 +14,19 @@ export default function NutritionTable({
     totalWeight,
     healthLabels,
     totalNutrients,
-    totalNutrientsKCal,
+    totalNutrientsKCal
   } = nutritionData;
 
-  const totalDailyValues = Object.values(totalDaily);
-  const totalNutrientsValues = Object.values(totalNutrients);
-  const totalNutrientsKcalValues = Object.values(totalNutrientsKCal);
+  type NutrientValue = {
+    label: string;
+    quantity: number;
+    unit: string;
+  };
+
+  const totalDailyValues: NutrientValue[] = Object.values(totalDaily);
+  const totalNutrientsValues: NutrientValue[] = Object.values(totalNutrients);
+  const totalNutrientsKcalValues: NutrientValue[] =
+    Object.values(totalNutrientsKCal);
 
   return (
     <div>
@@ -30,7 +37,7 @@ export default function NutritionTable({
         </div>
         <div>
           <h4>Dietary restrictions:</h4>
-          {dietLabels.map(label => (
+          {dietLabels.map((label: string) => (
             <Tag key={label} color="green">
               {label}
             </Tag>
@@ -38,7 +45,7 @@ export default function NutritionTable({
         </div>
         <div>
           <h4>Cautions:</h4>
-          {cautions.map(label => (
+          {cautions.map((label: string) => (
             <Tag key={label} color="red">
               {label}
             </Tag>
@@ -47,7 +54,7 @@ export default function NutritionTable({
 
         <div>
           <h4>Health Labels:</h4>
-          {healthLabels.map(label => (
+          {healthLabels.map((label: string) => (
             <Tag key={label} color="blue">
               {label}
             </Tag>

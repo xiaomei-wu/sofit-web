@@ -3,7 +3,7 @@ import ky from 'ky-universal';
 
 export const headers = {
   'Content-Type': 'application/json',
-  'x-auth': getAccessTokenFromCookie(),
+  'x-auth': getAccessTokenFromCookie()
 };
 
 export const api = ky.create({
@@ -12,15 +12,15 @@ export const api = ky.create({
       request => {
         const accessToken = getAccessTokenFromCookie();
         request.headers.set('Authorization', `Bearer ${accessToken}`);
-      },
-    ],
-  },
+      }
+    ]
+  }
 });
 
 export const getRequest = async (endpoint: string) => {
   const requestOptions: RequestInit = {
     method: 'GET',
-    headers,
+    headers
   };
 
   try {
@@ -41,7 +41,7 @@ export const postRequest = async (endpoint: string, data: any) => {
   const requestOptions: RequestInit = {
     method: 'POST',
     headers,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 
   try {
@@ -60,7 +60,7 @@ export const postRequest = async (endpoint: string, data: any) => {
 export const deleteRequest = async endpoint => {
   const requestOptions = {
     method: 'DELETE',
-    headers,
+    headers
   };
 
   try {
@@ -81,7 +81,7 @@ export const patchRequest = async (endpoint: string, data: any) => {
   const requestOptions: RequestInit = {
     method: 'PATCH',
     headers,
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
   };
 
   try {

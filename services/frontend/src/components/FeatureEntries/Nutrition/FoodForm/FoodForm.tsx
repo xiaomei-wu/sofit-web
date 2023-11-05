@@ -10,7 +10,7 @@ import {
   InputNumber,
   message,
   Select,
-  TimePicker,
+  TimePicker
 } from 'antd';
 import dayjs from 'dayjs';
 import styles from './FoodForm.module.css';
@@ -19,7 +19,7 @@ export default function FoodForm({
   closeModal,
   selectedFood,
   selectedRecord,
-  isEditMode,
+  isEditMode
 }) {
   const queryClient = useQueryClient();
   const { mutateAsync: updateFoodRecord } = useUpdateFoodRecord();
@@ -33,7 +33,7 @@ export default function FoodForm({
     servingAmount: selectedRecord?.servingAmount || '',
     servingSize: selectedRecord?.servingSize || '',
     category: selectedFood?.category || FoodCategory.GENERIC_FOODS,
-    mealCategory: selectedRecord?.mealCategory || MealCategory.BREAKFAST,
+    mealCategory: selectedRecord?.mealCategory || MealCategory.BREAKFAST
   };
 
   const onFinish = async (values: CreateFoodDto) => {
@@ -43,19 +43,19 @@ export default function FoodForm({
         brand: values.brand,
         category: values.category,
         imgUrl: selectedFood?.imgUrl || '',
-        nutrients: selectedFood?.nutrients || undefined,
+        nutrients: selectedFood?.nutrients || undefined
       },
       date: values.date,
       startTime: values.startTime,
       servingAmount: values.servingAmount,
       servingSize: values.servingSize,
-      mealCategory: values.mealCategory,
+      mealCategory: values.mealCategory
     };
 
     const foodPayload = isEditMode
       ? {
           ...selectedRecord,
-          ...payload,
+          ...payload
         }
       : payload;
 
@@ -63,7 +63,7 @@ export default function FoodForm({
       isEditMode
         ? await updateFoodRecord({
             foodRecordId: selectedRecord.uuid,
-            data: foodPayload,
+            data: foodPayload
           })
         : await createFoodRecord(payload);
       await queryClient.invalidateQueries([FOOD]);
@@ -114,7 +114,7 @@ export default function FoodForm({
               { value: 'BREAKFAST', label: 'Breakfast' },
               { value: 'LUNCH', label: 'Lunch' },
               { value: 'DINNER', label: 'Dinner' },
-              { value: 'SNACK', label: 'Snack' },
+              { value: 'SNACK', label: 'Snack' }
             ]}
           />
         </Form.Item>
@@ -145,7 +145,7 @@ export default function FoodForm({
           label="Serving amount"
           name="servingAmount"
           rules={[
-            { required: true, message: 'Please input your serving amount!' },
+            { required: true, message: 'Please input your serving amount!' }
           ]}
         >
           <InputNumber style={{ width: '100%' }} />
@@ -156,7 +156,7 @@ export default function FoodForm({
           label="Serving size"
           name="servingSize"
           rules={[
-            { required: true, message: 'Please input your serving size!' },
+            { required: true, message: 'Please input your serving size!' }
           ]}
         >
           <Input />
@@ -170,7 +170,7 @@ export default function FoodForm({
           <Select
             options={[
               { value: 'GENERIC_FOODS', label: 'Generic food' },
-              { value: 'PACKAGED_FOODS', label: 'Package food' },
+              { value: 'PACKAGED_FOODS', label: 'Package food' }
             ]}
           />
         </Form.Item>

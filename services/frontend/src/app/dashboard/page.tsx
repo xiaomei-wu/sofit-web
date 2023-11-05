@@ -13,8 +13,8 @@ import styles from './page.module.css';
 const NoSSRCalendar = dynamic(
   () => import('@/components/ui/CalendarComp/CalendarComp'),
   {
-    ssr: false,
-  },
+    ssr: false
+  }
 );
 
 export default function Dashboard() {

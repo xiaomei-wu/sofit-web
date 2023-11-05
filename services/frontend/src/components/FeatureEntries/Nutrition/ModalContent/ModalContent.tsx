@@ -10,7 +10,7 @@ export default function ModalContent({
   closeModal,
   selectedFood,
   selectedRecipe,
-  selectedRecord,
+  selectedRecord
 }) {
   const [showRecipe, setShowRecipe] = useState(false);
 

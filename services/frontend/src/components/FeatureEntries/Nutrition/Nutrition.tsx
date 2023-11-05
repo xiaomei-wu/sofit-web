@@ -3,9 +3,11 @@
 import {
   createFood,
   createRecipe,
+  CreateRecipeDto,
   fetchEdamamFood,
   fetchEdamamRecipes,
   FoodCategory,
+  RecipeResponse
 } from '@/networks';
 import { useState } from 'react';
 import Carousel from 'react-multi-carousel';
@@ -19,14 +21,17 @@ import { responsive } from '@/utils';
 import { Input, Modal, Tag } from 'antd';
 import DataList from '../../shared/DataList/DataList';
 import ModalContent from './ModalContent/ModalContent';
+import { Food, FoodRecord, Recipe } from '@/types/food';
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [foodSearchResults, setFoodSearchResults] = useState([]);
-  const [recipeSearchResults, setRecipeSearchResults] = useState([]);
-  const [selectedFood, setSelectedFood] = useState(null);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [foodSearchResults, setFoodSearchResults] = useState<Food[]>([]);
+  const [recipeSearchResults, setRecipeSearchResults] = useState<
+    RecipeResponse[]
+  >([]);
+  const [selectedFood, setSelectedFood] = useState<Food | null>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedRecord, setSelectedRecord] = useState<FoodRecord | null>(null);
 
   const { data: recentRecord, isLoading } = useGetAllFoodRecord();
 
@@ -43,11 +48,11 @@ export default function Nutrition() {
     return FoodCategory.GENERIC_FOODS;
   };
 
-  const searchFood = async value => {
+  const searchFood = async (value: string) => {
     const response = await fetchEdamamFood(value);
     const foodResults = [];
 
-    for (const hint of response.hints) {
+    for (const hint of response || []) {
       const edamamFood = hint.food;
 
       const createFoodDto = {
@@ -61,70 +66,75 @@ export default function Nutrition() {
           fat_g: Math.round(edamamFood.nutrients.FAT),
           chocdf_g: Math.round(edamamFood.nutrients.CHOCDF),
           sugar_g: Math.round(edamamFood.nutrients.SUGAR),
-          fibt_g: Math.round(edamamFood.nutrients.FIBTG),
-        },
+          fibt_g: Math.round(edamamFood.nutrients.FIBTG)
+        }
       };
 
       const createdFood = await createFood(createFoodDto);
-      foodResults.push(createdFood);
+      if (createdFood) {
+        foodResults.push(createdFood);
+      }
     }
     setFoodSearchResults(foodResults);
   };
 
-  const searchRecipe = async value => {
+  const searchRecipe = async (value: string) => {
     const response = await fetchEdamamRecipes(value);
     const recipeResults = [];
-    for (const hit of response.hits) {
+    for (const hit of response) {
       const edamamRecipe = hit.recipe;
 
-      const createRecipeDto = {
+      const createRecipeDto: CreateRecipeDto = {
         name: edamamRecipe.label,
         imgUrl: edamamRecipe.image,
         source: edamamRecipe.source,
         yield: edamamRecipe.yield,
         dietLabels: edamamRecipe.dietLabels.map(item => ({
-          label: item,
+          label: item
         })),
         healthLabels: edamamRecipe.healthLabels.map(item => ({
-          label: item,
+          label: item
         })),
         cautions: edamamRecipe.cautions.map(item => ({
-          label: item,
+          label: item
         })),
         ingredients: edamamRecipe.ingredients.map(ingredient => ({
           text: ingredient.text,
           food: ingredient.food,
           quantity: ingredient.quantity,
           measure: ingredient.measure,
-          weight: ingredient.weight,
+          weight: ingredient.weight
         })),
+
         calories: Math.round(edamamRecipe.calories),
         mealType: edamamRecipe.mealType.map(item => ({
-          label: item,
+          label: item
         })),
         dishType: edamamRecipe.dishType.map(item => ({
-          label: item,
+          label: item
         })),
         nutrients: {
           enerc_Kcal: Math.round(
-            edamamRecipe.totalNutrients.ENERC_KCAL.quantity,
+            edamamRecipe.totalNutrients.ENERC_KCAL.quantity
           ),
           procnt_g: Math.round(edamamRecipe.totalNutrients.PROCNT.quantity),
           fat_g: Math.round(edamamRecipe.totalNutrients.FAT.quantity),
           chocdf_g: Math.round(edamamRecipe.totalNutrients.CHOCDF.quantity),
           sugar_g: Math.round(edamamRecipe.totalNutrients.SUGAR.quantity),
-          fibt_g: Math.round(edamamRecipe.totalNutrients.FIBTG.quantity),
-        },
+          fibt_g: Math.round(edamamRecipe.totalNutrients.FIBTG.quantity)
+        }
       };
 
       const createdRecipe = await createRecipe(createRecipeDto);
-      recipeResults.push(createdRecipe);
+      if (createdRecipe) {
+        recipeResults.push(createdRecipe);
+      }
     }
 
     setRecipeSearchResults(recipeResults);
   };
 
-  const onSearch = async value => {
+  const onSearch = async (value: string) => {
     await searchFood(value);
     await searchRecipe(value);
   };
@@ -164,7 +174,7 @@ export default function Nutrition() {
                     <CarouselCard
                       imgUrl={item.imgUrl || '/food.png'}
                       title={item.name}
-                      emphasis={`${item.nutrients[0].enerc_Kcal} Kcal`}
+                      emphasis={`${item.nutrients?.[0].enerc_Kcal} Kcal`}
                       onClick={() => {
                         setSelectedFood(item);
                         setIsModalOpen(true);
@@ -172,13 +182,13 @@ export default function Nutrition() {
                     >
                       <div className={styles.tags}>
                         <Tag color="blue" key={'protein'}>
-                          Protein {item.nutrients[0].procnt_g} g
+                          Protein {item.nutrients?.[0].procnt_g} g
                         </Tag>
                         <Tag color={'green'} key={'fat'}>
-                          Fat {item.nutrients[0].fat_g} g
+                          Fat {item.nutrients?.[0].fat_g} g
                         </Tag>
                         <Tag color="gold" key={'carb'}>
-                          Carb {item.nutrients[0].chocdf_g} g
+                          Carb {item.nutrients?.[0].chocdf_g} g
                         </Tag>
                       </div>
                     </CarouselCard>
@@ -199,7 +209,7 @@ export default function Nutrition() {
                       title={item.name}
                       subtitle={`Yield: ${item.yield}`}
                       emphasis={`${Math.round(
-                        item.calories / item.yield,
+                        item.calories / item.yield
                       )} kcal/yield`}
                       onClick={() => {
                         setSelectedRecipe(item);
@@ -243,7 +253,11 @@ export default function Nutrition() {
               </Carousel>
             </>
           )}
-          <h4>{recentRecord?.length > 0 ? 'Today' : 'Today no data yet'}</h4>
+          <h4>
+            {recentRecord && recentRecord?.length > 0
+              ? 'Last 7 days'
+              : 'No data yet'}
+          </h4>
           <div className={styles.datalist}>
             {recentRecord?.map((item, index) => (
               <div key={index}>

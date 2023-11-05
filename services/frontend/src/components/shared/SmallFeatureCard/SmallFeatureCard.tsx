@@ -17,7 +17,7 @@ const SmallFeatureCard = ({
   title,
   subtitle,
   path,
-  actionIcon,
+  actionIcon
 }: Card) => {
   return (
     <Link className={styles.card} href={`/dashboard/${path}`}>

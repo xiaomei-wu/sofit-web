@@ -2,7 +2,7 @@ import {
   createSleep,
   deleteSleep,
   fetchSleep,
-  updateSleep,
+  updateSleep
 } from '@/networks/sleep';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -16,14 +16,14 @@ export const useCreateSleepData = () => {
     mutationFn: createSleep,
     onSettled: () => {
       queryClient.invalidateQueries([SLEEP]);
-    },
+    }
   });
 };
 
 export const useGetSleepData = () => {
   return useQuery({
     queryKey: [SLEEP],
-    queryFn: fetchSleep,
+    queryFn: fetchSleep
   });
 };
 
@@ -35,7 +35,7 @@ export const useDeleteSleepData = () => {
     mutationFn: deleteSleep,
     onSettled: () => {
       queryClient.invalidateQueries([SLEEP]);
-    },
+    }
   });
 };
 
@@ -47,6 +47,6 @@ export const useUpdateSleepData = () => {
     mutationFn: updateSleep,
     onSettled: () => {
       queryClient.invalidateQueries([SLEEP]);
-    },
+    }
   });
 };

@@ -1,32 +1,69 @@
+import { CreateNutrientDto } from '../food';
+import { MealCategory } from '../foodRecord';
+
+interface Label {
+  uuid: string;
+  label: string;
+  recipeId: string;
+}
+
+interface LabelDto {
+  label: string;
+}
 export interface RecipeResponse {
   uuid: string;
   name: string;
-  imgUrl: string;
-  source: string;
-  yield: string;
+  imgUrl: string | null;
+  source: string | null;
+  yield: number;
+  calories: number;
+  createdAt: string;
+  updatedAt: string;
+  ingredients: RecipeIngredient[];
+  dietLabels: Label[];
+  healthLabels: Label[];
+  cuisineType: Label[];
 }
 
 interface RecipeIngredient {
-  food: string;
+  uuid: string;
   text: string;
-  quantity: number;
-  weight?: number;
-  measure?: string;
+  quantity: null;
+  measure: string;
+  food: string;
+  weight: number;
+  recipeId: string;
 }
 
-interface CreateRecipeDto {
+export interface RecipeIngredientDto {
+  text: string;
+  quantity: number;
+  measure: string;
+  food: string;
+  weight: number;
+}
+
+export interface CreateRecipeDto {
   name: string;
   yield: number;
   calories: number;
-  ingredients: RecipeIngredient[];
+  ingredients: RecipeIngredientDto[];
+  dietLabels?: LabelDto[];
+  healthLabels?: LabelDto[];
+  imgUrl?: string;
+  source?: string;
+  mealType?: LabelDto[];
+  dishType?: LabelDto[];
+  cuisineType?: LabelDto[];
+  cautions?: LabelDto[];
+  nutrients: CreateNutrientDto;
 }
 
 export interface CreateRecipeRecordDto {
   recipe: CreateRecipeDto;
   servingAmount: number;
   servingSize: string;
-  date: string;
-  startTime: string;
+  date: Date;
+  startTime: Date;
   mealCategory: MealCategory;
-  recipe: CreateRecipeDto;
 }

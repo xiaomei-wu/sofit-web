@@ -4,7 +4,9 @@ import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
 import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetDrinks } from '@/hooks';
-import { searchDrinks } from '@/networks';
+import { SearchDrinkResult, searchDrinks } from '@/networks';
+import { CreateDrinkDto } from '@/networks/drink/drink.dto';
+import { Drink } from '@/types/drink';
 import { responsive } from '@/utils';
 import { Input, Modal, Tag } from 'antd';
 import React, { useState } from 'react';
@@ -19,9 +21,13 @@ interface AddDrinksProps {}
 const Drinks: React.FC<AddDrinksProps> = () => {
   const { data: drinks, isLoading } = useGetDrinks();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
-  const [selectedDrink, setSelectedDrink] = useState(null);
-  const [seachResult, setSearchResult] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState<Drink | null>(null);
+  const [selectedDrink, setSelectedDrink] = useState<Partial<
+    CreateDrinkDto | Drink
+  > | null>(null);
+  const [seachResult, setSearchResult] = useState<
+    SearchDrinkResult[] | undefined
+  >();
 
   const showModal = () => {
     setIsModalOpen(true);
@@ -37,10 +43,10 @@ const Drinks: React.FC<AddDrinksProps> = () => {
     showModal();
   };
 
-  const onSearch = async values => {
+  const onSearch = async (values: string) => {
     try {
       const response = await searchDrinks({ query: values });
-      setSearchResult(response.drinks);
+      setSearchResult(response?.drinks);
     } catch (error) {
       throw new Error('Failed to fetch search results');
     }
@@ -69,7 +75,7 @@ const Drinks: React.FC<AddDrinksProps> = () => {
         </Modal>
       </div>
       <div>
-        {seachResult?.length > 0 && (
+        {!!seachResult?.length && (
           <>
             <h4>Results</h4>
             <Carousel responsive={responsive}>
@@ -82,11 +88,10 @@ const Drinks: React.FC<AddDrinksProps> = () => {
                       setSelectedDrink({
                         name: item.strDrink,
                         imgUrl: item.strDrinkThumb,
-                        category: item.strCategory,
+                        category: item.strCategory
                       });
                       setIsModalOpen(true);
                     }}
-                    // subtitle={item.strCategory}
                   >
                     <Tag color={'cyan'}>{item.strCategory}</Tag>
                   </CarouselCard>

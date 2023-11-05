@@ -41,7 +41,7 @@ const RandomAvatar = () => {
       />
       <Drawer title={me?.email} placement="right" onClose={onClose} open={open}>
         <Button className={styles.logout} onClick={logout} type="text">
-          <Image src={'/logout.png'} width={28} height={28} />
+          <Image src={'/logout.png'} width={28} height={28} alt="logout" />
           <div>Logout</div>
         </Button>
       </Drawer>

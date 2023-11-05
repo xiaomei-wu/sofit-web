@@ -7,11 +7,11 @@ const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'Sofit App',
-  description: 'Get to know your body!',
+  description: 'Get to know your body!'
 };
 
 export default function RootLayout({
-  children,
+  children
 }: {
   children: React.ReactNode;
 }) {

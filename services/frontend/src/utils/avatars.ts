@@ -7,7 +7,7 @@ const colors = [
   '#6A6A6B',
   '#ADE9F7',
   '#0A99FF',
-  '#FFF0C2',
+  '#FFF0C2'
 ];
 
 export function randomColor(seed: number) {

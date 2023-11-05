@@ -1,17 +1,18 @@
 'use client';
 
 import animationData from '@/assets/animations/checkmark.json';
+import { ReactNode } from 'react';
 import Lottie from 'react-lottie';
 import styles from './SuccessPage.module.css';
 
-const SuccessPage = ({ children }) => {
+const SuccessPage = ({ children }: { children: ReactNode }) => {
   const defaultOptions = {
     loop: false,
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
+      preserveAspectRatio: 'xMidYMid slice'
+    }
   };
 
   return (

@@ -6,7 +6,7 @@ import {
   calculateTotalMinutes,
   convertMinutesToHoursAndMinutes,
   dateFormat,
-  timeFormat,
+  timeFormat
 } from '@/utils';
 import {
   DatePicker,
@@ -16,7 +16,7 @@ import {
   message,
   Select,
   Slider,
-  TimePicker,
+  TimePicker
 } from 'antd';
 import dayjs from 'dayjs';
 import { nameOptions } from './SymptomForm.helper';
@@ -27,12 +27,12 @@ const { TextArea } = Input;
 export default function SymptomForm({
   isEditMode,
   selectedRecord,
-  closeModal,
+  closeModal
 }) {
   const { mutateAsync: updateSymptomData } = useUpdateSymptomData();
   const { mutateAsync: createSymptomData } = useCreateSymptomData();
   const { hours, minutes } = convertMinutesToHoursAndMinutes(
-    selectedRecord?.durationMinutes,
+    selectedRecord?.durationMinutes
   );
 
   const initialValues = {
@@ -42,7 +42,7 @@ export default function SymptomForm({
     notes: selectedRecord?.notes || '',
     hours,
     minutes,
-    intensityLevel: selectedRecord?.intensityLevel || 5,
+    intensityLevel: selectedRecord?.intensityLevel || 5
   };
 
   const onFinish = async ({
@@ -52,7 +52,7 @@ export default function SymptomForm({
     notes,
     hours,
     minutes,
-    intensityLevel,
+    intensityLevel
   }) => {
     const durationMinutes = calculateTotalMinutes(hours, minutes);
 
@@ -62,14 +62,14 @@ export default function SymptomForm({
       notes,
       name,
       intensityLevel,
-      durationMinutes,
+      durationMinutes
     };
 
     try {
       if (isEditMode) {
         await updateSymptomData({
           uuid: selectedRecord.uuid,
-          updateSymptomDto: payload,
+          updateSymptomDto: payload
         });
         message.success('Success');
       } else {
@@ -114,7 +114,7 @@ export default function SymptomForm({
         <Select
           options={nameOptions.map(option => ({
             value: option,
-            label: option,
+            label: option
           }))}
         />
       </Form.Item>

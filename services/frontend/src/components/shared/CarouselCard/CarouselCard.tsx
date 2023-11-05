@@ -1,14 +1,16 @@
 'use client';
 
 import Image from 'next/image';
+import { ReactNode } from 'react';
 import styles from './CarouselCard.module.css';
 
 type Card = {
   imgUrl: string;
   title: string;
-  subtitle: string;
-  emphasis: string;
   onClick: () => void;
+  children: ReactNode;
+  subtitle?: string;
+  emphasis?: string;
 };
 
 const CarouselCard = ({
@@ -17,7 +19,7 @@ const CarouselCard = ({
   subtitle,
   children,
   emphasis,
-  onClick,
+  onClick
 }: Card) => {
   return (
     <div className={styles.card}>

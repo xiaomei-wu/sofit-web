@@ -6,7 +6,7 @@ export const fetchSymptom = async () => {
 };
 
 export const createSymptom = async ({
-  createSymptomDto,
+  createSymptomDto
 }: {
   createSymptomDto: CreateSymptomDto;
 }) => {
@@ -22,7 +22,7 @@ export const createSymptom = async ({
 
 export const updateSymptom = async ({
   uuid,
-  updateSymptomDto,
+  updateSymptomDto
 }: {
   uuid: string;
   updateSymptomDto: Partial<CreateSymptomDto>;

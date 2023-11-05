@@ -3,7 +3,7 @@ import { FOOD } from '@/hooks';
 import {
   createRecipeRecord,
   MealCategory,
-  updateRecipeRecord,
+  updateRecipeRecord
 } from '@/networks';
 import { dateFormat, timeFormat } from '@/utils';
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
@@ -17,7 +17,7 @@ import {
   message,
   Select,
   Space,
-  TimePicker,
+  TimePicker
 } from 'antd';
 import dayjs from 'dayjs';
 import styles from './RecipesForm.module.css';
@@ -26,7 +26,7 @@ export default function RecipesForm({
   closeModal,
   selectedRecipe,
   isEditMode,
-  selectedRecord,
+  selectedRecord
 }) {
   const queryClient = useQueryClient();
 
@@ -41,12 +41,12 @@ export default function RecipesForm({
         text: ingredient.text,
         quantity: ingredient.quantity,
         measure: ingredient.measure,
-        weight: ingredient.weight,
+        weight: ingredient.weight
       })) || [],
     servingAmount: selectedRecord?.servingAmount || '',
     servingSize: selectedRecord?.servingSize || '',
     mealCategory: selectedRecord?.mealCategory || MealCategory.BREAKFAST,
-    calories: selectedRecipe?.calories || '',
+    calories: selectedRecipe?.calories || ''
   };
 
   const onFinish = async (values: CreateFoodDto) => {
@@ -60,15 +60,15 @@ export default function RecipesForm({
         name: values.name,
         yield: values.yield,
         calories: values.calories,
-        ingredients: values.ingredients,
-      },
+        ingredients: values.ingredients
+      }
     };
 
     try {
       isEditMode
         ? await updateRecipeRecord(selectedRecord.uuid, {
             ...selectedRecord,
-            ...payload,
+            ...payload
           })
         : await createRecipeRecord(payload);
 
@@ -112,7 +112,7 @@ export default function RecipesForm({
               { value: 'BREAKFAST', label: 'Breakfast' },
               { value: 'LUNCH', label: 'Lunch' },
               { value: 'DINNER', label: 'Dinner' },
-              { value: 'SNACK', label: 'Snack' },
+              { value: 'SNACK', label: 'Snack' }
             ]}
           />
         </Form.Item>
@@ -133,7 +133,7 @@ export default function RecipesForm({
           name="yield"
           className={styles.formItem}
           rules={[
-            { required: true, message: 'Please input your serving amount!' },
+            { required: true, message: 'Please input your serving amount!' }
           ]}
         >
           <InputNumber style={{ width: '100%' }} />
@@ -146,7 +146,7 @@ export default function RecipesForm({
           label="Serving amount"
           name="servingAmount"
           rules={[
-            { required: true, message: 'Please input your serving amount!' },
+            { required: true, message: 'Please input your serving amount!' }
           ]}
         >
           <InputNumber style={{ width: '100%' }} />
@@ -157,7 +157,7 @@ export default function RecipesForm({
           label="Serving size"
           name="servingSize"
           rules={[
-            { required: true, message: 'Please input your serving size!' },
+            { required: true, message: 'Please input your serving size!' }
           ]}
         >
           <Input />

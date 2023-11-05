@@ -13,10 +13,10 @@ export enum MealCategory {
   BREAKFAST = 'BREAKFAST',
   LUNCH = 'LUNCH',
   DINNER = 'DINNER',
-  SNACK = 'SNACK',
+  SNACK = 'SNACK'
 }
 
 export enum FoodCategory {
   GENERIC_FOODS = 'GENERIC_FOODS',
-  PACKAGED_FOODS = 'PACKAGED_FOODS',
+  PACKAGED_FOODS = 'PACKAGED_FOODS'
 }

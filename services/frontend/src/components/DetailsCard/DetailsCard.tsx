@@ -1,7 +1,15 @@
+import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import Image from 'next/image';
+import { ReactNode } from 'react';
 import styles from './DetailsCard.module.css';
 
-const DetailsCard = ({ title, icon, children }) => {
+type DetailsCardType = {
+  title: string | ReactNode;
+  icon: string | StaticImport;
+  children: ReactNode;
+};
+
+const DetailsCard = ({ title, icon, children }: DetailsCardType) => {
   return (
     <div className={styles.card}>
       <div className={styles.header}>

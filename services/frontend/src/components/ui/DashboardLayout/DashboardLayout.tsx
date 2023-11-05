@@ -3,16 +3,17 @@ import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureC
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
 import dynamic from 'next/dynamic';
+import { ReactNode } from 'react';
 import styles from './DashboardLayout.module.css';
 
 const NoSSRCalendar = dynamic(
   () => import('@/components/ui/CalendarComp/CalendarComp'),
   {
-    ssr: false,
-  },
+    ssr: false
+  }
 );
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.dashboard}>
       <IconBar />

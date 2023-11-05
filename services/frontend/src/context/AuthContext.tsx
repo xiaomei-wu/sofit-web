@@ -3,13 +3,14 @@ import { getAccessTokenFromCookie } from '@/utils/cookies';
 import { isTokenExpired } from '@/utils/jwt';
 import { useRouter } from 'next/navigation';
 
-import { createContext, useEffect, useState } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
+//@ts-ignore
 const AuthContext = createContext();
 
 const { Provider } = AuthContext;
 
-const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const accessToken = getAccessTokenFromCookie();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!accessToken);

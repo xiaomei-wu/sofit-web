@@ -25,11 +25,11 @@ export async function GET() {
           d={`M ${random(20, 40, Math.random())} ${random(
             40,
             60,
-            Math.random(),
+            Math.random()
           )} Q ${random(30, 50, Math.random())} ${random(
             50,
             70,
-            Math.random(),
+            Math.random()
           )} ${random(60, 80, Math.random())} ${random(40, 60, Math.random())}`}
           fill="none"
           stroke="black"
@@ -39,7 +39,7 @@ export async function GET() {
     ),
     {
       width: 100,
-      height: 100,
-    },
+      height: 100
+    }
   );
 }

@@ -19,14 +19,14 @@ export default function Signup() {
   const [state, setState] = useState({
     email: '',
     password: '',
-    message: '',
+    message: ''
   });
 
   const handleChange = (event: { target: { name: string; value: string } }) => {
     const { name, value } = event.target;
     setState({
       ...state,
-      [name]: value,
+      [name]: value
     });
   };
 

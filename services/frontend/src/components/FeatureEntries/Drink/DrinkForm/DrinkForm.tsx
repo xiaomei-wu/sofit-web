@@ -2,6 +2,8 @@ import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { dateFormat, timeFormat } from '@/utils';
 
 import { useCreateDrink, useUpdateDrink } from '@/hooks';
+import { CreateDrinkDto } from '@/networks/drink/drink.dto';
+import { Drink } from '@/types/drink';
 import {
   DatePicker,
   Form,
@@ -9,18 +11,25 @@ import {
   InputNumber,
   message,
   Select,
-  TimePicker,
+  TimePicker
 } from 'antd';
 import dayjs from 'dayjs';
 import { DrinkCategory } from '../Drink.helper';
 import styles from './DrinkForm.module.css';
 
+type DrinkFormType = {
+  closeModal: () => void;
+  selectedRecord: Drink | null;
+  isEditMode: boolean;
+  selectedDrink: Partial<CreateDrinkDto | Drink> | null;
+};
+
 export default function DrinkForm({
   closeModal,
   selectedRecord,
   isEditMode,
-  selectedDrink,
-}) {
+  selectedDrink
+}: DrinkFormType) {
   const { mutateAsync: createDrink } = useCreateDrink();
   const { mutateAsync: updateDrink } = useUpdateDrink();
 
@@ -31,15 +40,15 @@ export default function DrinkForm({
     imgUrl: selectedDrink?.imgUrl || '',
     servingAmount: selectedRecord?.servingAmount || '',
     servingSize: selectedRecord?.servingSize || '',
-    category: selectedDrink?.category || DrinkCategory.ALCOHOLIC,
+    category: selectedDrink?.category || DrinkCategory.ALCOHOLIC
   };
 
-  const onFinish = async values => {
+  const onFinish = async (values: CreateDrinkDto) => {
     try {
-      if (isEditMode) {
+      if (isEditMode && selectedRecord?.uuid) {
         await updateDrink({
-          drinkId: selectedRecord.uuid,
-          updateDrinkDto: values,
+          drinkId: selectedRecord?.uuid,
+          updateDrinkDto: values
         });
       } else {
         await createDrink({ createDrinkDto: values });
@@ -47,7 +56,7 @@ export default function DrinkForm({
       message.success('Success');
       return closeModal();
     } catch (error) {
-      message.error(error);
+      message.error(`${error}`);
     }
   };
 
@@ -83,7 +92,7 @@ export default function DrinkForm({
               { value: DrinkCategory.ALCOHOLIC, label: 'Alcoholic' },
               { value: DrinkCategory.NON_ALCOHOLIC, label: 'Non-alcoholic' },
               { value: DrinkCategory.COCKTAIL, label: 'Cocktail' },
-              { value: DrinkCategory.ORDINARY_DRINK, label: 'Ordinary drink' },
+              { value: DrinkCategory.ORDINARY_DRINK, label: 'Ordinary drink' }
             ]}
           />
         </Form.Item>
@@ -110,7 +119,7 @@ export default function DrinkForm({
           label="Serving amount"
           name="servingAmount"
           rules={[
-            { required: true, message: 'Please input your serving amount!' },
+            { required: true, message: 'Please input your serving amount!' }
           ]}
         >
           <InputNumber style={{ width: '100%' }} />
@@ -121,7 +130,7 @@ export default function DrinkForm({
           label="Serving size"
           name="servingSize"
           rules={[
-            { required: true, message: 'Please input your serving size!' },
+            { required: true, message: 'Please input your serving size!' }
           ]}
         >
           <Input />
