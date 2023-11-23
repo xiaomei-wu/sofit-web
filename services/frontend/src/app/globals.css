@@ -161,10 +161,12 @@ input {
   border-radius: 0.25rem;
   border: 1px solid var(--background-color);
   background-color: #fbfcfe;
+  color: var(--text-color);
+  font-size: 1rem;
 }
 
 input::placeholder {
-  font-size: 0.9375rem;
+  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

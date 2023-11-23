@@ -109,7 +109,7 @@ export default function Signup() {
           </div>
 
           <p className={styles.privacyText}>
-            By clicking “Continue with Apple/Google/Email/SAML” above, you
+            By clicking “Continue with Apple/Google/Email” above, you
             acknowledge that you have read and understood, and agree to Sofits{' '}
             <Link className={styles.links} href={'/terms'}>
               Terms & Conditions
