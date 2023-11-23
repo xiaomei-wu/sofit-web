@@ -1,6 +1,6 @@
 .wrapper {
   display: flex;
-  padding: 0.9375rem 1rem;
+  padding: 0.9rem 1rem;
   justify-content: space-between;
   align-items: flex-end;
   align-self: stretch;
@@ -44,6 +44,7 @@
   font-size: 1rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 1.4375rem; /* 143.75% */
+  line-height: 1.4375rem;
+  /* 143.75% */
   letter-spacing: 0.0005rem;
 }
