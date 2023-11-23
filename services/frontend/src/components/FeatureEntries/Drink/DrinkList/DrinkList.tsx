@@ -3,8 +3,12 @@
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
 import { useDeleteDrink } from '@/hooks';
 import { Drink } from '@/types/drink';
-import { message } from 'antd';
 import styles from './DrinkList.module.css';
+
+const { message } = dynamic(() => import('antd'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 type DrinkListType = {
   drinks: Drink[];

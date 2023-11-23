@@ -4,18 +4,19 @@ import { dateFormat, timeFormat } from '@/utils';
 import { useCreateDrink, useUpdateDrink } from '@/hooks';
 import { CreateDrinkDto } from '@/networks/drink/drink.dto';
 import { Drink } from '@/types/drink';
-import {
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-  TimePicker
-} from 'antd';
-import dayjs from 'dayjs';
 import { DrinkCategory } from '../Drink.helper';
 import styles from './DrinkForm.module.css';
+
+const { DatePicker, Form, Input, InputNumber, message, Select, TimePicker } =
+  dynamic(() => import('antd'), {
+    loading: <p>Loading...</p>,
+    ssr: false
+  });
+
+const dayjs = dynamic(() => import('dayjs'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 type DrinkFormType = {
   closeModal: () => void;

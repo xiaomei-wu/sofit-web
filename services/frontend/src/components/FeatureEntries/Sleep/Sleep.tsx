@@ -4,11 +4,23 @@ import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetSleepData } from '@/hooks';
 import { Sleep } from '@/types/sleep';
-import { Modal } from 'antd';
 import { useState } from 'react';
 import styles from './Sleep.module.css';
-import SleepDataList from './SleepDataList/SleepDataList';
-import SleepForm from './SleepForm/SleepForm';
+// import SleepDataList from './SleepDataList/SleepDataList';
+// import SleepForm from './SleepForm/SleepForm';
+
+const { Modal } = dynamic(() => import('antd'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+const SleepDataList = dynamic(() => import('./SleepDataList/SleepDataList'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+const SleepForm = dynamic(() => import('./SleepForm/SleepForm'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 export default function Sleep() {
   const { data: sleepData, isLoading } = useGetSleepData();

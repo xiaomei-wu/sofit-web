@@ -10,18 +10,33 @@ import {
   RecipeResponse
 } from '@/networks';
 import { useState } from 'react';
-import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import styles from './Nutrition.module.css';
 
 import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetAllFoodRecord } from '@/hooks';
-import { responsive } from '@/utils';
-import { Input, Modal, Tag } from 'antd';
-import DataList from '../../shared/DataList/DataList';
-import ModalContent from './ModalContent/ModalContent';
 import { Food, FoodRecord, Recipe } from '@/types/food';
+import { responsive } from '@/utils';
+import ModalContent from './ModalContent/ModalContent';
+
+const { Input, Modal, Tag } = dynamic(() => import('antd'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+
+const Carousel = dynamic(() => import('react-multi-carousel'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+
+const DataList = dynamic(
+  () => import('@/components/shared/DataList/DataList'),
+  {
+    loading: <p>Loading...</p>,
+    ssr: false
+  }
+);
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);

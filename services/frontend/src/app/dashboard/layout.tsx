@@ -1,4 +1,5 @@
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
+import NonSSRWrapper from '@/components/NonSSRWrapper/NonSSRWrapper';
 import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureCard';
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
@@ -20,7 +21,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <main className={styles.main}>
         <NavBar />
         <div className={styles.feature}>
-          <div className={styles.left}>{children}</div>
+          <div className={styles.left}>
+            <NonSSRWrapper>{children}</NonSSRWrapper>
+          </div>
 
           <div className={styles.right}>
             <div className={styles.rightCard}>

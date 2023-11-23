@@ -8,9 +8,9 @@ import {
 } from '@/networks';
 import { FoodRecord, Recipe } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
-import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
-import { useQueryClient } from '@tanstack/react-query';
-import {
+import styles from './RecipesForm.module.css';
+
+const {
   Button,
   DatePicker,
   Form,
@@ -20,9 +20,28 @@ import {
   Select,
   Space,
   TimePicker
-} from 'antd';
-import dayjs from 'dayjs';
-import styles from './RecipesForm.module.css';
+} = dynamic(() => import('antd'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+
+const { MinusCircleOutlined, PlusOutlined } = dynamic(
+  () => import('@ant-design/icons'),
+  {
+    loading: <p>Loading...</p>,
+    ssr: false
+  }
+);
+
+const dayjs = dynamic(() => import('dayjs'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+
+const { useQueryClient } = dynamic(() => import('@tanstack/react-query'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 type RecipesFormType = {
   closeModal: () => void;

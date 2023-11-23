@@ -1,11 +1,15 @@
 'use client';
 
 import { Food, FoodRecord, Recipe } from '@/types/food';
-import { Switch } from 'antd';
 import { useEffect, useState } from 'react';
 import FoodForm from '../FoodForm/FoodForm';
 import RecipesForm from '../RecipesForm/RecipesForm';
 import styles from './ModalContent.module.css';
+
+const { Switch } = dynamic(() => import('antd'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 type ModalContentType = {
   closeModal: () => void;

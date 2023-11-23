@@ -1,4 +1,5 @@
 'use client';
+
 import { useGetMe } from '@/hooks';
 import { logoutUser } from '@/networks';
 import { removeAccessTokenCookie } from '@/utils/cookies';
@@ -27,7 +28,9 @@ export default function RandomAvatar() {
     router.push('/');
   };
 
-  if (isLoading) return null;
+  if (isLoading || router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <div>

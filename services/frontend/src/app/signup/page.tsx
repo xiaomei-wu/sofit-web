@@ -3,8 +3,6 @@
 import AuthForm from '@/components/AuthForm/AuthForm';
 import SuccessPage from '@/components/SuccessPage/SuccessPage';
 import Header from '@/components/ui/Header/Header';
-import { signup } from '@/networks/auth';
-import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -36,7 +34,7 @@ export default function Signup() {
     const response = await signup(email, password);
 
     if (!response?.token) {
-      return message.error('Something went wrong while creating the account');
+      message.error('Something went wrong while creating the account');
     }
     setRedirecting(true);
   };
@@ -64,6 +62,10 @@ export default function Signup() {
         <p>Redirecting to the login page in {countdown} seconds...</p>
       </SuccessPage>
     );
+  }
+
+  if (router.isFallback) {
+    <h1>Loading...</h1>;
   }
 
   return (

@@ -1,22 +1,24 @@
-import { verifyToken } from '@/networks';
 import { getAccessTokenFromCookie } from '@/utils/cookies';
-import { isTokenExpired } from '@/utils/jwt';
 import { useRouter } from 'next/navigation';
 
-import { createContext, ReactNode, useEffect, useState } from 'react';
+import { createContext, ReactNode, useState } from 'react';
 
-//@ts-ignore
+import { useEffect } from 'react';
+
 const AuthContext = createContext();
 
-const { Provider } = AuthContext;
-
-const AuthProvider = ({ children }: { children: ReactNode }) => {
+export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const accessToken = getAccessTokenFromCookie();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!accessToken);
 
+  if (router.isFallback) {
+    <h1>Loading...</h1>;
+  }
+
   const handleToken = async () => {
     if (!accessToken) {
+      console.log(isUserAuthenticated);
       setIsUserAuthenticated(false);
       return;
     }
@@ -42,11 +44,5 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     router.push('/');
   }, [isUserAuthenticated, router]);
 
-  return (
-    <Provider value={{ isUserAuthenticated, setIsUserAuthenticated }}>
-      {children}
-    </Provider>
-  );
-};
-
-export { AuthContext, AuthProvider };
+  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+}

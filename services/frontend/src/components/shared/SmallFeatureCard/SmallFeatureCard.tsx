@@ -11,13 +11,13 @@ type Card = {
   actionIcon?: string;
 };
 
-const SmallFeatureCard = ({
+export default function SmallFeatureCard({
   icon,
   title,
   subtitle,
   path,
   actionIcon
-}: Card) => {
+}: Card) {
   return (
     <Link className={styles.card} href={`/dashboard/${path}`}>
       <Image alt="card-icon" height={30} src={icon} width={30} />
@@ -32,6 +32,4 @@ const SmallFeatureCard = ({
       </div>
     </Link>
   );
-};
-
-export default SmallFeatureCard;
+}

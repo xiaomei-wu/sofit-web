@@ -2,9 +2,6 @@
 
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
-import { login } from '@/networks/auth';
-import { setAccessTokenCookie } from '@/utils/cookies';
-import { message } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -45,6 +42,10 @@ export default function Login() {
       message.error('Something went wrong');
     }
   };
+
+  if (router.isFallback) {
+    <h1>Loading...</h1>;
+  }
 
   return (
     <div>

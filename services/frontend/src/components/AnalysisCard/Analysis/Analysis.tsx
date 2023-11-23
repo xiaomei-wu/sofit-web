@@ -1,8 +1,4 @@
 import { useGetHistories } from '@/hooks/useHistories';
-import { Drink } from '@/types/drink';
-import { FoodRecord } from '@/types/food';
-import { Sleep } from '@/types/sleep';
-import { Symptom } from '@/types/symptom';
 import {
   Chart as ChartJS,
   Legend,
@@ -12,7 +8,7 @@ import {
   Tooltip
 } from 'chart.js';
 import 'chartkick/chart.js';
-import { Scatter } from 'react-chartjs-2';
+import dynamic from 'next/dynamic';
 import styles from './Analysis.module.css';
 
 const options = {
@@ -22,6 +18,11 @@ const options = {
     }
   }
 };
+
+const DynamicScatter = dynamic(() => import('react-chartjs-2'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false
+});
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 
@@ -94,7 +95,11 @@ export default function Analysis() {
   return (
     <div>
       <div className={styles.wrapper}>
-        <Scatter options={options} data={data} className={styles.canvas} />
+        <DynamicScatter
+          options={options}
+          data={data}
+          className={styles.canvas}
+        />
       </div>
     </div>
   );

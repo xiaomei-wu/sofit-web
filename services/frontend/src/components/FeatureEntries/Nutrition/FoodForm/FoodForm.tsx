@@ -3,18 +3,23 @@ import { FOOD, useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
 import { CreateFoodRecordDto, FoodCategory, MealCategory } from '@/networks';
 import { Food, FoodRecord } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
-import { useQueryClient } from '@tanstack/react-query';
-import {
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-  TimePicker
-} from 'antd';
-import dayjs from 'dayjs';
 import styles from './FoodForm.module.css';
+
+const dayjs = dynamic(() => import('dayjs'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
+
+const { DatePicker, Form, Input, InputNumber, message, Select, TimePicker } =
+  dynamic(() => import('antd'), {
+    loading: <p>Loading...</p>,
+    ssr: false
+  });
+
+const { useQueryClient } = dynamic(() => import('@tanstack/react-query'), {
+  loading: <p>Loading...</p>,
+  ssr: false
+});
 
 type FoodFormType = {
   closeModal: () => void;
