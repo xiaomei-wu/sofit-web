@@ -1,8 +1,9 @@
 .footerSection {
   display: flex;
   flex-direction: column;
-  padding: 5rem 7.8125rem;
+  padding: 2rem 7.8125rem;
   color: #172631;
   justify-content: center;
   align-items: center;
+  background-color: #fff;
 }

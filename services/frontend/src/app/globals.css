@@ -84,6 +84,7 @@ body {
   font-weight: 400;
   letter-spacing: 0.0005rem;
   line-height: 1rem;
+  background-color: #fff;
 }
 
 a {
@@ -154,7 +155,7 @@ main {
 
 input {
   display: flex;
-  width: 20rem;
+  width: 19.9rem;
   padding: 0.4375rem 0.625rem 0.5rem;
   align-items: center;
   border-radius: 0.25rem;

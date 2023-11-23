@@ -51,7 +51,7 @@ export default function AuthForm(props: AuthFormType) {
 
       {props.message && <span style={{ color: 'red' }}>{props.message}</span>}
 
-      <div>
+      <div className={styles['button-container']}>
         <button className={styles.continueButton} type="submit">
           Continue with email
         </button>

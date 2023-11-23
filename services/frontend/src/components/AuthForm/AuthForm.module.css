@@ -7,6 +7,10 @@
   padding-bottom: 2rem;
 }
 
+.button-container {
+  width: 100%;
+}
+
 .continueButton {
   display: inline-flex;
   padding: 0.6875rem 5.82688rem 0.6875rem 5.86063rem;
@@ -21,5 +25,6 @@
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
-  line-height: 0.875rem; /* 100% */
+  line-height: 0.875rem;
+  border: none;
 }
