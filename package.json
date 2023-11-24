@@ -4,14 +4,10 @@
   "license": "MIT",
   "scripts": {
     "dev": "docker-compose -f docker-compose.dev.yml",
-    "install": "npm install",
-    "start": "npm run start:backend && npm run start:frontend",
-    "start:backend": "cd backend && npm install && npm build && npm start",
-    "start:frontend": "cd frontend && npm install && npm build && npm start"
-  },
-  "engines": {
-    "node": "18",
-    "npm": "8.19.2"
+    "install": "pnpm install",
+    "start": "pnpm run start:backend && pnpm run start:frontend",
+    "start:backend": "cd backend && pnpm build && pnpm start",
+    "start:frontend": "cd frontend && pnpm build && pnpm start"
   },
   "private": true,
   "devDependencies": {
