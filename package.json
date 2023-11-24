@@ -9,6 +9,11 @@
     "start:backend": "cd backend && pnpm build && pnpm start",
     "start:frontend": "cd frontend && pnpm build && pnpm start"
   },
+  "engines": {
+    "node": "18",
+    "npm": "8.19.2",
+    "pnpm": "8.6.12"
+  },
   "private": true,
   "devDependencies": {
     "nx": "16.7.4",
