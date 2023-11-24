@@ -1,1 +1,1 @@
-web: pnpm install && npm run start
+web: npm i -g npm@latest pnpm && pnpm install && npm run start
