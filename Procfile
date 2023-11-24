@@ -1,1 +1,1 @@
-web: cd services/backend && pnpm start:prod
+web: pnpm install && npm run start

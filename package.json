@@ -1,9 +1,17 @@
 {
   "name": "sofit-web",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "docker-compose -f docker-compose.dev.yml"
+    "dev": "docker-compose -f docker-compose.dev.yml",
+    "install": "pnpm install",
+    "start": "pnpm run start:backend && pnpm run start:frontend",
+    "start:backend": "cd backend && pnpm build && pnpm start",
+    "start:frontend": "cd frontend && pnpm build && pnpm start"
+  },
+  "engines": {
+    "node": "18",
+    "pnpm": "8.6.12"
   },
   "private": true,
   "devDependencies": {
