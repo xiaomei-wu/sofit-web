@@ -1,25 +1,21 @@
 import DoctorsBanner from '@/components/DoctorsBanner/DoctorsBanner';
 import NonSSRWrapper from '@/components/NonSSRWrapper/NonSSRWrapper';
 import SmallFeatureCard from '@/components/shared/SmallFeatureCard/SmallFeatureCard';
+import CalendarComp from '@/components/ui/CalendarComp/CalendarComp';
 import IconBar from '@/components/ui/IconBar/IconBar';
 import NavBar from '@/components/ui/NavBar/NavBar';
-import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 import styles from './page.module.css';
-
-const NoSSRCalendar = dynamic(
-  () => import('@/components/ui/CalendarComp/CalendarComp'),
-  {
-    ssr: false
-  }
-);
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className={styles.dashboard}>
       <IconBar />
       <main className={styles.main}>
-        <NavBar />
+        <NonSSRWrapper>
+          <NavBar />
+        </NonSSRWrapper>
+
         <div className={styles.feature}>
           <div className={styles.left}>
             <NonSSRWrapper>{children}</NonSSRWrapper>
@@ -28,7 +24,7 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
           <div className={styles.right}>
             <div className={styles.rightCard}>
               <section className={styles.calendar}>
-                <NoSSRCalendar />
+                <CalendarComp />
               </section>
               <section className={styles.doctors}>
                 <h4>Doctors</h4>

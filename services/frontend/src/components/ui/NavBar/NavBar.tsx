@@ -1,16 +1,9 @@
 'use client';
 
 import Settings from '@/assets/icons/setting.svg';
-import dynamic from 'next/dynamic';
+import RandomAvatar from '../RandomAvatar/RandomAvatar';
 import Searchbar from '../Searchbar/Searchbar';
 import styles from './NavBar.module.css';
-
-const NoSSRRandomAvatar = dynamic(
-  () => import('../RandomAvatar/RandomAvatar'),
-  {
-    ssr: false
-  }
-);
 
 export default function NavBar() {
   return (
@@ -18,7 +11,7 @@ export default function NavBar() {
       <Searchbar />
       <div className={styles.settings}>
         <Settings height={30} width={30} />
-        <NoSSRRandomAvatar />
+        <RandomAvatar />
       </div>
     </div>
   );

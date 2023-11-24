@@ -9,14 +9,7 @@ import {
   dateFormat,
   timeFormat
 } from '@/utils';
-import {
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  TimePicker
-} from 'antd';
+import { DatePicker, Form, Input, InputNumber, TimePicker } from 'antd';
 import dayjs from 'dayjs';
 import styles from './SleepForm.module.css';
 
@@ -74,14 +67,17 @@ export default function SleepForm({
           uuid: selectedRecord.uuid,
           updateSleepDto: payload
         });
+        const { message } = await import('antd');
         message.success('Success');
       } else {
         await createSleepData({ createSleepDto: payload });
+        const { message } = await import('antd');
         message.success('Success');
       }
 
       closeModal();
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

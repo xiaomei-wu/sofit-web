@@ -2,6 +2,7 @@
 
 import AuthForm from '@/components/AuthForm/AuthForm';
 import Header from '@/components/ui/Header/Header';
+import { setAccessTokenCookie } from '@/utils/cookies';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -30,22 +31,21 @@ export default function Login() {
     const { email, password } = state;
 
     try {
+      const { login } = await import('@/networks');
       const response = await login(email, password);
 
-      if (response.access_token) {
-        setAccessTokenCookie(response.access_token);
+      if (response?.access_token) {
+        setAccessTokenCookie(response?.access_token);
         router.push('/dashboard');
       } else {
+        const { message } = await import('antd');
         message.error('Wrong email or password');
       }
     } catch (error) {
+      const { message } = await import('antd');
       message.error('Something went wrong');
     }
   };
-
-  if (router.isFallback) {
-    <h1>Loading...</h1>;
-  }
 
   return (
     <div>
@@ -65,7 +65,7 @@ export default function Login() {
             </button>
             <button className={styles.appleButton}>
               <Image
-                alt="google-symbol"
+                alt="apple-symbol"
                 height={14}
                 src={'/apple-symbol.svg'}
                 width={14}

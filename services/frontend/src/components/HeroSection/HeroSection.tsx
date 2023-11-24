@@ -32,6 +32,7 @@ export default function HeroSection() {
           alt={'health-tracker-image'}
           src={'/health-tracker-image.jpg'}
           loading="eager"
+          priority
           className={styles.imageWrapper}
         />
       </div>

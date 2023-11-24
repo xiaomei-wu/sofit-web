@@ -28,8 +28,8 @@ export default function RandomAvatar() {
     router.push('/');
   };
 
-  if (isLoading || router.isFallback) {
-    return <h1>Loading...</h1>;
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
 
   return (

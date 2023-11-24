@@ -4,24 +4,11 @@ import EmptyView from '@/components/shared/EmptyView/EmptyView';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetSymptomData } from '@/hooks';
 import { Symptom } from '@/types/symptom';
+import Modal from 'antd/lib/modal';
 import { useState } from 'react';
 import styles from './Symptom.module.css';
-
-const { Modal } = dynamic(() => import('antd'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-const SymptomDataList = dynamic(
-  () => import('./SymptomDataList/SymtomDataList'),
-  {
-    loading: <p>Loading...</p>,
-    ssr: false
-  }
-);
-const SymptomForm = dynamic(() => import('./SymptomForm/SymptomForm'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
+import SymptomDataList from './SymptomDataList/SymtomDataList';
+import SymptomForm from './SymptomForm/SymptomForm';
 
 export default function Symptom() {
   const { data: symptomData, isLoading } = useGetSymptomData();

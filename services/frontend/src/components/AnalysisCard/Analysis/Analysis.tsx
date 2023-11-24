@@ -1,4 +1,8 @@
 import { useGetHistories } from '@/hooks/useHistories';
+import { Drink } from '@/types/drink';
+import { FoodRecord } from '@/types/food';
+import { Sleep } from '@/types/sleep';
+import { Symptom } from '@/types/symptom';
 import {
   Chart as ChartJS,
   Legend,
@@ -19,10 +23,13 @@ const options = {
   }
 };
 
-const DynamicScatter = dynamic(() => import('react-chartjs-2'), {
-  loading: () => <p>Loading...</p>,
-  ssr: false
-});
+const DynamicScatter = dynamic(
+  () => import('react-chartjs-2').then(response => response.Scatter),
+  {
+    loading: () => <p>Loading...</p>,
+    ssr: false
+  }
+);
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 

@@ -42,12 +42,12 @@
 
 .right {
   width: 30%;
-  max-width: 16rem;
+  max-width: 17rem;
 }
 
 .rightCard {
   display: flex;
-  padding: 0.625rem 1rem;
+  padding: 1rem 1.5rem;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;

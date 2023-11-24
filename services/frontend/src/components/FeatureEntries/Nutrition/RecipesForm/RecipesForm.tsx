@@ -8,40 +8,19 @@ import {
 } from '@/networks';
 import { FoodRecord, Recipe } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
+import MinusCircleOutlined from '@ant-design/icons/MinusCircleOutlined';
+import PlusOutlined from '@ant-design/icons/PlusOutlined';
+import { useQueryClient } from '@tanstack/react-query';
+import Button from 'antd/lib/button';
+import DatePicker from 'antd/lib/date-picker';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import InputNumber from 'antd/lib/input-number';
+import Select from 'antd/lib/select';
+import Space from 'antd/lib/space';
+import TimePicker from 'antd/lib/time-picker';
+import dayjs from 'dayjs';
 import styles from './RecipesForm.module.css';
-
-const {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  message,
-  Select,
-  Space,
-  TimePicker
-} = dynamic(() => import('antd'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const { MinusCircleOutlined, PlusOutlined } = dynamic(
-  () => import('@ant-design/icons'),
-  {
-    loading: <p>Loading...</p>,
-    ssr: false
-  }
-);
-
-const dayjs = dynamic(() => import('dayjs'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const { useQueryClient } = dynamic(() => import('@tanstack/react-query'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
 
 type RecipesFormType = {
   closeModal: () => void;
@@ -101,9 +80,12 @@ export default function RecipesForm({
         : await createRecipeRecord(payload);
 
       queryClient.invalidateQueries([FOOD]);
+
+      const { message } = await import('antd');
       message.success('Success');
       closeModal();
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

@@ -3,23 +3,15 @@ import { FOOD, useCreateFoodRecord, useUpdateFoodRecord } from '@/hooks';
 import { CreateFoodRecordDto, FoodCategory, MealCategory } from '@/networks';
 import { Food, FoodRecord } from '@/types/food';
 import { dateFormat, timeFormat } from '@/utils';
+import { useQueryClient } from '@tanstack/react-query';
+import Input from 'antd/es/input';
+import DatePicker from 'antd/lib/date-picker';
+import Form from 'antd/lib/form';
+import InputNumber from 'antd/lib/input-number';
+import Select from 'antd/lib/select';
+import TimePicker from 'antd/lib/time-picker';
+import dayjs from 'dayjs';
 import styles from './FoodForm.module.css';
-
-const dayjs = dynamic(() => import('dayjs'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const { DatePicker, Form, Input, InputNumber, message, Select, TimePicker } =
-  dynamic(() => import('antd'), {
-    loading: <p>Loading...</p>,
-    ssr: false
-  });
-
-const { useQueryClient } = dynamic(() => import('@tanstack/react-query'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
 
 type FoodFormType = {
   closeModal: () => void;
@@ -80,9 +72,11 @@ export default function FoodForm({
           })
         : await createFoodRecord(payload);
       await queryClient.invalidateQueries([FOOD]);
+      const { message } = await import('antd');
       message.success('Success');
       closeModal();
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

@@ -14,29 +14,16 @@ import 'react-multi-carousel/lib/styles.css';
 import styles from './Nutrition.module.css';
 
 import CarouselCard from '@/components/shared/CarouselCard/CarouselCard';
+import DataList from '@/components/shared/DataList/DataList';
 import PrimaryButton from '@/components/ui/PrimaryButton/PrimaryButton';
 import { useGetAllFoodRecord } from '@/hooks';
 import { Food, FoodRecord, Recipe } from '@/types/food';
 import { responsive } from '@/utils';
+import Input from 'antd/lib/input';
+import Modal from 'antd/lib/modal';
+import Tag from 'antd/lib/tag';
+import Carousel from 'react-multi-carousel';
 import ModalContent from './ModalContent/ModalContent';
-
-const { Input, Modal, Tag } = dynamic(() => import('antd'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const Carousel = dynamic(() => import('react-multi-carousel'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const DataList = dynamic(
-  () => import('@/components/shared/DataList/DataList'),
-  {
-    loading: <p>Loading...</p>,
-    ssr: false
-  }
-);
 
 export default function Nutrition() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -67,7 +54,7 @@ export default function Nutrition() {
     const response = await fetchEdamamFood(value);
     const foodResults = [];
 
-    for (const hint of response || []) {
+    for (const hint of response?.hints || []) {
       const edamamFood = hint.food;
 
       const createFoodDto = {
@@ -96,7 +83,7 @@ export default function Nutrition() {
   const searchRecipe = async (value: string) => {
     const response = await fetchEdamamRecipes(value);
     const recipeResults = [];
-    for (const hit of response) {
+    for (const hit of response?.hits || []) {
       const edamamRecipe = hit.recipe;
 
       const createRecipeDto: CreateRecipeDto = {

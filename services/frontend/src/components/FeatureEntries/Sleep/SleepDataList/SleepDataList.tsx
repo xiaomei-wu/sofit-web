@@ -4,7 +4,6 @@ import InfoCard from '@/components/shared/InfoCard/InfoCard';
 import { useDeleteSleepData } from '@/hooks';
 import { Sleep } from '@/types/sleep';
 import { calculateMinutesToHours } from '@/utils';
-import { message } from 'antd';
 import styles from './SleepDataList.module.css';
 
 type SleepDataListType = {
@@ -23,8 +22,10 @@ export default function SleepDataList({
   const onDelete = async (uuid: string) => {
     try {
       await deleteSleepData(uuid);
+      const { message } = await import('antd');
       message.success('Success');
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

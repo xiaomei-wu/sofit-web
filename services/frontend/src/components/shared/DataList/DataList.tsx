@@ -8,8 +8,8 @@ import {
 } from '@/hooks';
 import { getFullRecipeNutritionAnalysis, RecipeSchema } from '@/networks';
 import { FoodRecord } from '@/types/food';
-import { Drawer, message } from 'antd';
-import React, { useEffect, useState } from 'react';
+import { Drawer } from 'antd';
+import { useEffect, useState } from 'react';
 import InfoCard from '../InfoCard/InfoCard';
 import styles from './DataList.module.css';
 import NutritionTable from './NutritionTable/NutritionTable';
@@ -29,11 +29,11 @@ const Title = () => {
   );
 };
 
-const DataList: React.FC<DataListProps> = ({
+export default function DataList({
   item,
   setSelectedRecord,
   setIsModalOpen
-}) => {
+}: DataListProps) {
   const { mutateAsync: deleteFoodRecord } = useDeleteFoodRecord();
   const { mutateAsync: updateNutritionData } = useUpdateNutritionData();
   const [open, setOpen] = useState(false);
@@ -73,8 +73,10 @@ const DataList: React.FC<DataListProps> = ({
   const onDelete = async () => {
     try {
       await deleteFoodRecord(item.uuid);
+      const { message } = await import('antd');
       message.success('Deleted successfully');
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };
@@ -111,6 +113,7 @@ const DataList: React.FC<DataListProps> = ({
       saveNutritionData();
     }
     fetchAndSaveRecipeAnaysis();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickBanner = () => {
@@ -146,6 +149,4 @@ const DataList: React.FC<DataListProps> = ({
       </Drawer>
     </div>
   );
-};
-
-export default DataList;
+}

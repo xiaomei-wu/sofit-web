@@ -1,27 +1,25 @@
 import { getAccessTokenFromCookie } from '@/utils/cookies';
+import { isTokenExpired } from '@/utils/jwt';
 import { useRouter } from 'next/navigation';
 
 import { createContext, ReactNode, useState } from 'react';
 
 import { useEffect } from 'react';
 
-const AuthContext = createContext();
+const AuthContext = createContext({ isUserAuthenticated: false });
 
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const router = useRouter();
   const accessToken = getAccessTokenFromCookie();
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(!!accessToken);
 
-  if (router.isFallback) {
-    <h1>Loading...</h1>;
-  }
-
   const handleToken = async () => {
     if (!accessToken) {
-      console.log(isUserAuthenticated);
       setIsUserAuthenticated(false);
       return;
     }
+
+    const { verifyToken } = await import('@/networks');
 
     const response = await verifyToken(accessToken);
 
@@ -34,6 +32,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     handleToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   useEffect(() => {
@@ -44,5 +43,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
     router.push('/');
   }, [isUserAuthenticated, router]);
 
-  return <AuthContext.Provider>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ isUserAuthenticated: isUserAuthenticated }}>
+      {children}
+    </AuthContext.Provider>
+  );
 }

@@ -8,22 +8,15 @@ import { SearchDrinkResult, searchDrinks } from '@/networks';
 import { CreateDrinkDto } from '@/networks/drink/drink.dto';
 import { Drink } from '@/types/drink';
 import { responsive } from '@/utils';
-import dynamic from 'next/dynamic';
+import Input from 'antd/lib/input';
+import Modal from 'antd/lib/modal';
+import Tag from 'antd/lib/tag';
 import { useState } from 'react';
+import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import styles from './Drink.module.css';
 import DrinkForm from './DrinkForm/DrinkForm';
 import DrinkList from './DrinkList/DrinkList';
-
-const NoSSRCarousel = dynamic(() => import('react-multi-carousel'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
-const { Input, Modal, Tag } = dynamic(() => import('antd'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
 
 export default function Drinks() {
   const { data: drinks, isLoading } = useGetDrinks();
@@ -41,12 +34,12 @@ export default function Drinks() {
   };
 
   const closeModal = () => {
+    setSelectedRecord(null);
     setIsModalOpen(false);
   };
 
   const onClickAddButton = () => {
     setSelectedRecord(null);
-    setSelectedDrink(null);
     showModal();
   };
 
@@ -85,7 +78,7 @@ export default function Drinks() {
         {!!seachResult?.length && (
           <>
             <h4>Results</h4>
-            <NoSSRCarousel responsive={responsive}>
+            <Carousel responsive={responsive}>
               {seachResult.map(item => (
                 <div key={item.idDrink}>
                   <CarouselCard
@@ -104,15 +97,15 @@ export default function Drinks() {
                   </CarouselCard>
                 </div>
               ))}
-            </NoSSRCarousel>
+            </Carousel>
           </>
         )}
       </div>
-      {drinks ? (
+      {drinks?.length && drinks?.length > 0 ? (
         <div>
-          <h4>{drinks.length} Drink</h4>
+          <h4>{drinks?.length} Drink</h4>
           <DrinkList
-            drinks={drinks}
+            drinks={drinks || []}
             setSelectedRecord={setSelectedRecord}
             setIsModalOpen={setIsModalOpen}
           />

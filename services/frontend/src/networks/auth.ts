@@ -44,49 +44,38 @@ export const signup = async (
 
 interface LoginResponse {
   access_token: string;
-  message?: string;
-  // Add any other properties you expect in the response here
 }
 
 export const login = async (
   email: string,
   password: string
 ): Promise<LoginResponse | undefined> => {
-  const requestOptions: RequestInit = {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({ email, password })
-  };
-
   try {
-    const response = await fetch('/api/v1/auth/login', requestOptions);
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data: LoginResponse = await response.json();
-    return data;
+    return api
+      .post('/api/v1/auth/login', {
+        json: { email, password }
+      })
+      .json();
   } catch (err) {
     console.error('An error occurred during login.');
   }
 };
 
-export const verifyToken = async (accessToken: string) => {
+export const verifyToken = async (
+  accessToken: string
+): Promise<{ iat: number } | undefined> => {
   try {
-    const response = await api
+    return api
       .post('/api/v1/auth/verifyToken', { json: { accessToken } })
       .json();
-    return response;
   } catch (error) {
-    return { message: 'Invalid token ' };
+    console.error('Invalid token');
   }
 };
 
 export const logoutUser = async () => {
   try {
-    const response = await api.post('/api/v1/auth/logout').json();
-    return response;
+    return api.post('/api/v1/auth/logout').json();
   } catch (error) {
     return { message: 'Failed to logout' };
   }

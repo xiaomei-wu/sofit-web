@@ -3,7 +3,6 @@
 import InfoCard from '@/components/shared/InfoCard/InfoCard';
 import { useDeleteSymptomData } from '@/hooks';
 import { Symptom } from '@/types/symptom';
-import { message } from 'antd';
 import { getIcon } from '../SymptomForm/SymptomForm.helper';
 import styles from './SymptomDataList.module.css';
 
@@ -23,8 +22,10 @@ export default function SymptomDataList({
   const onDelete = async (uuid: string) => {
     try {
       await deleteSymptomData(uuid);
+      const { message } = await import('antd');
       message.success('Success');
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

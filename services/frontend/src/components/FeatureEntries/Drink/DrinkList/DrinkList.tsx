@@ -5,11 +5,6 @@ import { useDeleteDrink } from '@/hooks';
 import { Drink } from '@/types/drink';
 import styles from './DrinkList.module.css';
 
-const { message } = dynamic(() => import('antd'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
-
 type DrinkListType = {
   drinks: Drink[];
   setSelectedRecord: (selectRecord: Drink) => void;
@@ -26,8 +21,10 @@ export default function DrinkList({
   const onDelete = async (uuid: string) => {
     try {
       await deleteDrink(uuid);
+      const { message } = await import('antd');
       message.success('Success');
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };

@@ -23,8 +23,8 @@ export type EdamamFoodHint = {
 
 export const fetchEdamamFood = async (
   query: string
-): Promise<EdamamFoodHint[] | undefined> => {
-  return await ky
+): Promise<{ hints: EdamamFoodHint[] } | undefined> => {
+  return ky
     .get(
       `https://api.edamam.com/api/food-database/v2/parser?ingr=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_FOOD_APP_KEY}`
     )
@@ -71,8 +71,8 @@ type EdamamRecipeHit = {
 
 export const fetchEdamamRecipes = async (
   query: string
-): Promise<EdamamRecipeHit[]> => {
-  return await ky
+): Promise<{ hits: EdamamRecipeHit[] } | undefined> => {
+  return ky
     .get(
       `https://api.edamam.com/search?q=${query}&app_id=${process.env.NEXT_PUBLIC_EDAMAM_RECEIP_APP_ID}&app_key=${process.env.NEXT_PUBLIC_EDAMAM_RECIPE_APP_KEY}`
     )

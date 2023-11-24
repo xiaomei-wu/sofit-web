@@ -1,6 +1,7 @@
 'use client';
 
 import AuthForm from '@/components/AuthForm/AuthForm';
+import NonSSRWrapper from '@/components/NonSSRWrapper/NonSSRWrapper';
 import SuccessPage from '@/components/SuccessPage/SuccessPage';
 import Header from '@/components/ui/Header/Header';
 import Image from 'next/image';
@@ -31,10 +32,13 @@ export default function Signup() {
   const handleSubmit = async (event: { preventDefault: () => void }) => {
     event.preventDefault();
     const { email, password } = state;
+    const { signup } = await import('@/networks');
     const response = await signup(email, password);
 
     if (!response?.token) {
+      const { message } = await import('antd');
       message.error('Something went wrong while creating the account');
+      return;
     }
     setRedirecting(true);
   };
@@ -64,12 +68,8 @@ export default function Signup() {
     );
   }
 
-  if (router.isFallback) {
-    <h1>Loading...</h1>;
-  }
-
   return (
-    <div>
+    <NonSSRWrapper>
       <Header />
       <main>
         <div className={styles.loginSection}>
@@ -98,7 +98,7 @@ export default function Signup() {
 
               <button className={styles.appleButton}>
                 <Image
-                  alt="google-symbol"
+                  alt="apple-symbol"
                   height={14}
                   src={'/apple-symbol.svg'}
                   width={14}
@@ -121,6 +121,6 @@ export default function Signup() {
           </p>
         </div>
       </main>
-    </div>
+    </NonSSRWrapper>
   );
 }

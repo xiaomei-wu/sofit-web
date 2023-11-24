@@ -1,6 +1,6 @@
 import { randomColor } from '@/utils/avatars';
 import { random } from '@/utils/math';
-import { ImageResponse } from 'next/server';
+import { ImageResponse } from '@vercel/og';
 
 export const runtime = 'edge';
 

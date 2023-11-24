@@ -2,6 +2,7 @@
 
 import AnalysisCard from '@/components/AnalysisCard/AnalysisCard';
 import FeatureCard from '@/components/FeatureCard/FeatureCard';
+import NonSSRWrapper from '@/components/NonSSRWrapper/NonSSRWrapper';
 import RecomendationCard from '@/components/RecomendationCard/RecomendationCard';
 import styles from './page.module.css';
 
@@ -36,7 +37,9 @@ export default function Dashboard() {
       </section>
 
       <section className={styles.activity}>
-        <AnalysisCard />
+        <NonSSRWrapper>
+          <AnalysisCard />
+        </NonSSRWrapper>
       </section>
 
       <section>

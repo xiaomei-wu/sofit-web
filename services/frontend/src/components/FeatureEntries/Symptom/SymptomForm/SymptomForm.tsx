@@ -79,9 +79,11 @@ export default function SymptomForm({
           uuid: selectedRecord.uuid,
           updateSymptomDto: payload
         });
+        const { message } = await import('antd');
         message.success('Success');
       } else {
         await createSymptomData({ createSymptomDto: payload });
+        const { message } = await import('antd');
         message.success('Success');
       }
 

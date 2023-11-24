@@ -4,19 +4,15 @@ import { dateFormat, timeFormat } from '@/utils';
 import { useCreateDrink, useUpdateDrink } from '@/hooks';
 import { CreateDrinkDto } from '@/networks/drink/drink.dto';
 import { Drink } from '@/types/drink';
+import DatePicker from 'antd/lib/date-picker';
+import Form from 'antd/lib/form';
+import Input from 'antd/lib/input';
+import InputNumber from 'antd/lib/input-number';
+import Select from 'antd/lib/select';
+import TimePicker from 'antd/lib/time-picker';
+import dayjs from 'dayjs';
 import { DrinkCategory } from '../Drink.helper';
 import styles from './DrinkForm.module.css';
-
-const { DatePicker, Form, Input, InputNumber, message, Select, TimePicker } =
-  dynamic(() => import('antd'), {
-    loading: <p>Loading...</p>,
-    ssr: false
-  });
-
-const dayjs = dynamic(() => import('dayjs'), {
-  loading: <p>Loading...</p>,
-  ssr: false
-});
 
 type DrinkFormType = {
   closeModal: () => void;
@@ -54,9 +50,11 @@ export default function DrinkForm({
       } else {
         await createDrink({ createDrinkDto: values });
       }
+      const { message } = await import('antd');
       message.success('Success');
       return closeModal();
     } catch (error) {
+      const { message } = await import('antd');
       message.error(`${error}`);
     }
   };
