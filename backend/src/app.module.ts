@@ -30,16 +30,20 @@ import { SymptomsService } from './modules/symptoms/symptoms.service';
 import { UserController } from './modules/user/user.controller';
 import { UserModule } from './modules/user/user.module';
 import { UserService } from './modules/user/user.service';
-// import { DatabaseModule } from './core/database/database.module';
 import { JwtService } from '@nestjs/jwt';
 import { JwtStrategy } from './modules/auth/jwt.strategy';
 import { LocalStrategy } from './modules/auth/local.strategy';
 import { RecipeModule } from './modules/recipe/recipe.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { PrismaService } from './prisma/prisma.service';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'frontend/build'),
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     UserModule,
     AuthModule,
