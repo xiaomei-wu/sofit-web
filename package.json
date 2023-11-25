@@ -4,9 +4,10 @@
   "license": "MIT",
   "scripts": {
     "install": "npm install --force --prefix frontend && npm install --prefix backend",
+    "build": "npm run build --prefix frontend && npm run build --prefix backend",
     "start": "npm run start:backend & npm run start:frontend",
     "start:backend": "cd backend && node dist/main.js",
-    "start:frontend": "cd frontend && next start"
+    "start:frontend": "cd frontend && npm run start"
   },
   "engines": {
     "node": "18",
