@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "install": "cd frontend && npm install &cd ..",
+    "install": "cd frontend && npm install --force && cd ..",
     "build": "cd frontend && npm run build && cd ..",
     "start": "cd frontend && npm run start"
   },
