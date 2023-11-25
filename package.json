@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "install": "cd frontend && npm install --force && cd .. && cd backend && npm install && cd ..",
-    "build": "cd frontend && npm run build && cd .. && cd backend && npm run build && cd ..",
-    "start": "cd frontend && npm run start && cd .. && cd backend && node dist/main.js && cd .."
+    "build": "cd frontend && npm run build && cd ..",
+    "start": "cd frontend && npm run start && cd .. && cd backend && npm run start:prod"
   },
   "engines": {
     "node": "18",
