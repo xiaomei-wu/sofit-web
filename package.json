@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "install": "cd frontend && npm install --force && cd ..",
-    "build": "cd frontend && npm run build && cd ..",
-    "start": "cd frontend && npm run start"
+    "install": "cd frontend && npm install --force && cd ../backend && npm install && cd..",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build && cd ..",
+    "start": "cd frontend && npm run start && cd ../backend && npm run start:prod"
   },
   "engines": {
     "node": "18",
