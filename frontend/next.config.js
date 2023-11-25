@@ -4,7 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: `${window.location.host}/api/:path*`
+        destination: 'https://sofit-2bc357b0856c.herokuapp.com/api/:path*'
       }
     ];
   },
