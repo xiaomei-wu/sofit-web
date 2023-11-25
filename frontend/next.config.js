@@ -4,8 +4,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination:
-          'https://backend.sofit-2bc357b0856c.herokuapp.com/api/:path*'
+        destination: 'https://sofit-2bc357b0856c.herokuapp.com/api/:path*'
       }
     ];
   },
