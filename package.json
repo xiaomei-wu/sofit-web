@@ -5,8 +5,8 @@
   "scripts": {
     "install": "npm install --force --prefix frontend && npm install --prefix backend",
     "start": "npm run start:backend & npm run start:frontend",
-    "start:backend": "npm start --prefix backend",
-    "start:frontend": "npm start --prefix frontend"
+    "start:backend": "cd backend && node dist/main.js",
+    "start:frontend": "cd frontend && next start"
   },
   "engines": {
     "node": "18",
