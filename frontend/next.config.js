@@ -1,12 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  serverRuntimeConfig: {
+    apiHost: process.env.HOST_NAME || 'http://localhost:3000'
+  },
+  publicRuntimeConfig: {
+    apiHost: process.env.HOST_NAME || 'http://localhost:3000'
+  },
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: `${
-          process.env.HOST_NAME || 'http://localhost:3000'
-        }/api/:path*`
+        destination: '/api/:path*'
       }
     ];
   },
