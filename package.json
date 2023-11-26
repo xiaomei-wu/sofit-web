@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "install": "npm install -g @nestjs/cli && cd frontend && npm install --force && cd ../backend && npm install && cd ..",
-    "build": "cd frontend && npm run build && cd ../backend && npm run build && cd ..",
-    "start": "cd frontend && npm run start && cd ../backend && npm run start:prod"
+    "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-server; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
+    "postinstall-client": "cd frontend && npm install --force && npm run build",
+    "postinstall-server": "cd backend && npm install"
   },
   "engines": {
     "node": "18",
