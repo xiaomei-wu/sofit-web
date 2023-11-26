@@ -6,7 +6,15 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.enableCors();
+
+  const corsOptions = {
+    origin: 'https://sofit-2bc357b0856c.herokuapp.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  };
+
+  app.enableCors(corsOptions);
+
   app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()
