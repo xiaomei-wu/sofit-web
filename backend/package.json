@@ -46,6 +46,7 @@
     "rxjs": "^7.8.1",
     "sequelize": "^6.32.1",
     "sequelize-typescript": "^2.1.5",
+    "spdy": "^4.0.2",
     "swagger-ui-express": "^5.0.0",
     "typescript": "^5.1.3",
     "uuidv4": "^6.2.13"
@@ -60,6 +61,7 @@
     "@types/passport-jwt": "^3.0.9",
     "@types/passport-local": "^1.0.35",
     "@types/sequelize": "^4.28.15",
+    "@types/spdy": "^3.4.9",
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",

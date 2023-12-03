@@ -34,6 +34,8 @@ export default function HeroSection() {
           loading="eager"
           priority
           className={styles.imageWrapper}
+          width={850}
+          height={530}
         />
       </div>
     </section>
