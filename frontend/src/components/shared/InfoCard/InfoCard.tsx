@@ -28,7 +28,7 @@ const InfoCard = ({
   nutrientsBadge
 }: Card) => {
   return (
-    <div className={styles.card} onClick={onClickBanner}>
+    <div className={styles.card}>
       <Image
         alt="card-icon"
         height={40}
