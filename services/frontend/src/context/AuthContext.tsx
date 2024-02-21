@@ -1,10 +1,7 @@
 import { getAccessTokenFromCookie } from '@/utils/cookies';
 import { isTokenExpired } from '@/utils/jwt';
 import { useRouter } from 'next/navigation';
-
-import { createContext, ReactNode, useState } from 'react';
-
-import { useEffect } from 'react';
+import { createContext, ReactNode, useEffect, useState } from 'react';
 
 const AuthContext = createContext({ isUserAuthenticated: false });
 
